@@ -1,0 +1,42 @@
+Following is what it needs to be done when we will have *Hymenochirus* sequences (mother+father).
+
+# Before assembling
+
+## Quality of the sequences
+
+```
+fastqc -o [location/name of the output] [location/name of the input] 
+```
+## Run trimmomatic on the sequences 
+
++ check the quality again.
+
+##Use Quake or Reptile 
+
+Estimate the genome size using k-mers (size =  total length of used reads divided by sequencing depth) + TE proportion
+
+G = (N × (L – K + 1) – B)/D (from [Lamichhaney et al. 2016](http://www.nature.com/ng/journal/v48/n1/fig_tab/ng.3430_SF1.html))
+
+> Where:
+>
+> - G = genome size
+>
+> - N = total count of used reads (we can fgrep function)
+>
+> - L = length of used reads (can use grep function)
+>
+> - K = k-mer length
+>
+> - B = total count of low-frequency (frequency ≤1) k-mers that are probably caused by sequencing errors
+>
+> - D = sequencing depth
+
+D & B can be estimated after ploting the histogram `histo` from jellyfish.
+
++ compare histo of female and male to check if difference in the amount of kmer counts (difference peaks size)
+
+## Use TEDNA software ([Zytnicki et al. 2014](http://bioinformatics.oxfordjournals.org/content/30/18/2656.long)) to identify TE?
+
+References:
+
+Lamichhaney et al. Structural genomic changes underlie alternative reproductive strategies in the ruff (Philomachus pugnax). (2016) Nature Genetics 48, 84–88. doi:10.1038/ng.3430
