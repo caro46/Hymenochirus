@@ -6,7 +6,7 @@ Following is what it needs to be done when we will have *Hymenochirus* sequences
 
 ```
 fastqc -o [location/name of the output] [location/name of the input] 
-fastqc -o /home/evanslab/tetra_project/180bpfastqc /net/infofile2/2/scratch/evanslab_backups/.../*.fastq.gz
+fastqc -o /home/evanslab/Hymeno_fastqc /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/*.fastq.gz
 ```
 ## Run trimmomatic on the sequences 
 
