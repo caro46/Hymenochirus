@@ -41,7 +41,7 @@ D & B can be estimated after ploting the histogram `histo` from jellyfish.
 ## Use TEDNA software ([Zytnicki et al. 2014](http://bioinformatics.oxfordjournals.org/content/30/18/2656.long)) to identify TE?
 
 # Reference genome: *Xenopus tropicalis*
-We will try to assemble the genome of *Hymenochirus* using as a reference another diploid species *X. tropicalis* which as an annotated genome (xenTro7.fa.masked.gz from [UCSC Genome Bioinformatics](http://hgdownload.cse.ucsc.edu/downloads.html#xentro)). 
+We will try to assemble the genome of *Hymenochirus* using as a reference another diploid species *X. tropicalis* which has an annotated genome (xenTro7.fa.masked.gz from [UCSC Genome Bioinformatics](http://hgdownload.cse.ucsc.edu/downloads.html#xentro)). 
 
 References:
 
