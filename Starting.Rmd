@@ -40,6 +40,9 @@ D & B can be estimated after ploting the histogram `histo` from jellyfish.
 
 ## Use TEDNA software ([Zytnicki et al. 2014](http://bioinformatics.oxfordjournals.org/content/30/18/2656.long)) to identify TE?
 
+# Reference genome: *Xenopus tropicalis*
+We will try to assemble the genome of *Hymenochirus* using as a reference another diploid species *X. tropicalis* which as an annotated genome (xenTro7.fa.masked.gz from [UCSC Genome Bioinformatics](http://hgdownload.cse.ucsc.edu/downloads.html#xentro)). 
+
 References:
 
 Lamichhaney et al. Structural genomic changes underlie alternative reproductive strategies in the ruff (Philomachus pugnax). (2016) Nature Genetics 48, 84–88. doi:10.1038/ng.3430
