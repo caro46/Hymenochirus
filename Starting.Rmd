@@ -9,7 +9,7 @@ fastqc -o [location/name of the output] [location/name of the input]
 fastqc -o /home/evanslab/Hymeno_fastqc /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/*.fastq.gz
 ```
 ## Run trimmomatic on the sequences 
-
+We use the same script as for the [tetraploid project](https://github.com/caro46/Tetraploid_project/blob/master/quality_tests.Rmd).
 + check the quality again.
 
 ##Use Quake or Reptile 
