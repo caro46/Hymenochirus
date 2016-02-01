@@ -1,4 +1,4 @@
-Following is what it needs to be done when we will have *Hymenochirus* sequences (mother+father).
+Following is what it needs to be done when we will have *Hymenochirus* sequences (mother BJE3814 + father BJE3815).
 
 # Before assembling
 
@@ -8,6 +8,8 @@ Following is what it needs to be done when we will have *Hymenochirus* sequences
 fastqc -o [location/name of the output] [location/name of the input] 
 fastqc -o /home/evanslab/Hymeno_fastqc /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/*.fastq.gz
 ```
+Globally: quality OK, 1 kmer fail: R1-BJE3814 -> check if still the same pb after trimmomatic (pics at the beginning = adapters + increase of the quantity of kmers from the beginning to the end of the sequences...).
+
 ## Run trimmomatic on the sequences 
 We use the same script as for the [tetraploid project](https://github.com/caro46/Tetraploid_project/blob/master/quality_tests.Rmd) (phred quality detected = phred33).
 + check the quality again.
