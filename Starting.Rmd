@@ -46,7 +46,9 @@ G = (N × (L – K + 1) – B)/D (from [Lamichhaney et al. 2016](http://www.natu
 
 D & B can be estimated after ploting the histogram `histo` from jellyfish.
 
-+ compare histo of female and male to check if difference in the amount of kmer counts (difference peaks size)
+For the female: G = (N × (L – 19 + 1) – B)/D
+
++ compare histo of female and male to check if difference in the amount of kmer counts (difference peaks size). For the female, we obtain a higher peak around ~cov 50.
 
 ## Use TEDNA software ([Zytnicki et al. 2014](http://bioinformatics.oxfordjournals.org/content/30/18/2656.long)) to identify TE?
 
