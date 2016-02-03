@@ -20,6 +20,12 @@ zcat /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/1
 
 zcat /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_*_trim_paired.fastq.gz | /home/evanslab/tetra_project/jellyfish-2.2.4/bin/jellyfish count /dev/fd/0 -m 19 -s 100M -t 16 -C -o BJE3815_jelly_count_19mers
 ```
+```
+/home/evanslab/tetra_project/jellyfish-2.2.4/bin/jellyfish dump -c -t BJE3814_jelly_count_19mers -o BJE3814_jelly_dump_19mers
+/usr/local/quake/bin/cov_model.py --int /home/evanslab/Hymeno_fastqc/jellyfish_Hymeno/BJE3814_jelly_dump_19mers
+```
+Cutoff = 4 for both individuals
+
 Estimate the genome size using k-mers (size =  total length of used reads divided by sequencing depth) + TE proportion
 
 G = (N × (L – K + 1) – B)/D (from [Lamichhaney et al. 2016](http://www.nature.com/ng/journal/v48/n1/fig_tab/ng.3430_SF1.html))
