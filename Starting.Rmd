@@ -12,7 +12,7 @@ Globally: quality OK, 1 kmer fail: R1-BJE3814 -> check if still the same pb afte
 
 ## Run trimmomatic on the sequences 
 We use the same script as for the [tetraploid project](https://github.com/caro46/Tetraploid_project/blob/master/quality_tests.Rmd) (phred quality detected = phred33).
-+ check the quality again.
++ check the quality again: BJE3815_R1 has now a warning for kmers -> real kmers (check using `Quake`).
 
 ##Use Quake or Reptile 
 ```
