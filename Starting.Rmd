@@ -48,11 +48,17 @@ D & B can be estimated after ploting the histogram `histo` from jellyfish.
 
 For the female: G = (N × (L – 19 + 1) – B)/D
 
-Estimates of trusted kmers:
+Estimates of trusted kmers (with `correct`):
 
-- BJE3814: with `correct`: 2520143820 trusted kmers
+- BJE3814: 2520143820 trusted kmers
 
-- BJE3815: with `correct`: 2527944394 trusted kmers
+- BJE3815: 2527944394 trusted kmers
+ 
+Number of used reads (from FastQC files):
+
+- BJE3814: 945915602
+
+- BJE3815: 961651938
 
 
 **+** compare histo of female and male to check if difference in the amount of kmer counts (difference peaks size). For the female, we obtain a higher peak around ~cov 50.
