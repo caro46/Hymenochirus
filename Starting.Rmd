@@ -51,9 +51,10 @@ For the female: G = (N × (L – 19 + 1) – B)/D
 Estimates of trusted kmers (with `correct`):
 
 - BJE3814: 2520143820 trusted kmers
-
+AT% = 0.610611
 - BJE3815: 2527944394 trusted kmers
- 
+ AT% = 0.610568
+
 Number of total kmers (counting the number of lines in the `dump` file using `wc -l BJE3815_jelly_dump_19mers`):
 
 - BJE3814: 3912234554 
