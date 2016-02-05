@@ -54,6 +54,18 @@ Estimates of trusted kmers (with `correct`):
 
 - BJE3815: 2527944394 trusted kmers
  
+Number of total kmers (counting the number of lines in the `dump` file using `wc -l BJE3815_jelly_dump_19mers`):
+
+- BJE3814: 3912234554 
+
+- BJE3815: 4077734314 
+
+Number of false kmers:
+
+- BJE3814: 3912234554 - 2520143820 = 1392090734
+
+- BJE3815: 4077734314 - 2527944394 = 1549789920
+ 
 Number of used reads (from FastQC files):
 
 - BJE3814: 945915602
