@@ -78,6 +78,9 @@ Number of used reads (from FastQC files):
 
 - BJE3815: 961651938
 
+BJE3814 - reads (python script)
+Sequences found:  73224891.0
+Avg length:  241.415580202
 
 **+** compare histo of female and male to check if difference in the amount of kmer counts (difference peaks size). For the female, we obtain a higher peak around ~cov 50.
 
