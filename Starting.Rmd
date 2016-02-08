@@ -26,6 +26,16 @@ zcat /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/1
 ```
 Cutoff = 4 for both individuals
 
+```R
+histoM=read.table("kmers.hist",sep="\t")
+histoF=read.table("kmers_female.hist",sep="\t")
+pdf('19mers_distribution_quake_HymenochirusFemaleMale_5_200_bis.pdf')
+plot(histoF[5:200,],type="l",col="pink",ylab="count",xlab="coverage",main="19-mers distribution (Hymenochirus Female & Male)")
+lines (histoM[5:200,], col="blue")
+legend('topright',c("Female BJE3814","Male BJE3815"),lty=c(1,1),lwd=c(2.5,2.5),col=c("pink","blue"))
+dev.off()
+```
+
 To check the efficiency of Quake and particularly `correct`, we redo the plot of the kmers distribution
 ```
 zcat /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_*_trim_paired.cor.fastq.gz | /home/evanslab/tetra_project/jellyfish-2.2.4/bin/jellyfish count /dev/fd/0 -m 19 -s 100M -t 16 -C -o BJE3814_jelly_count_19mers_after_quake_correct
