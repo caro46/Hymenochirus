@@ -102,6 +102,8 @@ BJE3814 - reads (python script)
 **+** compare histo of female and male to check if difference in the amount of kmer counts (difference peaks size). For the female, we obtain a higher peak around ~cov 50.
 
 ## Use TEDNA software ([Zytnicki et al. 2014](http://bioinformatics.oxfordjournals.org/content/30/18/2656.long)) to identify TE?
+## Use Cortex software to assemble and compare the sequences of male and female
+See [Cortex website](http://cortexassembler.sourceforge.net/index.html), the main [publication](http://www.nature.com/ng/journal/v44/n2/pdf/ng.1028.pdf) and the [manual](http://cortexassembler.sourceforge.net/cortex_var_user_manual.pdf)
 
 # Reference genome: *Xenopus tropicalis*
 We will try to assemble the genome of *Hymenochirus* using as a reference another diploid species *X. tropicalis* which has an annotated genome (xenTro7.fa.masked.gz from [UCSC Genome Bioinformatics](http://hgdownload.cse.ucsc.edu/downloads.html#xentro)). 
