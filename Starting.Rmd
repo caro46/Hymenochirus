@@ -112,6 +112,12 @@ make install
 
 ## Use Cortex software to assemble and compare the sequences of male and female
 See [Cortex website](http://cortexassembler.sourceforge.net/index.html), the main [publication](http://www.nature.com/ng/journal/v44/n2/pdf/ng.1028.pdf) and the [manual](http://cortexassembler.sourceforge.net/cortex_var_user_manual.pdf)
+
+```
+bash install.sh
+make MAXK=63 NUM_COLS=4 cortex_var #we will use kmers = 31 & 61
+```
+Need also Stampy and VCFTools.
 ```
 emacs INDEX
 BJE3814 . /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz
