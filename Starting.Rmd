@@ -117,7 +117,7 @@ See [Cortex website](http://cortexassembler.sourceforge.net/index.html), the mai
 bash install.sh
 make MAXK=63 NUM_COLS=4 cortex_var #we will use kmers = 31 & 61
 ```
-Need also Stampy and VCFTools.
+Need also Stampy and VCFTools (availanle on info `/usr/local/stampy` & `/usr/local/stampy/vcftools`).
 ```
 emacs INDEX
 BJE3814 . /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz
