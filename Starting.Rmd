@@ -131,9 +131,15 @@ emacs paired_end_list1
 emacs paired_end_list2
 /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz
 /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S3_L003_R2_001_trim_paired.cor.fastq.gz
-
-./stampy.py -G /home/evanslab/Hymeno_fastqc/cortex_analysis/ref_xenTro7 /home/evanslab/Hymeno_fastqc/cortex_analysis/ref_xenTro7/xenTro7.fa.masked.gz
-
+```
+Building a genome reference using Stampy:
+```
+module unload intel openmpi
+module load gcc/4.8.2 openmpi/gcc/1.8.3 python/gcc/2.7.8
+/work/ben/stampy-1.0.28/stampy.py -G xenTro7 /work/ben/2016_Hymenochirus/xenTro7/xenTro7.fa.masked.gz
+/work/ben/stampy-1.0.28/stampy.py -g xenTro7 -H xenTro7
+```
+```
 ./cortex_var_31_c1 --kmer_size 31 --mem_height 17 --mem_width 100 --pe_list paired_end_list1,paired_end_list2 --dump_binary /path
 ./cortex_var_31_c1 --kmer_size 31 --mem_height 25 --mem_width 100 --colour_list colour1.txt --detect_bubbles1 *0/0 --output_bubbles1 vars_between_cols0_and_others
 ```
