@@ -18,3 +18,8 @@ module load boost/gcc492-openmpi187/1.59.0
 export PATH=/work/ben/abyss/bin:$PATH
 abyss-pe np=8 name=BJE3814 k=64 in='BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz' 
 ```
+
+## Stampy (because Cortex not working for the moment)
+```
+/work/ben/stampy-1.0.28/stampy.py -t8 -g /work/ben/2016_Hymenochirus/xenTro7/xenTro7 -h /work/ben/2016_Hymenochirus/xenTro7/xenTro7 --substitutionrate=0.10 -o /work/ben/2016_Hymenochirus/BJE3814/BJE3814_stampy_xenTro7_paired.sam -M /work/ben/2016_Hymenochirus/BJE3814/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /work/ben/2016_Hymenochirus/BJE3814/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz
+```
