@@ -140,6 +140,8 @@ module load gcc/4.8.2 openmpi/gcc/1.8.3 python/gcc/2.7.8
 /work/ben/stampy-1.0.28/stampy.py -g xenTro7 -H xenTro7
 ```
 ```
+perl /work/cauretc/CORTEX_release_v1.0.5.21/scripts/calling/run_calls.pl --first_kmer 31 --fastaq_index INDEX --auto_cleaning yes --bc yes --pd yes --outdir cortex_analysis --ploidy 2 --stampy_hash /work/ben/2016_Hymenochirus/xenTro7/xenTro7.sthash
+
 ./cortex_var_31_c1 --kmer_size 31 --mem_height 17 --mem_width 100 --pe_list paired_end_list1,paired_end_list2 --dump_binary /path
 ./cortex_var_31_c1 --kmer_size 31 --mem_height 25 --mem_width 100 --colour_list colour1.txt --detect_bubbles1 *0/0 --output_bubbles1 vars_between_cols0_and_others
 ```
