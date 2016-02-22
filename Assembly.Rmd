@@ -18,6 +18,15 @@ module load boost/gcc492-openmpi187/1.59.0
 export PATH=/work/ben/abyss/bin:$PATH
 abyss-pe np=8 name=BJE3814 k=64 in='BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz' 
 ```
+##To blast abyss outputs
+On iqaluk: blast version `2.2.28+`.
+Command to use after abyss:
+```
+module load blast/2.2.28+
+makeblastdb -in /work/ben/2016_Hymenochirus/xenTro7/xenTro7.fa.masked.gz -dbtype nucl -title UCSC_xenTro7 -out /work/ben/2016_Hymenochirus/xenTro7/xenTro7_genome_masked_blastable
+
+/work/ben/2016_Hymenochirus/BJE3814/BJE3814-8.fa -db /work/ben/2016_Hymenochirus/xenTro7/xenTro7_genome_masked_blastable -out /work/ben/2016_Hymenochirus/BJE3814/BJE3814-8_xenTro7 -outfmt 6 -max_target_seqs 1
+```
 
 ## Stampy (because Cortex not working for the moment)
 ```
