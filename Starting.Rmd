@@ -147,6 +147,17 @@ perl /work/cauretc/CORTEX_release_v1.0.5.21/scripts/calling/run_calls.pl --first
 
 ./cortex_var_31_c1 --kmer_size 31 --mem_height 17 --mem_width 100 --pe_list paired_end_list1,paired_end_list2 --dump_binary /path
 ./cortex_var_31_c1 --kmer_size 31 --mem_height 25 --mem_width 100 --colour_list colour1.txt --detect_bubbles1 *0/0 --output_bubbles1 vars_between_cols0_and_others
+
+#Try running on info:
+perl /home/evanslab/Hymeno_fastqc/CORTEX_release_v1.0.5.21/scripts/calling/run_calls.pl --first_kmer 31 --fastaq_index /home/evanslab/Hymeno_fastqc/cortex_analysis/INDEX --auto_cleaning yes --bc yes --outdir /home/evanslab/Hymeno_fastqc/cortex_analysis --outvcf cortexVCF --ref Absent --ploidy 2 --stampy_bin /usr/local/stampy/stampy.py --vcftools_dir /usr/local/stampy/vcftools --do_union yes --workflow joint --genome_size 3000000000 --squeeze_mem yes --mem_height 17 --mem_width 100
+Unable to build /home/evanslab/Hymeno_fastqc/cortex_analysis/binaries/uncleaned/31/BJE3815.unclean.kmer31.ctx at /home/evanslab/Hymeno_fastqc/CORTEX_release_v1.0.5.21/scripts/calling/run_calls.pl line 2097.
+
+#Check the output
+more BJE3815.unclean.kmer31.ctx.build_log 
+/home/evanslab/Hymeno_fastqc/CORTEX_release_v1.0.5.21//bin/cortex_var_31_c1: error while loading shared libraries: libgsl.so.0: ca
+nnot open shared object file: No such file or directory
+#But when check that cortex_var_31_c1 exists, it exists... pb of compilation?
+
 ```
 # Reference genome: *Xenopus tropicalis*
 We will try to assemble the genome of *Hymenochirus* using as a reference another diploid species *X. tropicalis* which has an annotated genome (xenTro7.fa.masked.gz from [UCSC Genome Bioinformatics](http://hgdownload.cse.ucsc.edu/downloads.html#xentro)). 
