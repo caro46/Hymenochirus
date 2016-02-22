@@ -159,6 +159,10 @@ nnot open shared object file: No such file or directory
 #But when check that cortex_var_31_c1 exists, it exists... pb of compilation?
 
 ```
+To Have separate files for each chromosome of the reference genome:
+```bash
+zcat xenTro7.fa.masked.gz | awk '/^>/ {OUT=substr($0,2) ".fa"}; {print >> OUT; close(OUT)}'
+```
 # Reference genome: *Xenopus tropicalis*
 We will try to assemble the genome of *Hymenochirus* using as a reference another diploid species *X. tropicalis* which has an annotated genome (xenTro7.fa.masked.gz from [UCSC Genome Bioinformatics](http://hgdownload.cse.ucsc.edu/downloads.html#xentro)). 
 
