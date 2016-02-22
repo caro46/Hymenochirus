@@ -35,6 +35,9 @@ blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/BJE3814-8.fa -db
 Check if contigs of our female (BJE3814) map to a region where our male (BJE3815) doesn't map.
 Blast male de novo assambly against female and the opposite to find contigs only male or only female. Blast them against the female *X. tropicalis*.
 
+##Blast Sox3 of *X. tropicalis* against both *de novo* assambly
+[cDNA & coding region](http://useast.ensembl.org/Xenopus_tropicalis/Gene/Summary?db=core;g=ENSXETG00000007607;r=GL172698.1:1304016-1305642;t=ENSXETT00000016558)
+
 ## Stampy (because Cortex not working for the moment)
 ```
 /work/ben/stampy-1.0.28/stampy.py -t8 -g /work/ben/2016_Hymenochirus/xenTro7/xenTro7 -h /work/ben/2016_Hymenochirus/xenTro7/xenTro7 --substitutionrate=0.10 -o /work/ben/2016_Hymenochirus/BJE3814/BJE3814_stampy_xenTro7_paired.sam -M /work/ben/2016_Hymenochirus/BJE3814/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /work/ben/2016_Hymenochirus/BJE3814/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz
