@@ -36,7 +36,8 @@ Check if contigs of our female (BJE3814) map to a region where our male (BJE3815
 Blast male de novo assambly against female and the opposite to find contigs only male or only female. Blast them against the female *X. tropicalis*.
 
 ##Blast Sox3 of *X. tropicalis* against both *de novo* assambly
-[cDNA & coding region](http://useast.ensembl.org/Xenopus_tropicalis/Gene/Summary?db=core;g=ENSXETG00000007607;r=GL172698.1:1304016-1305642;t=ENSXETT00000016558)
+[cDNA & coding region](http://useast.ensembl.org/Xenopus_tropicalis/Gene/Summary?db=core;g=ENSXETG00000007607;r=GL172698.1:1304016-1305642;t=ENSXETT00000016558)(coding region tend to be more conserved)
+See [Uno et al. 2008](http://www.ncbi.nlm.nih.gov/pubmed/18484182) for more sex-determining genes:  AR, SF-1/Ad4BP, Sox3, Dmrt1 (might not related to sex determination in *Rana rugosa*). And [Nakamura 2009](http://www.ncbi.nlm.nih.gov/pubmed/18996493): CYP19, CYP17, Foxl2.
 
 ## Stampy (because Cortex not working for the moment)
 ```
