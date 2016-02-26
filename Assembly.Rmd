@@ -56,6 +56,14 @@ Blast male de novo assambly against female and the opposite to find contigs only
 blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Xtropicalis_Sox3_cDNA.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3814-8_Sox3_cDNA -outfmt 6 -max_target_seqs 1
 
 blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Xtropicalis7_Sox3_gene_DNA.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3814-8_Sox3_gene -outfmt 6 -max_target_seqs 1
+
+blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Xtropicalis_ar_gene_DNA.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3814-8_xenTrop_ar_gene -outfmt 6 -max_target_seqs 1
+
+blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Xtropicalis_dmrta1_gene_DNA.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3814-8_xenTrop_dmrta1_gene -outfmt 6 -max_target_seqs 1
+
+blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Xtropicalis_dmrta2_gene_DNA.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3814-8_xenTrop_dmrta2_gene -outfmt 6 -max_target_seqs 1
+
+blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Bufo_dmrt1_genebank.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3814-8_Bufo_dmrt1 -outfmt 6 -max_target_seqs 1
 ```
 
 See [Uno et al. 2008](http://www.ncbi.nlm.nih.gov/pubmed/18484182) for more sex-determining genes:  AR, SF-1/Ad4BP, Sox3, Dmrt1 (might not related to sex determination in *Rana rugosa*). And [Nakamura 2009](http://www.ncbi.nlm.nih.gov/pubmed/18996493): CYP19, CYP17, Foxl2.
