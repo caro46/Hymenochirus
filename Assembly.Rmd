@@ -55,7 +55,7 @@ blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Xtropicali
 
 See [Uno et al. 2008](http://www.ncbi.nlm.nih.gov/pubmed/18484182) for more sex-determining genes:  AR, SF-1/Ad4BP, Sox3, Dmrt1 (might not related to sex determination in *Rana rugosa*). And [Nakamura 2009](http://www.ncbi.nlm.nih.gov/pubmed/18996493): CYP19, CYP17, Foxl2.
 
-## Infer the coverage: map contigs to reference using Bowtie or BWA
+## Infer the coverage: map contigs from Abyss to reference using Stampy or Bowtie or BWA
 
 ## Stampy (because Cortex not working for the moment)
 ```
