@@ -28,6 +28,11 @@ Command to use after abyss:
 ```
 module load blast/2.2.28+
 ```
+## Format of blast output
+|QueryID | SubjectID | % id | alignment length | mistmatches | gap openings | q.start | q.end | s.start | s.end | e-value | bit score| 
+|---|---|---|---|---|---|---|---|---|---|---|---| 
+
+
 ###Prepare the reference
 Need to `gunzip` the reference genome before making it blastable.
 ```
@@ -55,9 +60,10 @@ blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Xtropicali
 
 See [Uno et al. 2008](http://www.ncbi.nlm.nih.gov/pubmed/18484182) for more sex-determining genes:  AR, SF-1/Ad4BP, Sox3, Dmrt1 (might not related to sex determination in *Rana rugosa*). And [Nakamura 2009](http://www.ncbi.nlm.nih.gov/pubmed/18996493): CYP19, CYP17, Foxl2.
 
-## Infer the coverage: map contigs from Abyss to reference using Stampy or Bowtie or BWA
+> Compare size + identity of the blast results between male/female.
 
 ## Stampy (because Cortex not working for the moment)
 ```
 /work/ben/stampy-1.0.28/stampy.py -t8 -g /work/ben/2016_Hymenochirus/xenTro7/xenTro7 -h /work/ben/2016_Hymenochirus/xenTro7/xenTro7 --substitutionrate=0.10 -o /work/ben/2016_Hymenochirus/BJE3814/BJE3814_stampy_xenTro7_paired.sam -M /work/ben/2016_Hymenochirus/BJE3814/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /work/ben/2016_Hymenochirus/BJE3814/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz
 ```
+Estimate coverage among the reference genome (samtools mpileup) + plot with `R`.
