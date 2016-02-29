@@ -108,4 +108,4 @@ Output from flagstat from BJE3814
 144536 + 0 with mate mapped to a different chr (mapQ>=5)
 ```
 
-> Results Stampy: bad mapping -> use bwa or bowtie to map male & female reads against Abyss genome (of both sex) and infer the coverage using Samtools 
+> Results Stampy: bad mapping -> use bwa or bowtie to map male & female reads against Abyss genome (of both sex) and infer the coverage using Samtools > use bwa mem command "For 70bp or longer Illumina, 454, Ion Torrent and Sanger reads, assembly contigs and BAC sequences, BWA-MEM is usually the preferred algorithm."  from [bwa website](http://bio-bwa.sourceforge.net/)
