@@ -79,3 +79,31 @@ Estimate coverage among the reference genome (samtools mpileup) + plot with `R`.
 ```
 /work/ben/macaque_RAD_TAGs/samtools-0.1.18/samtools flagstat BJE3815_stampy_xenTro7_paired_sorted.bam > BJE3815_stampy_xenTro7_paired_sorted_flagstat.txt
 ```
+Output from flagstat from BJE3815
+```
+87370213 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 duplicates
+5278107 + 0 mapped (6.04%:-nan%)
+87370213 + 0 paired in sequencing
+43685107 + 0 read1
+43685106 + 0 read2
+1261700 + 0 properly paired (1.44%:-nan%)
+2290444 + 0 with itself and mate mapped
+2987663 + 0 singletons (3.42%:-nan%)
+793302 + 0 with mate mapped to a different chr
+121082 + 0 with mate mapped to a different chr (mapQ>=5)
+```
+Output from flagstat from BJE3814
+```
+102080926 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 duplicates
+6247778 + 0 mapped (6.12%:-nan%)
+102080926 + 0 paired in sequencing
+51040463 + 0 read1
+51040463 + 0 read2
+1502320 + 0 properly paired (1.47%:-nan%)
+2757848 + 0 with itself and mate mapped
+3489930 + 0 singletons (3.42%:-nan%)
+969546 + 0 with mate mapped to a different chr
+144536 + 0 with mate mapped to a different chr (mapQ>=5)
+```
