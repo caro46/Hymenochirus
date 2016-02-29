@@ -107,3 +107,5 @@ Output from flagstat from BJE3814
 969546 + 0 with mate mapped to a different chr
 144536 + 0 with mate mapped to a different chr (mapQ>=5)
 ```
+
+> Results Stampy: bad mapping -> use bwa or bowtie to map male & female reads against Abyss genome (of both sex) and infer the coverage using Samtools 
