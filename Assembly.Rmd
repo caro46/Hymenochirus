@@ -22,6 +22,11 @@ Comments:
 
 -Abyss for BJE3814 is finished: prepare the reference genome xenTro7 + BJE3814 as a reference for BJE3815. 
 
+### Having a chimeric Abyss genome
+```
+abyss-pe np=8 k=64 name=BJEchimere lib='peFem peMale' peFem='/work/ben/2016_Hymenochirus/BJE3814/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /work/ben/2016_Hymenochirus/BJE3814/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz' peMale='/work/ben/2016_Hymenochirus/BJE3815/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /work/ben/2016_Hymenochirus/BJE3815/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz'
+```
+
 ##To blast abyss outputs
 On iqaluk: blast version `2.2.28+`.
 Command to use after abyss:
