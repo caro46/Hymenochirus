@@ -163,3 +163,10 @@ $status = system($commandline);
 # Mapping with `bwa` 
 
 Ref genome = `X. tropicalis v9.0 genome assembly` from [XenBase](http://www.xenbase.org/other/static/ftpDatafiles.jsp)
+
+
+
+To check if something is running on the background:
+```
+ps -elf | grep 'stampy'
+```
