@@ -54,6 +54,12 @@ blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/BJE3814-8.fa -db
 Check if contigs of our female (BJE3814) map to a region where our male (BJE3815) doesn't map.
 Blast male de novo assambly against female and the opposite to find contigs only male or only female. Blast them against the female *X. tropicalis*.
 
+On xenTrop9 (chromosomes):
+```
+makeblastdb -in /work/ben/2016_Hymenochirus/xenTro9/Xtropicalis_v9_repeatMasked.fa -dbtype nucl -title xenBase_xenTro9 -out /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_masked_blastable
+
+blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3815/BJE3815-8.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_masked_blastable -out /work/ben/2016_Hymenochirus/BJE3815/blast/BJE3815-8_xenTro9 -outfmt 6 -max_target_seqs 1
+```
 ##Blast Sox3 of *X. tropicalis* against both *de novo* assambly
 [cDNA & coding region](http://useast.ensembl.org/Xenopus_tropicalis/Gene/Summary?db=core;g=ENSXETG00000007607;r=GL172698.1:1304016-1305642;t=ENSXETT00000016558) (coding region tend to be more conserved) and total gene because good match (NCBI Reference Sequence: NW_004668241.1 - XenTrop7)
 
@@ -69,6 +75,8 @@ blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Xtropicali
 blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Xtropicalis_dmrta2_gene_DNA.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3814-8_xenTrop_dmrta2_gene -outfmt 6 -max_target_seqs 1
 
 blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Bufo_dmrt1_genebank.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3814-8_Bufo_dmrt1 -outfmt 6 -max_target_seqs 1
+
+blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Xtropicalis_Cyp17_gene_DNA.fa -db /work/ben/2016_Hymenochirus/BJE3815/BJE3815_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3815/blast/BJE3815-8_xenTro_Cyp17_gene -outfmt 6 -max_target_seqs 1
 ```
 
 See [Uno et al. 2008](http://www.ncbi.nlm.nih.gov/pubmed/18484182) for more sex-determining genes:  AR, SF-1/Ad4BP, Sox3, Dmrt1 (might not related to sex determination in *Rana rugosa*). And [Nakamura 2009](http://www.ncbi.nlm.nih.gov/pubmed/18996493): CYP19, CYP17, Foxl2.
