@@ -183,6 +183,7 @@ Us: Reference (XenTrop9) divergent from the 2 other sequences (BJE3814 & BJE3815
 promer --prefix=ref_qry ref.fasta qry.fasta
 /usr/local/mummer/MUMmer3.23/promer -o --prefix=xentrop9_BJE3814 Xtropicalis_v9_repeatMasked.fa BJE3814-8.fa 
 /usr/local/mummer/MUMmer3.23/mummer -L -c Xtropicalis_v9_repeatMasked.fa BJE3814-8.fa BJE3815-8.fa
+/home/caroline/hymeno/MUMMER_analysis/MUMmer3.23/nucmer -o --prefix=Abyss_BJE3814_BJE3815 /home/caroline/hymeno/MUMMER_analysis/BJE3814-8.fa /home/caroline/hymeno/MUMMER_analysis/BJE3815-8.fa
 ```
 
 To check if something is running on the background:
