@@ -168,6 +168,7 @@ Map BJE3814 & BJE3815 to xenTrop9 and then merge them to have a consensus sequen
 `samtools merge out.bam in1.bam in2.bam in3.bam`
 `samtools mpileup [-EBugp] [-C capQcoef] [-r reg] [-f in.fa] [-l list] [-Q minBaseQ] [-q minMapQ] in.bam [in2.bam [...]]`
 
+If mapping ok with xenTrop9 as a reference genome: use it to calculate the nucleotide diversity, otherwise use the chimere (female + male) abyss assembly. 
 
 To check if something is running on the background:
 ```
