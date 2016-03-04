@@ -170,6 +170,20 @@ Map BJE3814 & BJE3815 to xenTrop9 and then merge them to have a consensus sequen
 
 If mapping ok with xenTrop9 as a reference genome: use it to calculate the nucleotide diversity, otherwise use the chimere (female + male) abyss assembly. 
 
+To do when Iqaluk OK or on info
+Identify repeated sequences using `Repeatmasker` on the 2 de novo assembly (female + male) ([Burger & Palmieri 2013](http://jhered.oxfordjournals.org/content/105/6/933.full) an example for using Repeatmasker   
+
+
+## [MUMMER](http://mummer.sourceforge.net/manual/#description)
+
+- Can be used for align multiple finished or draft genomes and identify at some point some repeats regions (align seq against itself)
+
+Us: Reference (XenTrop9) divergent from the 2 other sequences (BJE3814 & BJE3815). If not working just nucmer on Abyss Assembly (BJE3814 & BJE3815) to identify similar and different regions.
+```
+promer --prefix=ref_qry ref.fasta qry.fasta
+promer -o --prefix=xentrop9_BJE3814_3815 Xtropicalis_v9_repeatMasked.fa BJE3814-8.fa BJE3815-8.fa
+```
+
 To check if something is running on the background:
 ```
 ps -elf | grep 'stampy'
