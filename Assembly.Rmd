@@ -172,7 +172,7 @@ If mapping ok with xenTrop9 as a reference genome: use it to calculate the nucle
 
 To do when Iqaluk OK or on info
 Identify repeated sequences using `Repeatmasker` on the 2 de novo assembly (female + male) ([Burger & Palmieri 2013](http://jhered.oxfordjournals.org/content/105/6/933.full) an example for using Repeatmasker   
-
+Compare with repeat elements identified in [X. trop](http://www.repeatmasker.org/genomicDatasets/RMGenomicDatasets.html)
 
 ## [MUMMER](http://mummer.sourceforge.net/manual/#description)
 
