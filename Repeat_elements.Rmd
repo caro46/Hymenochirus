@@ -1,0 +1,6 @@
+## Detection before assembly
+Use de novo assembly to build repeat libraries from reads files: Tedna (difficult to install on Info) and [RepARK](https://github.com/PhKoch/RepARK) (which is young, 2014, but seems to run easily using Velvet and Jellyfish on Info):
+
+```
+/home/evanslab/Hymeno_fastqc/RepArk_analysis/RepARK-master/RepARK.pl -l /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz -l /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz
+```
