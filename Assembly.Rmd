@@ -26,7 +26,20 @@ Comments:
 ```
 abyss-pe np=8 k=64 name=BJEchimere lib='peFem peMale' peFem='/work/ben/2016_Hymenochirus/BJE3814/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /work/ben/2016_Hymenochirus/BJE3814/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz' peMale='/work/ben/2016_Hymenochirus/BJE3815/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /work/ben/2016_Hymenochirus/BJE3815/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz'
 ```
+## Abyss results statistics
+```
+BJE3814-stats.tab
+n	n:500	L50	min	N80	N50	N20	E-size	max	sum	name
+10.8e6	747074	172495	500	1089	2172	4093	2775	39687	1.244e9	BJE3814-unitigs.fa
+7854121	553534	107105	500	1959	4315	8408	5555	62090	1.569e9	BJE3814-contigs.fa
+7557165	403094	69676	500	2834	6580	13269	8661	95667	1.595e9	BJE3814-scaffolds.fa
 
+more ../BJE3815/BJE3815-stats.tab
+n	n:500	L50	min	N80	N50	N20	E-size	max	sum	name
+10.71e6	746612	172328	500	1090	2173	4099	2775	29308	1.244e9	BJE3815-unitigs.fa
+7773771	554113	107254	500	1956	4302	8412	5536	58081	1.569e9	BJE3815-contigs.fa
+7481189	404914	70035	500	2815	6536	13193	8619	95232	1.593e9	BJE3815-scaffolds.fa
+```
 ##To blast abyss outputs
 On iqaluk: blast version `2.2.28+`.
 Command to use after abyss:
