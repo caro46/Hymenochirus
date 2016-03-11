@@ -197,6 +197,8 @@ samtools index /home/caroline/hymeno/BWA_analysis/aln_bwa_mem_trop9_BJE3814_sort
 
 samtools flagstat /home/caroline/hymeno/BWA_analysis/aln_bwa_mem_trop9_BJE3814_sorted.bam > aln_bwa_mem_trop9_BJE3814_sorted_flagstat.txt
 ```
+On info bwa: Version: 0.7.8-r455
+
 ## [MUMMER](http://mummer.sourceforge.net/manual/#description)
 
 - Can be used for align multiple finished or draft genomes and identify at some point some repeats regions (align seq against itself)
