@@ -188,6 +188,8 @@ Identify repeated sequences using `Repeatmasker` on the 2 de novo assembly (fema
 Compare with repeat elements identified in [X. trop](http://www.repeatmasker.org/genomicDatasets/RMGenomicDatasets.html)
 ```
 bwa mem /home/caroline/hymeno/MUMMER_analysis/Xtropicalis_v9_repeatMasked.fa /home/caroline/hymeno/MUMMER_analysis/BJE3814-8.fa>aln_bwa_mem_trop9_BJE3814.sam
+
+samtools view -bt /home/caroline/hymeno/MUMMER_analysis/Xtropicalis_v9_repeatMasked.fa -o /home/caroline/hymeno/BWA_analysis/aln_bwa_mem_trop9_BJE3814.bam /home/caroline/hymeno/BWA_analysis/aln_bwa_mem_trop9_BJE3814.sam
 ```
 ## [MUMMER](http://mummer.sourceforge.net/manual/#description)
 
