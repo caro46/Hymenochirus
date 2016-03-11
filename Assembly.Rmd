@@ -73,6 +73,21 @@ makeblastdb -in /work/ben/2016_Hymenochirus/xenTro9/Xtropicalis_v9_repeatMasked.
 
 blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3815/BJE3815-8.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_masked_blastable -out /work/ben/2016_Hymenochirus/BJE3815/blast/BJE3815-8_xenTro9 -outfmt 6 -max_target_seqs 1
 ```
+To know how many contigs blast (in R, example for BJE3814 against xentrop9):
+```R
+blast_BJE3814_trop9 <- read.table("BJE3814-8_xenTro9",h=F,sep="\t")
+scaffoldsID <- blast_BJE3814_trop9[,1]
+head(scaffoldsID)
+#[1] 13964 13970 13970 13970 13970 13970
+scaffoldsID_unique <- unique(contigsID)
+head(scaffoldsID_unique)
+#[1] 13964 13970 17295 18041 20125 28074
+number_scaffolds_match_BJE3814_XenTrop9 <- length(contigsID_unique)
+number_scaffolds_match_BJE3814_XenTrop9
+#[1] 38797
+```
+In `BJE3814-stats.tab` from Abyss output: total number of scaffolds: 7557165 -> 38797/7557165 = 0.5%
+
 ##Blast Sox3 of *X. tropicalis* against both *de novo* assambly
 [cDNA & coding region](http://useast.ensembl.org/Xenopus_tropicalis/Gene/Summary?db=core;g=ENSXETG00000007607;r=GL172698.1:1304016-1305642;t=ENSXETT00000016558) (coding region tend to be more conserved) and total gene because good match (NCBI Reference Sequence: NW_004668241.1 - XenTrop7)
 
