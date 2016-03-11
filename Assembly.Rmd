@@ -86,7 +86,7 @@ number_scaffolds_match_BJE3814_XenTrop9 <- length(contigsID_unique)
 number_scaffolds_match_BJE3814_XenTrop9
 #[1] 38797
 ```
-In `BJE3814-stats.tab` from Abyss output: total number of scaffolds: 7557165 -> 38797/7557165 = 0.5%
+In `BJE3814-stats.tab` from Abyss output: total number of scaffolds: 7557165 -> 38797/7557165 = 0.5% (FEMALE). For BJE3815 (MALE): 38928/7481189 = 0.5%
 
 ##Blast Sox3 of *X. tropicalis* against both *de novo* assambly
 [cDNA & coding region](http://useast.ensembl.org/Xenopus_tropicalis/Gene/Summary?db=core;g=ENSXETG00000007607;r=GL172698.1:1304016-1305642;t=ENSXETT00000016558) (coding region tend to be more conserved) and total gene because good match (NCBI Reference Sequence: NW_004668241.1 - XenTrop7)
