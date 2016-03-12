@@ -215,10 +215,14 @@ samtools index /home/caroline/hymeno/BWA_analysis/aln_bwa_mem_trop9_BJE3814_sort
 samtools flagstat /home/caroline/hymeno/BWA_analysis/aln_bwa_mem_trop9_BJE3814_sorted.bam > aln_bwa_mem_trop9_BJE3814_sorted_flagstat.txt
 
 bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa
-bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_002_trim_paired.cor.fastq.gz > aln_bwa_mem_BJE3814_reads_abyss.sam
+bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_BJE3814_reads_abyss.sam
 ```
 On info bwa: Version: 0.7.8-r455
+```
+bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_BJE3814abyss_BJE3815reads.sam
 
+bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_BJE3815abyss_BJE3814reads.sam
+```
 ## [MUMMER](http://mummer.sourceforge.net/manual/#description)
 
 - Can be used for align multiple finished or draft genomes and identify at some point some repeats regions (align seq against itself)
