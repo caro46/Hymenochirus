@@ -189,7 +189,10 @@ $status = system($commandline);
 $commandline= $path_to_samtools."\/samtools index ".$path_to_data."\/"."map_to_abyss_genome"."\/".$individual."_genomeAbyssBJE3815_sorted.bam";
 $status = system($commandline);
 ```
-
+# SOAP de novo 
+```
+/work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/SOAPdenovo-127mer all -s /work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/hymeno.config -K 64 -R -o SOAP_Hymeno_genome 1>ass.log 2>ass.err
+```
 # Mapping with `bwa` 
 
 Ref genome = `X. tropicalis v9.0 genome assembly` from [XenBase](http://www.xenbase.org/other/static/ftpDatafiles.jsp)
