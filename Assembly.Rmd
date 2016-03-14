@@ -230,6 +230,10 @@ bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE381
 
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_BJE3815abyss_BJE3814reads.sam
 ```
+```
+bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq
+bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_ChimereSOAP1415_BJE3814reads.sam
+```
 ## [MUMMER](http://mummer.sourceforge.net/manual/#description)
 
 - Can be used for align multiple finished or draft genomes and identify at some point some repeats regions (align seq against itself)
