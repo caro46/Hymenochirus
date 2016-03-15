@@ -113,6 +113,11 @@ blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Bufo_dmrt1
 blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Xtropicalis_Cyp17_gene_DNA.fa -db /work/ben/2016_Hymenochirus/BJE3815/BJE3815_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3815/blast/BJE3815-8_xenTro_Cyp17_gene -outfmt 6 -max_target_seqs 1
 ```
 
+|Genes (if not specified: X. trop)|Sox3 | AR | Dmrt1-bufo | dmrta1 | dmrta2 | Cyp17 | Cyp19 | foxl2 | DMW-e2-laevis | DMW-e3-laevis | DMW-e4-laevis | 
+|---|---|---|---|---|---|---|---|---|---|---|---|
+|Female | &#10004;|&#10004;|&#88;|&#88;|&#88;|&#10004;|&#88;|&#10004;|&#88;|&#88;|&#88;|
+|Male |&#10004;|&#10004;|&#88;|&#88;|not done|&#10004;|&#88;|&#10004;|not done|not done|not done|
+
 See [Uno et al. 2008](http://www.ncbi.nlm.nih.gov/pubmed/18484182) for more sex-determining genes:  AR, SF-1/Ad4BP, Sox3, Dmrt1 (might not related to sex determination in *Rana rugosa*). And [Nakamura 2009](http://www.ncbi.nlm.nih.gov/pubmed/18996493): CYP19, CYP17, Foxl2.
 
 > Compare size + identity of the blast results between male/female.
