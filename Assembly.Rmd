@@ -197,6 +197,43 @@ $status = system($commandline);
 ```
 /work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/SOAPdenovo-127mer all -s /work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/hymeno.config -K 64 -R -o SOAP_Hymeno_genome 1>ass.log 2>ass.err
 ```
+## SOAP chimeric genome (reads from mom + dad) - statistics for the scaffolds
+```
+Size_includeN	2818397698
+Size_withoutN	2699755794
+Scaffold_Num	9612629
+Mean_Size	293
+Median_Size	130
+Longest_Seq	116517
+Shortest_Seq	100
+Singleton_Num	9021371
+Average_length_of_break(N)_in_scaffold	12
+
+scaffolds>100 	9426455	98.06%
+scaffolds>500 	769632	8.01%
+scaffolds>1K  	386272	4.02%
+scaffolds>10K 	16535	0.17%
+scaffolds>100K	3	0.00%
+scaffolds>1M  	0	0.00%
+
+Nucleotide_A	832817850	29.55%
+Nucleotide_C	538677655	19.11%
+Nucleotide_G	521887058	18.52%
+Nucleotide_T	806373231	28.61%
+GapContent_N	118641904	4.21%
+Non_ACGTN	0	0.00%
+GC_Content	39.28%		(G+C)/(A+C+G+T)
+
+N10	9297	19312
+N20	4885	62312
+N30	2624	141850
+N40	1294	297103
+N50	631	615567
+N60	292	1285271
+N70	161	2606172
+N80	130	4703979
+N90	116	6991582
+```
 # Mapping with `bwa` 
 
 Ref genome = `X. tropicalis v9.0 genome assembly` from [XenBase](http://www.xenbase.org/other/static/ftpDatafiles.jsp)
