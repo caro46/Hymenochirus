@@ -1,0 +1,9 @@
+## Mugsy
+
+"Mugsy is a multiple whole genome aligner. [...] Mugsy accepts draft genomes in the form of multi-FASTA files and does not require a reference genome." ([see Mugsy website](http://mugsy.sourceforge.net/)) 
+
+We will use it to align the 2 *de novo* genomes from abyss:
+
+```
+/usr/local/mugsy/mugsy -duplications 1 --directory /home/caroline/hymeno/MUGSY --prefix Mugsy_alignment_BJE3814_BJE3815 /home/caroline/hymeno/MUMMER_analysis/BJE3814-8.fa /home/caroline/hymeno/MUMMER_analysis/BJE3815-8.fa
+```
