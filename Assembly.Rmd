@@ -73,6 +73,11 @@ makeblastdb -in /work/ben/2016_Hymenochirus/xenTro9/Xtropicalis_v9_repeatMasked.
 
 blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3815/BJE3815-8.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_masked_blastable -out /work/ben/2016_Hymenochirus/BJE3815/blast/BJE3815-8_xenTro9 -outfmt 6 -max_target_seqs 1
 ```
+On the other sex:
+```
+blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/BJE3814-8.fa -db /work/ben/2016_Hymenochirus/BJE3815/BJE3815_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast_against_BJE3815/BJE3814-8_BJE3815_evalue20 -outfmt 6 -max_target_seqs 1
+```
+
 To know how many contigs blast (in R, example for BJE3814 against xentrop9):
 ```R
 blast_BJE3814_trop9 <- read.table("BJE3814-8_xenTro9",h=F,sep="\t")
