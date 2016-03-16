@@ -251,7 +251,48 @@ N90	116	6991582
 # Mapping with `bwa` 
 
 Ref genome = `X. tropicalis v9.0 genome assembly` from [XenBase](http://www.xenbase.org/other/static/ftpDatafiles.jsp)
+```perl
+#!/usr/bin/perl                                                                                                             
 
+use warnings;
+use strict;
+
+# This script will execute alignment functions for paired end reads                                                          
+# using bwa mem for reference contigs                                                                                        
+
+my $path_to_bwa="/work/ben/macaque_RAD_TAGs/bwa-0.6.2";
+my $path_to_samtools="/work/ben/macaque_RAD_TAGs/samtools-0.1.18";
+my $path_to_data="/work/ben/2016_Hymenochirus/BJE3814";
+my $path_to_genome="/work/ben/2016_Hymenochirus/xenTro9";
+my $genome="Xtropicalis_v9_repeatMasked.fa";
+my $individual="BJE3814";
+
+my $commandline;
+my $status;
+
+# Index                                                                                                                      
+#$commandline = $path_to_bwa."\/bwa index -a bwtsw ".$path_to_genome."\/".$genome;                                           
+
+#$status = system($commandline);                                                                                             
+
+#bwa sampe                                                                                                                   
+$commandline = $path_to_bwa."\/bwa aln ".$path_to_genome."\/".$genome." ".$path_to_data."\/".$individual."_S3_L003_R1_001_trim_paired.cor.fastq.gz \> ".$path_to_data."\/map_to_abyss_genome\/".$individual."_S3_L003_R1_001_trim_paired.cor.fastq.sai";
+$status = system($commandline);
+$commandline = $path_to_bwa."\/bwa aln ".$path_to_genome."\/".$genome." ".$path_to_data."\/".$individual."_S3_L003_R2_001_trim_paired.cor.fastq.gz \> ".$path_to_data."\/map_to_abyss_genome\/".$individual."_S3_L003_R2_001_trim_paired.cor.fastq.sai";
+$status = system($commandline);
+
+# bwa sampe                                                                                                                  
+$commandline = $path_to_bwa."\/bwa sampe ".$path_to_genome. "\/".$genome." ".$path_to_data."\/map_to_abyss_genome\/".$individual."_S3_L003_R1_001_trim_paired.cor.fastq.sai ".$path_to_data."\/map_to_abyss_genome\/".$individual."_S3_L003_R2_001_trim_paired.cor.fastq.sai ".$path_to_data."\/".$individual."_S3_L003_R1_001_trim_paired.cor.fastq.gz ".$path_to_data."\/".$individual."_S3_L003_R2_001_trim_paired.cor.fastq.gz \> ".$path_to_data."\/map_to_abyss_genome\/".$individual."_XenTro9.sam";
+$status = system($commandline);
+
+# Samtools : sam to bam                                                                                                      
+$commandline=$path_to_samtools."\/samtools view -bt ".$path_to_genome."\/".$genome." -o ".$path_to_data."\/"."map_to_abyss_genome"."\/".$individual."_XenTro9.bam ".$path_to_data."\/map_to_abyss_genome\/".$individual."_XenTro9.sam";
+$status = system($commandline);
+$commandline=$path_to_samtools."\/samtools sort ".$path_to_data."\/map_to_abyss_genome\/".$individual."_XenTro9.bam ".$path_to_data."\/map_to_abyss_genome\/".$individual."_XenTro9_sorted";
+$status = system($commandline);
+$commandline= $path_to_samtools."\/samtools index ".$path_to_data."\/map_to_abyss_genome\/".$individual."_XenTro9_sorted.bam";
+$status = system($commandline);
+```
 Map BJE3814 & BJE3815 to xenTrop9 and then merge them to have a consensus sequence 
 `samtools merge out.bam in1.bam in2.bam in3.bam`
 `samtools mpileup [-EBugp] [-C capQcoef] [-r reg] [-f in.fa] [-l list] [-Q minBaseQ] [-q minMapQ] in.bam [in2.bam [...]]`
