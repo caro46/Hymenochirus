@@ -296,6 +296,8 @@ promer --prefix=ref_qry ref.fasta qry.fasta
 /home/caroline/hymeno/MUMMER_analysis/MUMmer3.23/nucmer -o --prefix=Abyss_BJE3814_BJE3815 /home/caroline/hymeno/MUMMER_analysis/BJE3814-8.fa /home/caroline/hymeno/MUMMER_analysis/BJE3815-8.fa
 /home/caroline/hymeno/MUMMER_analysis/MUMmer3.23/mummerplot /home/caroline/hymeno/MUMMER_analysis/BJE3814_3815_nucmer/Abyss_BJE3814_BJE3815.delta -R /home/caroline/hymeno/MUMMER_analysis/BJE3814-8.fa -Q /home/caroline/hymeno/MUMMER_analysis/BJE3815-8.fa -S --png --prefix mummerplot_nucmer_BJE3814_BJE3815 --filter --layout
 
+/home/caroline/hymeno/MUMMER_analysis/MUMmer3.23/promer -o --prefix=xentrop9_BJE3814 /home/caroline/hymeno/MUMMER_analysis/Xtropicalis_v9_repeatMasked.fa /home/caroline/hymeno/MUMMER_analysis/BJE3814-8.fa
+/home/caroline/hymeno/MUMMER_analysis/MUMmer3.23/mummerplot /home/caroline/hymeno/MUMMER_analysis/BJE3814_promer/xentrop9_BJE3814.delta -R /home/caroline/hymeno/MUMMER_analysis/Xtropicalis_v9_repeatMasked.fa -Q /home/caroline/hymeno/MUMMER_analysis/BJE3814-8.fa --png --prefix mummerplot_promer_xenTrop9_BJE3814 --filter --layout
 ```
 
 To check if something is running on the background:
