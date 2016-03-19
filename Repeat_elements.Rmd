@@ -8,6 +8,8 @@ Use de novo assembly to build repeat libraries from reads files: Tedna (difficul
 ### Identifying TE classes with `TEclass-2.1.3`
 ```
 /home/evanslab/Hymeno_fastqc/RepArk_analysis/TEclass-2.1.3/TEclassTest.pl -r /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/RepARK_working/repeat_lib.fasta -o /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TE_class_BJE3814
+
+/home/evanslab/Hymeno_fastqc/RepArk_analysis/TEclass-2.1.3/TEclassTest.pl -r /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3815/RepARK_working/repeat_lib.fasta -o /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/
 ```
 #### Results for BJE3814
 .stat:
