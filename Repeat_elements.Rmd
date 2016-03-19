@@ -10,6 +10,7 @@ Use de novo assembly to build repeat libraries from reads files: Tedna (difficul
 /home/evanslab/Hymeno_fastqc/RepArk_analysis/TEclass-2.1.3/TEclassTest.pl -r /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/RepARK_working/repeat_lib.fasta -o /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TE_class_BJE3814
 ```
 #### Results for BJE3814
+.stat:
 ```
 Repeat statistics:
 DNA transposons: 86784
@@ -19,4 +20,13 @@ SINEs: 15300
 Unclear:  54341
 
 Total: 211213
+```
+.lib (add TE class in Fasta label of the sequences of identified TE)
+```
+>NODE_1000005_length_41_cov_4.975610|TEclass result: LTR|forward
+TCCCATAATAGTTTTATGACATCAGTAAGATTTTAGTCATAGTTGGAGAGACATTGAGGTGAGTGGACC
+>NODE_100000_length_59_cov_2.932203|TEclass result: Retro|forward
+TAGGTGGTTGTGGGTATATCTAGAGTTATTATACTAGGTGGTTGTGGGTATATCTAGAGAGGTAACACTGGGTGGTTGTG
+GGTATAT
+...
 ```
