@@ -1,6 +1,22 @@
 ## Detection before assembly
 Use de novo assembly to build repeat libraries from reads files: Tedna (difficult to install on Info) and [RepARK](https://github.com/PhKoch/RepARK) (which is young, 2014, but seems to run easily using Velvet and Jellyfish on Info):
 
+### Building TE libraries with RepARK
 ```
 /home/evanslab/Hymeno_fastqc/RepArk_analysis/RepARK-master/RepARK.pl -l /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz -l /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz
+```
+### Identifying TE classes with `TEclass-2.1.3`
+```
+/home/evanslab/Hymeno_fastqc/RepArk_analysis/TEclass-2.1.3/TEclassTest.pl -r /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/RepARK_working/repeat_lib.fasta -o /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TE_class_BJE3814
+```
+#### Results for BJE3814
+```
+Repeat statistics:
+DNA transposons: 86784
+LTRs:  46282
+LINEs: 8506
+SINEs: 15300
+Unclear:  54341
+
+Total: 211213
 ```
