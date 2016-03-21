@@ -315,12 +315,17 @@ samtools flagstat /home/caroline/hymeno/BWA_analysis/aln_bwa_mem_trop9_BJE3814_s
 
 bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_BJE3814_reads_abyss.sam
+
+samtools view -bt /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa -o /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_BJE3814_reads_abyss.bam /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/aln_bwa_mem_BJE3814_reads_abyss.sam
+
 ```
 On info bwa: Version: 0.7.8-r455
 ```
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_BJE3814abyss_BJE3815reads.sam
 
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_BJE3815abyss_BJE3814reads.sam
+
+samtools view -bt /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa -o /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_BJE3814abyss_BJE3815reads.bam /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/aln_bwa_mem_BJE3814abyss_BJE3815reads.sam
 ```
 ```
 bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq
