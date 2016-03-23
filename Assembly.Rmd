@@ -332,6 +332,8 @@ samtools view -bt /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/ab
 bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_ChimereSOAP1415_BJE3814reads.sam
 
+samtools view -bt /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq -o /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_ChimereSOAP1415_BJE3814reads.bam /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/aln_bwa_mem_ChimereSOAP1415_BJE3814reads.sam
+
 TO RUN when others finished:
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_ChimereSOAP1415_BJE3815reads.sam
 ```
