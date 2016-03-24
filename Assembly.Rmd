@@ -294,7 +294,11 @@ $commandline= $path_to_samtools."\/samtools index ".$path_to_data."\/map_to_abys
 $status = system($commandline);
 ```
 Map BJE3814 & BJE3815 to xenTrop9 and then merge .bam files and use `mpileup``bcftools``vcfutils` to have a consensus sequence
-
+If need to add RG tags:
+```
+perl -e 'print "@RG\\tID:BJE3814\\tSM:hs\\tLB:BJE3814\\tPL:Illumina\\n@RG\\tID:BJE3815\\tSM:hs\\tLB:BJE3815\\tPL:Illumina\\n"' > rg.txt
+samtools merge -rh rg.txt merged.bam BJE3814.bam BJE3815.bam
+```
 `samtools merge out.bam in1.bam in2.bam in3.bam`
 
 `samtools mpileup [-EBugp] [-C capQcoef] [-r reg] [-f in.fa] [-l list] [-Q minBaseQ] [-q minMapQ] in.bam [in2.bam [...]]`
