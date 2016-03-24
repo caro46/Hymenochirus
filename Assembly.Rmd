@@ -296,6 +296,7 @@ $status = system($commandline);
 Map BJE3814 & BJE3815 to xenTrop9 and then merge .bam files and use `mpileup``bcftools``vcfutils` to have a consensus sequence
 
 `samtools merge out.bam in1.bam in2.bam in3.bam`
+
 `samtools mpileup [-EBugp] [-C capQcoef] [-r reg] [-f in.fa] [-l list] [-Q minBaseQ] [-q minMapQ] in.bam [in2.bam [...]]`
 
 To have a the consensus sequence:
