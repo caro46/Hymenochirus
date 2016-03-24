@@ -1,0 +1,43 @@
+# Genotype calls: GATK
+
+[O'Rawe et al. 2013](http://www.ncbi.nlm.nih.gov/pubmed/23537139) reviewed some variant calling pipelines. They highligted a poor concordance of SNP and INDEL calls between pipelines, but also that a part of one-pipeline-only calling can be validated.
+We will use [GATK](https://www.broadinstitute.org/gatk/) & [samtools mpileup](http://samtools.sourceforge.net/mpileup.shtml) for variant callings. GATK tries to improve genotype calling by realigning indels, recalibrating base quality... 
+
+We will use our chimeric genome (female + male) produced by SOAP de novo as a reference genome (*X. tropicalis* too divergent), if its quality is OK (check by mapping the reads).
+
+## INDELs realignment
+```perl
+#!/usr/bin/perl
+use warnings;
+use strict;
+
+# This script will read in the *_sorted.bam file names in a directory, and 
+# make and execute a GATK commandline on these files.  
+
+my $path_to_reference_genome="/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/";
+my $reference_genome="SOAP_Hymeno_genome.scafSeq";
+my @files;
+my $status;
+
+@files = glob("aln_bwa_mem_ChimereSOAP1415*_sorted.bam");
+
+my $commandline = "java -Xmx1G -jar /usr/local/gatk/GenomeAnalysisTK.jar -T RealignerTargetCreator ";
+
+foreach(@files){
+    $commandline = $commandline." -I ".$_." ";
+}
+
+$commandline = $commandline."-R ".$path_to_reference_genome.$reference_genome." -o forIndelRealigner.intervals";
+
+$status = system($commandline);
+
+my $commandline = "java -Xmx1G -jar /usr/local/gatk/GenomeAnalysisTK.jar -T IndelRealigner ";
+
+foreach(@files){
+    $commandline = $commandline." -I ".$_;
+}
+
+$commandline = $commandline." -R ".$path_to_reference_genome.$reference_genome." --targetIntervals forIndelRealigner.intervals --nWayOut _realigned.bam";
+
+$status = system($commandline);
+```
