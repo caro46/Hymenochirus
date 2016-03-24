@@ -293,9 +293,13 @@ $status = system($commandline);
 $commandline= $path_to_samtools."\/samtools index ".$path_to_data."\/map_to_abyss_genome\/".$individual."_XenTro9_sorted.bam";
 $status = system($commandline);
 ```
-Map BJE3814 & BJE3815 to xenTrop9 and then merge them to have a consensus sequence 
+Map BJE3814 & BJE3815 to xenTrop9 and then merge .bam files and use `mpileup``bcftools``vcfutils` to have a consensus sequence 
 `samtools merge out.bam in1.bam in2.bam in3.bam`
 `samtools mpileup [-EBugp] [-C capQcoef] [-r reg] [-f in.fa] [-l list] [-Q minBaseQ] [-q minMapQ] in.bam [in2.bam [...]]`
+
+To have a the consensus sequence:
+
+`samtools mpileup -uf ref.fa aln.bam | bcftools call -c | vcfutils.pl vcf2fq > cns.fq`
 
 If mapping ok with xenTrop9 as a reference genome: use it to calculate the nucleotide diversity, otherwise use the chimere (female + male) abyss assembly. 
 
