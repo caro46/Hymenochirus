@@ -5,6 +5,12 @@ Use de novo assembly to build repeat libraries from reads files: Tedna (difficul
 ```
 /home/evanslab/Hymeno_fastqc/RepArk_analysis/RepARK-master/RepARK.pl -l /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz -l /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz
 ```
+Results:
+
+BJE3815: Theshold used: 138 (`Check the directory RepARK_working for results.` See in it: `repeat_lib.fasta@`)
+
+BJE3814: Theshold used: 92
+
 ### Identifying TE classes with [`TEclass-2.1.3`](http://www.compgen.uni-muenster.de/tools/teclass/index.hbi?lang=en) (classifiers from RepBase 18.10)
 ```
 /home/evanslab/Hymeno_fastqc/RepArk_analysis/TEclass-2.1.3/TEclassTest.pl -r /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/RepARK_working/repeat_lib.fasta -o /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TE_class_BJE3814
