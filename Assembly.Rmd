@@ -312,6 +312,8 @@ If mapping ok with xenTrop9 as a reference genome: use it to calculate the nucle
 To do when Iqaluk OK or on info
 Identify repeated sequences using `Repeatmasker` on the 2 de novo assembly (female + male) ([Burger & Palmieri 2013](http://jhered.oxfordjournals.org/content/105/6/933.full) an example for using Repeatmasker   
 Compare with repeat elements identified in [X. trop](http://www.repeatmasker.org/genomicDatasets/RMGenomicDatasets.html)
+
+- Reads mapping against XenTrop9 genome
 ```
 bwa mem /home/caroline/hymeno/MUMMER_analysis/Xtropicalis_v9_repeatMasked.fa /home/caroline/hymeno/MUMMER_analysis/BJE3814-8.fa>aln_bwa_mem_trop9_BJE3814.sam
 
@@ -322,7 +324,9 @@ samtools sort /home/caroline/hymeno/BWA_analysis/aln_bwa_mem_trop9_BJE3814.bam /
 samtools index /home/caroline/hymeno/BWA_analysis/aln_bwa_mem_trop9_BJE3814_sorted.bam
 
 samtools flagstat /home/caroline/hymeno/BWA_analysis/aln_bwa_mem_trop9_BJE3814_sorted.bam > aln_bwa_mem_trop9_BJE3814_sorted_flagstat.txt
-
+```
+- Reads mapping against their own abyss genome
+```
 bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_BJE3814_reads_abyss.sam
 
@@ -335,6 +339,8 @@ samtools index /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_m
 samtools flagstat /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_BJE3814_reads_abyss_sorted.bam > aln_bwa_mem_BJE3814_reads_abyss_sorted_flagstat.txt
 ```
 On info bwa: Version: 0.7.8-r455
+
+- Reads mapping against the other abyss genome (ex.: reads female against male abyss genome...)
 ```
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_BJE3814abyss_BJE3815reads.sam
 
@@ -347,9 +353,12 @@ samtools sort /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_me
 samtools index /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_BJE3814abyss_BJE3815reads_sorted.bam
 
 samtools flagstat /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_BJE3814abyss_BJE3815reads_sorted.bam > aln_bwa_mem_BJE3814abyss_BJE3815reads_sorted_flagstat.txt
-
+```
+- Estimate the coverage for each abyss genome (female or male) using the 2 types of read (female + male)
+```
 samtools depth aln_bwa_mem_BJE3814abyss_BJE3815reads_sorted.bam aln_bwa_mem_BJE3814_reads_abyss_sorted.bam > abyssBJE3814_depth_BJE3814_BJE3815.depth
 ```
+- Reads mapping against the chimeric SOAP de novo genome
 ```
 bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz > aln_bwa_mem_ChimereSOAP1415_BJE3814reads.sam
