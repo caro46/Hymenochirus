@@ -347,6 +347,8 @@ samtools sort /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_me
 samtools index /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_BJE3814abyss_BJE3815reads_sorted.bam
 
 samtools flagstat /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_BJE3814abyss_BJE3815reads_sorted.bam > aln_bwa_mem_BJE3814abyss_BJE3815reads_sorted_flagstat.txt
+
+samtools depth aln_bwa_mem_BJE3814abyss_BJE3815reads_sorted.bam aln_bwa_mem_BJE3814_reads_abyss_sorted.bam > abyssBJE3814_depth_BJE3814_BJE3815.depth
 ```
 ```
 bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq
