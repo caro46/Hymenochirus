@@ -96,8 +96,24 @@ BJE3815 blast against BJE3814: 1446606/7481189 = 19%
 BJE3814 blast against BJE3815: 1442231/7557165 = 19%
 
 For e-20:
+
 BJE3814 blast against xenTrop9: 167698/7557165 = 2%
 BJE3815 blast against xenTrop9: 165767/7481189 = 2%
+```R
+blast_BJE3814_BJE3815 <- read.table("BJE3814-8_BJE3815_evalue20",h=F,sep="\t")
+scaffoldsID <- blast_BJE3814_BJE3815 [,1]
+head(scaffoldsID)
+#[1]  0  5  7  9 15 22
+scaffoldsID_unique <- unique(scaffoldsID)
+head(scaffoldsID_unique)
+#[1]  0  5  7  9 15 22
+number_scaffolds_match_BJE3814_BJE3815_e20 <- length(scaffoldsID_unique)
+number_scaffolds_match_BJE3814_BJE3815_e20
+#[1] 6929743
+```
+BJE3815 blast against BJE3814: 6866196/7481189 = 91.8%
+BJE3814 blast against BJE3815: 6929743/7557165 = 91.7%
+
 
 ##Blast Sox3 of *X. tropicalis* against both *de novo* assambly
 [cDNA & coding region](http://useast.ensembl.org/Xenopus_tropicalis/Gene/Summary?db=core;g=ENSXETG00000007607;r=GL172698.1:1304016-1305642;t=ENSXETT00000016558) (coding region tend to be more conserved) and total gene because good match (NCBI Reference Sequence: NW_004668241.1 - XenTrop7)
