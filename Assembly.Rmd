@@ -388,6 +388,52 @@ legend('topright',c("Female BJE3814","Male BJE3815"),lty=c(1,1),lwd=c(2.5,2.5),c
 dev.off()
 
 ```
+File too big for R. So obtain mean by scaffold using a perl script:
+```perl
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+open my $fh, '<', "abyssBJE3814_depth_BJE3814_BJE3815.depth" or die $!;
+
+my $new_file = "coverage_scaffold_abyssBJE3814.txt";
+# Use the open() function to create the file.
+unless(open FILE, '>'.$new_file) {
+    # Die with error message 
+    # if we can't open it.
+    die "\nUnable to create $new_file\n";
+}
+
+my $covM_mean ;
+my $covF_mean ;
+my $totalM = 0;
+my $totalF = 0;
+my $count = 0;
+
+while (<$fh>) {
+
+    my (@scaffold, $location, $covM, $covF) = split(/\t/);
+foreach @scaffold{
+    $totalM += $covM;
+    $totalF += $covF;
+    $count += 1;
+    $covM_mean = $totalM/$count ;
+    $covF_mean = $totalF/$count ;
+}
+}
+
+# Write some text to the new_file.
+
+my $y;
+    for ($y=0; $y<=$#scaffold; $y ++) {
+print FILE $scaffold[$y],"\t",$covM_mean[$y],"\t",$covF_mean[$y],"\n" ;
+}
+# close the file.
+close FILE;
+exit 0;
+```
+
 - Reads mapping against the chimeric SOAP de novo genome
 ```
 bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq
