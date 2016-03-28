@@ -376,6 +376,18 @@ samtools flagstat /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bw
 ```
 samtools depth aln_bwa_mem_BJE3814abyss_BJE3815reads_sorted.bam aln_bwa_mem_BJE3814_reads_abyss_sorted.bam > abyssBJE3814_depth_BJE3814_BJE3815.depth
 ```
+Mean by scaffold with R:
+```R
+cov_by_scaffold=read.table("abyssBJE3814_depth_BJE3814_BJE3815.depth",sep="\t",h=F)
+cov_MALE <- aggregate(cov_by_scaffold[,3]~cov_by_scaffold[,1],FUN=mean)
+cov_FEMALE <- aggregate(cov_by_scaffold[,4]~cov_by_scaffold[,1],FUN=mean)
+pdf('Coverage_abyssBJE3814_readsBJE3815_BJE3814.pdf')
+plot(cov_MALE[,2]~cov_MALE[,1],type="l",col="blue",ylab="depth",xlab="scaffolds",main="Depth coverage of abyss genome of BJE3814 (Hymenochirus Female)")
+lines (cov_FEMALE[,2], col="pink")
+legend('topright',c("Female BJE3814","Male BJE3815"),lty=c(1,1),lwd=c(2.5,2.5),col=c("pink","blue"))
+dev.off()
+
+```
 - Reads mapping against the chimeric SOAP de novo genome
 ```
 bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq
