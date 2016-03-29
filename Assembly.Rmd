@@ -135,7 +135,9 @@ write.fasta(sequences =sup_fem_caract, names=names(sup_fem_caract),file.out = "c
 
 ## After blast the contigs against xenTrop9 (female) to check female specificity
 ```
-
+```
+blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/blast_against_BJE3815/contigs_sup_fem_caract.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_masked_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3814_scaffolds_sup_caract_fem_xenTro9 -outfmt 6 -max_target_seqs 1
+```
 ##Blast Sox3 of *X. tropicalis* against both *de novo* assambly
 [cDNA & coding region](http://useast.ensembl.org/Xenopus_tropicalis/Gene/Summary?db=core;g=ENSXETG00000007607;r=GL172698.1:1304016-1305642;t=ENSXETT00000016558) (coding region tend to be more conserved) and total gene because good match (NCBI Reference Sequence: NW_004668241.1 - XenTrop7)
 
