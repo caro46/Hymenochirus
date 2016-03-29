@@ -396,6 +396,8 @@ samtools flagstat /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bw
 - Estimate the coverage for each abyss genome (female or male) using the 2 types of read (female + male)
 ```
 samtools depth aln_bwa_mem_BJE3814abyss_BJE3815reads_sorted.bam aln_bwa_mem_BJE3814_reads_abyss_sorted.bam > abyssBJE3814_depth_BJE3814_BJE3815.depth
+
+samtools depth aln_bwa_mem_BJE3815abyss_BJE3814reads_sorted.bam aln_bwa_mem_BJE3815_reads_abyss_sorted.bam > abyssBJE3815_depth_BJE3815_BJE3814.depth
 ```
 Mean by scaffold with R:
 ```R
