@@ -249,6 +249,8 @@ $status = system($commandline);
 # SOAP de novo 
 ```
 /work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/SOAPdenovo-127mer all -s /work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/hymeno.config -K 64 -R -o SOAP_Hymeno_genome 1>ass.log 2>ass.err
+
+/work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/SOAPdenovo-127mer all -s /work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/hymenoFEMALE.config -K 64 -R -o SOAP_Hymeno_FEMALEgenome 1>ass.log 2>ass.err
 ```
 ## SOAP chimeric genome (reads from mom + dad) - statistics for the scaffolds
 ```
