@@ -456,7 +456,84 @@ print FILE $scaffold[$y],"\t",$covM_mean[$y],"\t",$covF_mean[$y],"\n" ;
 close FILE;
 exit 0;
 ```
+Use R to identify which scaffolds of the female has no coverage in male but coverage in female
+```R
+######################FEMALE abyss
 
+setwd("/Users/Ben/Hymenochirus_genome")
+depth_fem_abyss <- read.table("output_abyssBJE3814_depth_BJE3814_BJE3815",h=T,sep="\t")
+head(depth_fem_abyss)
+plot(depth_fem_abyss$femalecoverage~depth_fem_abyss$Scaffold, col="pink",type="l")
+lines(depth_fem_abyss$malecoverage,col="blue")
+
+##ordering the table to have all the scaffolds with no coverage in male 1st
+DFA_order <- depth_fem_abyss[order(depth_fem_abyss$femalecoverage,depth_fem_abyss$malecoverage),]
+DFA_order_m <- depth_fem_abyss[order(depth_fem_abyss$malecoverage,depth_fem_abyss$femalecoverage),]
+
+head(DFA_order)
+head(DFA_order_m)
+plot(DFA_order_m$femalecoverage~DFA_order_m$Scaffold, col="pink",type="l")
+lines(DFA_order_m$malecoverage,col="blue")
+depth_fem_abyss$depth_fem_abyss <- as.numeric(depth_fem_abyss$depth_fem_abyss)
+
+max(DFA_order_m$femalecoverage) #561.7466
+min(DFA_order_m$femalecoverage) #9.801199
+mean(DFA_order_m$femalecoverage) #31.46771
+
+max(DFA_order_m$malecoverage) #926.2464
+min(DFA_order_m$malecoverage) #0
+mean(DFA_order_m$malecoverage) #24.59831
+
+#boxplot(DFA_order_m$femalecoverage)
+##to plot only wher we have no coverage in male
+DFA_subset <- DFA_order_m[DFA_order_m$malecoverage==0,]
+head(DFA_subset)
+x11()
+plot(DFA_subset$femalecoverage~DFA_subset$Scaffold,type="o",col="pink")
+tail(DFA_subset)
+#lines(DFA_subset$femalecoverage,col="pink")
+#lines(DFA_subset$malecoverage,col="blue")
+DFA_order_m$femalecoverage<- as.numeric(DFA_order_m$femalecoverage)
+DFA_subset2 <- DFA_subset[DFA_order_m$femalecoverage>200,]
+head(DFA_subset2)
+
+max(DFA_subset$femalecoverage) #60.39382
+min(DFA_subset$femalecoverage) #15.561
+mean(DFA_subset$femalecoverage) #26.2403
+length(DFA_subset$femalecoverage) #51
+min(DFA_subset$bp) #1015
+boxplot(DFA_subset$bp) 
+hist(DFA_subset$bp)
+max(DFA_subset$bp) #5585
+mean(DFA_subset$bp) #1798.294
+
+######################Preparing for blasting specific scaffolds to X. tropicalis female
+library(seqinr)
+fastafile <- read.fasta(file = "BJE3814-8.fa", 
+                        seqtype = "DNA",as.string = TRUE, set.attributes = FALSE)
+##need to delete "scaffold" from the name of the sequences
+DFA_subset$Scaffold <- gsub('scaffold_','',DFA_subset$Scaffold)
+sup_fem_caract_depth <- fastafile[(names(fastafile) %in% DFA_subset[,1])]
+write.fasta(sequences =sup_fem_caract_depth, names=names(sup_fem_caract_depth),file.out = "scaffolds_sup_fem_caract_depth.fa")
+head(sup_fem_caract_depth)
+```
+Results of blast when blasting specific female scaffolds identified by the coverage
+```
+[ben@iqaluk:/work/ben/2016_Hymenochirus/BJE3814/blast] more BJE3814_scaffolds_sup_caract_fem_depthresults_xenTro9_e5
+14152388	Chr06	84.85	66	10	0	769	834	32448736	32448801	7e-09	67.6
+17520648	scaffold_6869	82.67	75	11	2	705	778	3612	3685	3e-08	65.8
+24809196	Chr08	95.92	49	2	0	1947	1995	38166875	38166923	2e-12	80.5
+24809196	Chr08	97.62	42	1	0	1954	1995	16236610	16236651	3e-10	73.1
+24809196	Chr08	95.45	44	2	0	1952	1995	29811484	29811527	1e-09	71.3
+24809196	Chr08	95.45	44	2	0	1952	1995	74220364	74220321	1e-09	71.3
+24809196	Chr08	95.35	43	2	0	1953	1995	41087090	41087048	4e-09	69.4
+24809196	Chr08	95.35	43	2	0	1953	1995	91538871	91538913	4e-09	69.4
+24809196	Chr08	100.00	36	0	0	1953	1988	99772065	99772030	1e-08	67.6
+24809196	Chr08	94.74	38	2	0	1952	1989	48886695	48886732	2e-06	60.2
+24973669	scaffold_69	89.06	64	7	0	1617	1680	329682	329619	1e-12	80.5
+25029956	Chr06	94.74	38	2	0	1058	1095	121909434	121909397	2e-06	60.2
+25067851	Chr03	100.00	32	0	0	10	41	26199677	26199646	3e-06	60.2
+```
 - Reads mapping against the chimeric SOAP de novo genome
 ```
 bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq
