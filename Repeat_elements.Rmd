@@ -49,3 +49,11 @@ Unclear:  33655
 
 Total: 133570
 ```
+## Detection after assembly
+
+###RepeatMasker (`RepeatMasker version open-3.2.6`)
+
+```
+RepeatMasker [-options] <seqfiles(s) in fasta format>
+/usr/local/RepeatMasker/RepeatMasker -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis  -a /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8.fa
+```
