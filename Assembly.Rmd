@@ -546,6 +546,9 @@ Example of a command:
 25029956	Chr06	94.74	38	2	0	1058	1095	121909434	121909397	2e-06	60.2
 25067851	Chr03	100.00	32	0	0	10	41	26199677	26199646	3e-06	60.2
 ```
+
+**24761011** seemed to be a good scaffold (length of 2439bp, map with lenght <100bp, multiple hits on Chr.07) but when blast on Ensembl and Xenbase map ~also not bad on other chr. -> repeatmasker: nothing identified as repeat elements...) 
+
 - Reads mapping against the chimeric SOAP de novo genome
 ```
 bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq
