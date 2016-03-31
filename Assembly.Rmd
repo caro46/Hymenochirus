@@ -92,8 +92,8 @@ number_scaffolds_match_BJE3814_XenTrop9
 #[1] 38797
 ```
 In `BJE3814-stats.tab` from Abyss output: total number of scaffolds: 7557165 -> 38797/7557165 = 0.5% (FEMALE against xenTrop9). For BJE3815 (MALE): 38928/7481189 = 0.5%
-BJE3815 blast against BJE3814: 1446606/7481189 = 19%
-BJE3814 blast against BJE3815: 1442231/7557165 = 19%
+BJE3815 blast against BJE3814 (e-60): 1446606/7481189 = 19%
+BJE3814 blast against BJE3815 (e-60): 1442231/7557165 = 19%
 
 - **For e-20**:
 
