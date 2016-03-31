@@ -161,14 +161,14 @@ blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/Xtropicali
 blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/DMW_laevis_exon4.fa -db /work/ben/2016_Hymenochirus/BJE3815/BJE3815_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3815/blast/BJE3815-8_laevis_DMW_e4 -outfmt 6 -max_target_seqs 1
 ```
 
-|Genes (if not specified: X. trop)|Sox3 | Sox9 |AR | Dmrt1-bufo | dmrta1 | dmrta2 | Cyp17 | Cyp19 | foxl2 | DMW-e2-laevis | DMW-e3-laevis | DMW-e4-laevis | 
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|Female | &#10004;|&#10004;|&#10004;|&#88;|&#88;|&#88;|&#10004;|e-10|&#10004;|&#88;|&#88;|&#88;|
-|scaffoldIDabyss | 25157710|24992484|25169781|&#88;|&#88;|&#88;|25206211|25193799|25186476|&#88;|&#88;|&#88;|
-|Male |&#10004;|&#10004;|&#10004;|&#88;|&#88;|&#88;|&#10004;|e-10|&#10004;|&#88;|&#88;|&#88;|
-|scaffoldIDabyss | 24881349|24702845|24835785|&#88;|&#88;|&#88;|24853046|24128721|24861975|&#88;|&#88;|&#88;|
+|Genes (if not specified: X. trop)|Sox3 | Sox9 |AR | Dmrt1-bufo | dmrta1 | dmrta2 | Cyp17 | Cyp19 | foxl2 | DMW-e2-laevis | DMW-e3-laevis | DMW-e4-laevis | nop2|got1|
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+|Female | &#10004;|&#10004;|&#10004;|&#88;|&#88;|&#88;|&#10004;|e-10|&#10004;|&#88;|&#88;|&#88;|&#88;|&#88;|
+|scaffoldIDabyss | 25157710|24992484|25169781|&#88;|&#88;|&#88;|25206211|25193799|25186476|&#88;|&#88;|&#88;|&#88;|&#88;|
+|Male |&#10004;|&#10004;|&#10004;|&#88;|&#88;|&#88;|&#10004;|e-10|&#10004;|&#88;|&#88;|&#88;|&#88;|&#88;|
+|scaffoldIDabyss | 24881349|24702845|24835785|&#88;|&#88;|&#88;|24853046|24128721|24861975|&#88;|&#88;|&#88;|&#88;|&#88;|
 
-(Try with `-evalue 1e-10` for dmrta1-bufo/-trop/dmrta2/Cyp19/DMW: Cyp19 in female+male). 
+(Try with `-evalue 1e-10` for dmrta1-bufo/-trop/dmrta2/Cyp19/DMW/nop2: Cyp19 in female+male). Got1 only e-10.
 
 See [Uno et al. 2008](http://www.ncbi.nlm.nih.gov/pubmed/18484182) for more sex-determining genes:  AR, SF-1/Ad4BP, Sox3, Dmrt1 (might not related to sex determination in *Rana rugosa*). And [Nakamura 2009](http://www.ncbi.nlm.nih.gov/pubmed/18996493): CYP19, CYP17, Foxl2.
 
