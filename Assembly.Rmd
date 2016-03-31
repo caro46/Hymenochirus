@@ -521,6 +521,9 @@ sup_fem_caract_depth <- fastafile[(names(fastafile) %in% DFA_subset[,1])]
 write.fasta(sequences =sup_fem_caract_depth, names=names(sup_fem_caract_depth),file.out = "scaffolds_sup_fem_caract_depth.fa")
 head(sup_fem_caract_depth)
 ```
+When we blast the biggest "female specific" scaffold (24634183) identified with the coverage (cov. 0 for male) against: *X. tropicalis* 9 on xenbase: no match, 7 on Ensembl: multiple hit / length 24-58 bp / e-value ~9.10^-3 1.5^-6.
+We also identified scaffolds of female when we have a mean of scaffold coverage for male: `round(DFA_order_m$malecoverage)<=0` & `round(DFA_order_m$malecoverage)<=1`.
+
 Results of blast when blasting specific female scaffolds identified by the coverage
 ```
 [ben@iqaluk:/work/ben/2016_Hymenochirus/BJE3814/blast] more BJE3814_scaffolds_sup_caract_fem_depthresults_xenTro9_e5
