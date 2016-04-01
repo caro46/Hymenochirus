@@ -548,12 +548,15 @@ Example of a command:
 25029956	Chr06	94.74	38	2	0	1058	1095	121909434	121909397	2e-06	60.2
 25067851	Chr03	100.00	32	0	0	10	41	26199677	26199646	3e-06	60.2
 ```
+For **FEMALE**:
 
-**24761011** seemed to be a good scaffold (length of 2439bp, map with lenght <100bp, multiple hits on Chr.07) but when blast on Ensembl and Xenbase map ~also not bad on other chr. -> repeatmasker: nothing identified as repeat elements...) 
+-**24761011** seemed to be a good scaffold (length of 2439bp, map with lenght <100bp, multiple hits on Chr.07) but when blast on Ensembl and Xenbase map ~also not bad on other chr. -> repeatmasker: nothing identified as repeat elements...)
 
-**24680304**: 1353 bp, 260 bp identified as RE, Chr.05/02/09/01/04
-**24579464**: chr.10, also 03/04/02: when reblast on web and 07 -> repeatmasker: nothing
-**25155228** chr.07 - 9002 bp - repeatmasker 332 bp masked (1 LINE L2/CR1/Rex: 273 bp) 679 map.Position 53096997-53096331 -> arm  
+-**24680304**: 1353 bp, 260 bp identified as RE, Chr.05/02/09/01/04
+
+-**24579464**: chr.10, also 03/04/02: when reblast on web and 07 -> repeatmasker: nothing
+
+-**25155228** chr.07 - 9002 bp - repeatmasker 332 bp masked (1 LINE L2/CR1/Rex: 273 bp) 679 map.Position 53096997-53096331 -> arm  
 
 - Reads mapping against the chimeric SOAP de novo genome
 ```
