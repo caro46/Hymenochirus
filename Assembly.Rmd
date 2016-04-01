@@ -170,7 +170,7 @@ blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/BJE3814/blast/DMW_laevis
 
 (Try with `-evalue 1e-10` for dmrta1-bufo/-trop/dmrta2/Cyp19/DMW/nop2: Cyp19 in female+male). Got1/AMHR2 only e-10/e-2.
 
-See [Uno et al. 2008](http://www.ncbi.nlm.nih.gov/pubmed/18484182) for more sex-determining genes:  AR, SF-1/Ad4BP, Sox3, Dmrt1 (might not related to sex determination in *Rana rugosa*). And [Nakamura 2009](http://www.ncbi.nlm.nih.gov/pubmed/18996493): CYP19, CYP17, Foxl2.
+See [Uno et al. 2008](http://www.ncbi.nlm.nih.gov/pubmed/18484182) for more sex-determining genes:  AR, SF-1/Ad4BP, Sox3, Dmrt1 (might not related to sex determination in *Rana rugosa*). And [Nakamura 2009](http://www.ncbi.nlm.nih.gov/pubmed/18996493): CYP19, CYP17, Foxl2. See also [Uno et al. 2013] (http://www.nature.com/hdy/journal/v111/n5/full/hdy201365a.html) and [Brelsford et al. 2013](http://onlinelibrary.wiley.com/doi/10.1111/evo.12151/pdf).
 
 > Compare size + identity of the blast results between male/female.
 
