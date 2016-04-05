@@ -663,6 +663,19 @@ samtools flagstat /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bw
 
 samtools depth aln_bwa_mem_ChimereSOAP1415_BJE3814reads_sorted.bam aln_bwa_mem_ChimereSOAP1415_BJE3815reads_sorted.bam > SOAPchimereBJE3814_BJE3815_depth_reads_BJE3814_BJE3815.depth
 ```
+- Reads against SOAP female & male genomes
+
+Female genome:
+```
+bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_FEMALEgenome.scafSeq
+bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_FEMALEgenome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz > /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/aln_bwa_mem_SOAP_Hymeno_FEMALEgenome_BJE3814reads.sam
+bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_FEMALEgenome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz > /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/aln_bwa_mem_SOAP_Hymeno_FEMALEgenome_BJE3815reads.sam
+```
+Male genome:
+```
+bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_MALEgenome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz > /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/aln_bwa_mem_SOAP_Hymeno_MALEgenome_BJE3815reads.sam
+```
+
 ## [MUMMER](http://mummer.sourceforge.net/manual/#description)
 
 - Can be used for align multiple finished or draft genomes and identify at some point some repeats regions (align seq against itself)
