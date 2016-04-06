@@ -644,6 +644,35 @@ For **FEMALE**:
 
 -**25155228** chr.07 - 9002 bp - repeatmasker 332 bp masked (1 LINE L2/CR1/Rex: 273 bp) 679 map.Position 53096997-53096331 -> arm  
 
+INTERESTING:
+
+Female: scaffold_25155228: only BJE3814_scaffolds_sup_caract_fem_depth_round1_results_xenTro9_e5 longer than 500bp. Blast against male scaff24388608. Don't find it in the mean cov per scaffold against abyss male. Use grep command to have cov for all the positions of this scaffold.
+```
+grep '24388608' abyssBJE3815_depth_BJE3815_BJE3814.depth> abyssBJE3815_scaff24388608_depth_BJE3815_BJE3814.depth
+```
+```
+blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/blast_against_BJE3815/BJE3814_scaff25155228.fa -db /work/ben/2016_Hymenochirus/BJE3815/BJE3815_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast_against_BJE3815/BJE3814-scaff25155228_BJE3815_evalue20 -outfmt 6 -max_target_seqs 1
+```
+Blast results (same with e-value -5)
+```
+25155228	24388608	82.66	1113	145	32	3819	4911	3456	2372	0.0	 942
+25155228	24388608	77.89	615	82	28	3213	3809	5317	4739	8e-88	 333
+```
+```
+blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/blast_against_BJE3815/BJE3814_scaff25155228.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast_against_BJE3815/BJE3814-scaff25155228_BJE3814_evalue20 -outfmt 6 -max_target_seqs 1
+```
+Blast only against itself...
+Blast Male scaff24388608 against itself and female.
+Let's align scaffold female scaffold_25155228 and male scaff24388608.
+```
+blastn -evalue 1e-5 -query /work/ben/2016_Hymenochirus/mafft_align/BJE3815_scaff24388608.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/BJE3815/blast_against_BJE3814/BJE3815-scaff24388608_BJE3814_evalue5 -outfmt 6 -max_target_seqs 1
+```
+```
+Query_1	24615454	99.97	6467	2	0	1	6467	6467	1	0.0	1.193e+04
+Query_1	24615454	83.98	181	21	6	55	231	6237	6413	6e-38	 167
+```
+Blast only against itself (24388608)...
+
 - Reads mapping against the chimeric SOAP de novo genome
 ```
 bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq
