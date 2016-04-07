@@ -672,6 +672,8 @@ Query_1	24615454	99.97	6467	2	0	1	6467	6467	1	0.0	1.193e+04
 Query_1	24615454	83.98	181	21	6	55	231	6237	6413	6e-38	 167
 ```
 Blast only against itself (24388608)...
+RepeatMaker on male :L2/CR1/Rex 1 514 bp 7.95 %
+MAFFT alignment: 
 
 - Reads mapping against the chimeric SOAP de novo genome
 ```
