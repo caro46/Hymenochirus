@@ -11,7 +11,7 @@ samtools faidx /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss
 ```
 java -jar /usr/local/picard-tools-1.131/picard.jar CreateSequenceDictionary REFERENCE=/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq.fa OUTPUT=/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.dict
 ```
-(picard needs .fa or .fa.gz as an extension)
+(picard needs .fa or .fa.gz as an extension: `SOAP_Hymeno_genome.scafSeq.fa` just obtained by scp `SOAP_Hymeno_genome.scafSeq SOAP_Hymeno_genome.scafSeq.fa`).
 
 ## INDELs realignment
 ```perl
