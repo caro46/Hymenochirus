@@ -4,6 +4,14 @@
 We will use [GATK](https://www.broadinstitute.org/gatk/) & [samtools mpileup](http://samtools.sourceforge.net/mpileup.shtml) for variant callings. GATK tries to improve genotype calling by realigning indels, recalibrating base quality... 
 
 We will use our chimeric genome (female + male) produced by SOAP de novo as a reference genome (*X. tropicalis* too divergent), if its quality is OK (check by mapping the reads).
+## Reference - preparation
+```
+samtools faidx /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq.fa
+```
+```
+java -jar /usr/local/picard-tools-1.131/picard.jar CreateSequenceDictionary REFERENCE=/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq.fa OUTPUT=/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.dict
+```
+(picard needs .fa or .fa.gz as an extension)
 
 ## INDELs realignment
 ```perl
