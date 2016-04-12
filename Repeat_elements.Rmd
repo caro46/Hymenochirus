@@ -69,4 +69,4 @@ When we will obtain the results: add our library made previously with RepARK and
 ```
 blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/blast/repeat_masker_blast/scaffolds_sup_fem_caract_depth_round1.fa.masked -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_masked_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/repeat_masker_blast/scaffolds_sup_fem_caract_depth_round1_masked_blast_trop9 -outfmt 6 -max_target_seqs 1
 ```
-> No alignment length > 60bp... 
+> No alignment length > 60bp (use e-value of 10^-20 and 10^-5)... > suggest our potential "female specific regions" very repetitive. See what happens when we mask the whole genome and map read against it.
