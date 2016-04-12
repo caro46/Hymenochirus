@@ -724,6 +724,9 @@ promer --prefix=ref_qry ref.fasta qry.fasta
 /home/caroline/hymeno/MUMMER_analysis/MUMmer3.23/mummerplot /home/caroline/hymeno/MUMMER_analysis/BJE3814_promer/xentrop9_BJE3814.delta -R /home/caroline/hymeno/MUMMER_analysis/Xtropicalis_v9_repeatMasked.fa -Q /home/caroline/hymeno/MUMMER_analysis/BJE3814-8.fa --png --prefix mummerplot_promer_xenTrop9_BJE3814 --filter --layout
 ```
 
+## Ideas to try to improve *de novo* assembly:
+- Use [pagit tools](http://www.sanger.ac.uk/science/tools/pagit): ABACAS & IMAGE to order the scaffolds according to a reference genome and add "N" between the scaffolds.
+
 To check if something is running on the background:
 ```
 ps -elf | grep 'stampy'
