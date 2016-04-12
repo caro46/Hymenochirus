@@ -65,3 +65,8 @@ When we will obtain the results: add our library made previously with RepARK and
 ```
 /usr/local/RepeatMasker/RepeatMasker -lib /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/repeat_lib.fasta_1458332765/repeat_lib.fasta.lib -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/scaff_sup_fem_depthRound1  -a /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/scaff_sup_fem_depthRound1/scaffolds_sup_fem_caract_depth_round1.fa
 ```
+##### Blast the results
+```
+blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/blast/repeat_masker_blast/scaffolds_sup_fem_caract_depth_round1.fa.masked -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_masked_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/repeat_masker_blast/scaffolds_sup_fem_caract_depth_round1_masked_blast_trop9 -outfmt 6 -max_target_seqs 1
+```
+> No alignment length > 60bp... 
