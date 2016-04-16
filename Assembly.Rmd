@@ -706,7 +706,10 @@ Male genome:
 ```
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_MALEgenome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz > /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/aln_bwa_mem_SOAP_Hymeno_MALEgenome_BJE3815reads.sam
 ```
-
+- Blast SOAP scaffolds "female specific" (coverage) =>10,000bp
+```
+blastn -evalue 1e-10 -query /work/ben/2016_Hymenochirus/SOAP_genomes/SOAPchim_scaffolds_sup10000bp_sup_FEMALE_BJE3814_caract_depth_round1.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_masked_blastable -out /work/ben/2016_Hymenochirus/SOAP_genomes/SOAPchim_scaffolds_sup10000bp_sup_FEMALE_BJE3814_caract_depth_round1_results_xenTro9_e10 -outfmt 6 -max_target_seqs 1
+```
 ## [MUMMER](http://mummer.sourceforge.net/manual/#description)
 
 - Can be used for align multiple finished or draft genomes and identify at some point some repeats regions (align seq against itself)
