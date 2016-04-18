@@ -713,7 +713,10 @@ blastn -evalue 1e-10 -query /work/ben/2016_Hymenochirus/SOAP_genomes/SOAPchim_sc
 Blast of them against Abyss - scaffolds "female specific" (coverage reads F & M against AbyssF)
 ```
 makeblastdb -in /work/ben/2016_Hymenochirus/BJE3814/blast/scaffolds_sup_fem_caract_depth_round1.fa -dbtype nucl -title Hymeno_Female_BJE3814_scaffolds_sup_fem_caract_depth_round1 -out /work/ben/2016_Hymenochirus/SOAP_genomes/blast_spec_cov/BJE3814_abyss_depth_round1_scafSupCaract_blastable
-blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/SOAP_genomes/SOAPchim_scaffolds_sup10000bp_sup_FEMALE_BJE3814_caract_depth_round1.fa -db /work/ben/2016_Hymenochirus/SOAP_genomes/blast_spec_cov/BJE3814_abyss_depth_round1_scafSupCaract_blastable -out /work/ben/2016_Hymenochirus/SOAP_genomes/blast_spec_cov/SOAPchim_scaffolds_sup10000bp_sup_FEMALE_BJE3814_caract_depth_round1_BJE3814_abyss_depth_round1_scafSupCaract -outfmt 6 -max_target_seqs 1 
+blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/SOAP_genomes/SOAPchim_scaffolds_sup10000bp_sup_FEMALE_BJE3814_caract_depth_round1.fa -db /work/ben/2016_Hymenochirus/SOAP_genomes/blast_spec_cov/BJE3814_abyss_depth_round1_scafSupCaract_blastable -out /work/ben/2016_Hymenochirus/SOAP_genomes/blast_spec_cov/SOAPchim_scaffolds_sup10000bp_sup_FEMALE_BJE3814_caract_depth_round1_BJE3814_abyss_depth_round1_scafSupCaract -outfmt 6 -max_target_seqs 1
+
+#Without size lim (all scaff caract)
+blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/SOAP_genomes/SOAPchim_scaffolds_sup_FEMALE_BJE3814_caract_depth_round1.fa -db /work/ben/2016_Hymenochirus/SOAP_genomes/blast_spec_cov/BJE3814_abyss_depth_round1_scafSupCaract_blastable -out /work/ben/2016_Hymenochirus/SOAP_genomes/blast_spec_cov/SOAPchim_scaffolds_sup_FEMALE_BJE3814_caract_depth_round1_BJE3814_abyss_depth_round1_scafSupCaract -outfmt 6 -max_target_seqs 1
 ```
 ## [MUMMER](http://mummer.sourceforge.net/manual/#description)
 
