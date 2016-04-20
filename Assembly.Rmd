@@ -704,8 +704,23 @@ samtools view -bt /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/ab
 samtools sort /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_SOAP_Hymeno_FEMALEgenome_BJE3814reads.bam /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_SOAP_Hymeno_FEMALEgenome_BJE3814reads_sorted
 samtools index /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_SOAP_Hymeno_FEMALEgenome_BJE3814reads_sorted.bam
 samtools flagstat /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_SOAP_Hymeno_FEMALEgenome_BJE3814reads_sorted.bam > aln_bwa_mem_SOAP_Hymeno_FEMALEgenome_BJE3814reads_sorted_flagstat.txt
-
-
+```
+Results
+```
+evanslab:map_reads_to_abyss_genomes % more aln_bwa_mem_SOAP_Hymeno_FEMALEgenome_BJE3814reads_sorted_flagstat.txt
+976329475 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 duplicates
+976187730 + 0 mapped (99.99%:-nan%)
+976329475 + 0 paired in sequencing
+491308989 + 0 read1
+485020486 + 0 read2
+570664029 + 0 properly paired (58.45%:-nan%)
+976026768 + 0 with itself and mate mapped
+160962 + 0 singletons (0.02%:-nan%)
+438986696 + 0 with mate mapped to a different chr
+282020843 + 0 with mate mapped to a different chr (mapQ>=5)
+```
+```
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_FEMALEgenome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz > /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/aln_bwa_mem_SOAP_Hymeno_FEMALEgenome_BJE3815reads.sam
 ```
 Male genome:
@@ -715,7 +730,25 @@ samtools view -bt /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/ab
 samtools sort /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_SOAP_Hymeno_MALEgenome_BJE3815reads.bam /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_SOAP_Hymeno_MALEgenome_BJE3815reads_sorted
 samtools index /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_SOAP_Hymeno_MALEgenome_BJE3815reads_sorted.bam
 samtools flagstat /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/aln_bwa_mem_SOAP_Hymeno_MALEgenome_BJE3815reads_sorted.bam > aln_bwa_mem_SOAP_Hymeno_MALEgenome_BJE3815reads_sorted_flagstat.txt
-
+```
+Results
+```
+evanslab:map_reads_to_abyss_genomes % screen -r index_SOAP_male
+[detached]
+evanslab:map_reads_to_abyss_genomes % more aln_bwa_mem_SOAP_Hymeno_MALEgenome_BJE3815reads_sorted_flagstat.txt
+992443965 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 duplicates
+992271327 + 0 mapped (99.98%:-nan%)
+992443965 + 0 paired in sequencing
+498711108 + 0 read1
+493732857 + 0 read2
+581245873 + 0 properly paired (58.57%:-nan%)
+992097576 + 0 with itself and mate mapped
+173751 + 0 singletons (0.02%:-nan%)
+444491490 + 0 with mate mapped to a different chr
+285074221 + 0 with mate mapped to a different chr (mapQ>=5)
+```
+```
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_MALEgenome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz > /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/aln_bwa_mem_SOAP_Hymeno_MALEgenome_BJE3814reads.sam
 ```
 - Blast SOAP scaffolds "female specific" (coverage) =>10,000bp
