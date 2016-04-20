@@ -15,6 +15,12 @@ java -jar /usr/local/picard-tools-1.131/picard.jar CreateSequenceDictionary REFE
 ```
 java -Xmx20G -jar /usr/local/picard-tools-1.131/picard.jar CreateSequenceDictionary REFERENCE=/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq.fa OUTPUT=/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq.dict
 ```
+We made bigger scaffolds for Abyss genomes and try again (no pb anymore for making the `.dict` file
+```
+samtools faidx /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_abyss_supercontigs.fa
+java -jar /usr/local/picard-tools-1.131/picard.jar CreateSequenceDictionary REFERENCE=/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_abyss_supercontigs.fa OUTPUT=/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_abyss_supercontigs.dict
+```
+
 ## INDELs realignment
 ```perl
 #!/usr/bin/perl
