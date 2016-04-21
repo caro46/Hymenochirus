@@ -1,0 +1,247 @@
+### Script for Abyss genomes
+
+```perl
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use List::MoreUtils qw/ uniq /;
+
+
+# This program will make a fastafile that includes
+# concatenated reads from the a fragmented
+# genome assembly.  It will also make an index of where the
+# scaffolds are in each supercontig
+
+#perl Combines_fragmented_genome_into_supercontigs.pl /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_abyss_supercontigs.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_abyss_supercontigs_index
+
+# Combines_fragmented_genome_into_supercontigs.pl subset.fasta supercontigs.fasta supercontig.index
+
+my $minimum_length_of_contig_to_include = 500;
+my $max_length_of_supercontigs=200000000;
+my $supercontignumber=1;
+
+my $assembly = $ARGV[0]; #This is the input abyss assembly
+my $supercontigs = $ARGV[1]; # This is the fastaoutputfile 
+my $supercontigs_index = $ARGV[2]; # this is the index of the supercontigs
+my @temp;
+my $x;
+
+
+# open the concat fasta output file
+unless (open(OUTFILE, ">$supercontigs"))  {
+    print "I can\'t write to $supercontigs\n";
+    exit;
+}
+print "Creating output file: $supercontigs\n";
+
+# open the index output file
+unless (open(OUTFILE2, ">$supercontigs_index"))  {
+    print "I can\'t write to $supercontigs_index\n";
+    exit;
+}
+print "Creating output file: $supercontigs_index\n";
+
+
+# make concatenated chromosomes
+# and print it to the outfile
+# and make an index file too
+
+print OUTFILE ">supercontig_",$supercontignumber,"\n";
+print OUTFILE2 "supercontig\tscaffold\tstart\tstop\n";
+
+my $switch=0;
+my $last_position=1;
+
+# open the abyss assembly file
+unless (open DATAINPUT, $assembly) {
+    print "Can not find the abyss assembly input file $assembly.\n";
+    exit;
+}
+
+
+while ( my $line = <DATAINPUT>) {
+    @temp=split(/[>\s]/,$line);
+    if(($switch == 1)&&($line !~ /^>/)){
+        until(length($temp[0]) < 80){
+            print OUTFILE substr($temp[0], 0, 80),"\n";
+            $temp[0] = substr($temp[0],80);
+        }
+        print OUTFILE $temp[0];
+        for($x = 0 ; $x < (80-length($temp[0])) ; $x++ ) {
+            print OUTFILE "N";
+            $last_position+=1;
+        }
+        print OUTFILE "\n";
+        # add another line of Ns
+        for($x = 0 ; $x < 80 ; $x++ ) {
+            print OUTFILE "N";
+            $last_position+=1;
+        }   
+        print OUTFILE "\n";
+    }
+    elsif($line =~ /^>/){
+        if($last_position > $max_length_of_supercontigs){
+            $supercontignumber+=1;
+            print OUTFILE ">supercontig_",$supercontignumber,"\n";
+            $last_position=1;
+        }    
+        if($temp[2]>=$minimum_length_of_contig_to_include){ 
+            $switch = 1;
+            print OUTFILE2 $supercontignumber,"\t",$temp[1],"\t",$last_position,"\t",$last_position+$temp[2]-1,"\n";
+            $last_position = $last_position+$temp[2];
+        }
+        else{
+            $switch = 0;
+        }
+    }
+}
+close DATAINPUT;
+close OUTFILE;
+close OUTFILE2;
+
+
+```
+
+### Script for SOAP de novo genomes
+
+```perl
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use List::MoreUtils qw/ uniq /;
+
+
+# This program will make a fastafile that includes
+# concatenated reads from the a fragmented
+# genome assembly.  It will also make an index of where the
+# scaffolds are in each supercontig
+
+#perl Combines_fragmented_genome_into_supercontigs_SOAP_denovo.pl /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome_scafSeq_supercontigs.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome_scafSeq_supercontigs_index
+
+
+# Combines_fragmented_genome_into_supercontigs_SOAP_denovo.pl subset.fasta supercontigs.fasta supercontig.index
+
+my $minimum_length_of_contig_to_include = 500;
+my $max_length_of_supercontigs=200000000;
+my $supercontignumber=1;
+
+my $assembly = $ARGV[0]; #This is the input abyss assembly
+my $supercontigs = $ARGV[1]; # This is the fastaoutputfile 
+my $supercontigs_index = $ARGV[2]; # this is the index of the supercontigs
+my @temp;
+my $x;
+
+
+# open the concat fasta output file
+unless (open(OUTFILE, ">$supercontigs"))  {
+    print "I can\'t write to $supercontigs\n";
+    exit;
+}
+print "Creating output file: $supercontigs\n";
+
+# open the index output file
+unless (open(OUTFILE2, ">$supercontigs_index"))  {
+    print "I can\'t write to $supercontigs_index\n";
+    exit;
+}
+print "Creating output file: $supercontigs_index\n";
+
+
+# make concatenated chromosomes
+# and print it to the outfile
+# and make an index file too
+
+print OUTFILE ">supercontig_",$supercontignumber,"\n";
+print OUTFILE2 "supercontig\tscaffold\tstart\tstop\n";
+
+my $switch=0;
+my $last_position=1;
+
+# open the abyss assembly file
+unless (open DATAINPUT, $assembly) {
+    print "Can not find the abyss assembly input file $assembly.\n";
+    exit;
+}
+
+my $sequence=();
+my $sequence_length;
+my $last_scaffold_name;
+my $number_of_Ns=0;
+
+while ( my $line = <DATAINPUT>) {
+    @temp=split(/[>\s]/,$line);
+    if($line !~ /^>/){
+        $sequence=$sequence.$temp[0];
+    }
+    elsif($line =~ /^>/){
+        $sequence_length=length($sequence);  
+        if(defined($sequence)){
+           if(length($sequence)>=$minimum_length_of_contig_to_include){ 
+                $last_position+=$sequence_length;
+                until(length($sequence) < 80){
+                    print OUTFILE substr($sequence, 0, 80),"\n";
+                    $sequence = substr($sequence,80);
+                }
+                print OUTFILE $sequence;
+                for($x = 0 ; $x < (80-length($sequence)) ; $x++ ) {
+                    print OUTFILE "N";
+                    $last_position+=1;
+                    $number_of_Ns+=1;
+                }
+                print OUTFILE "\n";
+                # add another line of Ns
+                for($x = 0 ; $x < 80 ; $x++ ) {
+                    print OUTFILE "N";
+                   $last_position+=1;
+                   $number_of_Ns+=1;
+                }   
+                print OUTFILE "\n";
+                # update index
+                print OUTFILE2 $supercontignumber,"\t",$last_scaffold_name,"\t",$last_position-$sequence_length-$number_of_Ns,"\t",$last_position-$number_of_Ns-1,"\n";
+                $sequence=();
+                $number_of_Ns=0;
+           }
+        }
+        $last_scaffold_name=$temp[1];
+        if($last_position > $max_length_of_supercontigs){
+            $supercontignumber+=1;
+            print OUTFILE ">supercontig_",$supercontignumber,"\n";
+            $last_position=1;
+        }
+    }
+}
+
+# print out the last sequence
+        $sequence_length=length($sequence);  
+        if(defined($sequence)){
+           if(length($sequence)>=$minimum_length_of_contig_to_include){ 
+                $last_position+=$sequence_length;
+                until(length($sequence) < 80){
+                    print OUTFILE substr($sequence, 0, 80),"\n";
+                    $sequence = substr($sequence,80);
+                }
+                print OUTFILE $sequence;
+                for($x = 0 ; $x < (80-length($sequence)) ; $x++ ) {
+                    print OUTFILE "N";
+                    $last_position+=1;
+                    $number_of_Ns+=1;
+                }
+                print OUTFILE "\n";
+                # add another line of Ns
+                for($x = 0 ; $x < 80 ; $x++ ) {
+                    print OUTFILE "N";
+                   $last_position+=1;
+                   $number_of_Ns+=1;
+                }   
+                print OUTFILE "\n";
+                # update index
+               print OUTFILE2 $supercontignumber,"\t",$last_scaffold_name,"\t",$last_position-$sequence_length-$number_of_Ns,"\t",$last_position-$number_of_Ns-1,"\n";
+                $sequence=();
+           }
+        }
+
+
+close DATAINPUT;
+close OUTFILE;
+close OUTFILE2;
+```
