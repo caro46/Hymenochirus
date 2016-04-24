@@ -117,7 +117,8 @@ use List::MoreUtils qw/ uniq /;
 # scaffolds are in each supercontig
 
 #perl Combines_fragmented_genome_into_supercontigs_SOAP_denovo.pl /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome_scafSeq_supercontigs.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome_scafSeq_supercontigs_index
-
+#perl Combines_fragmented_genome_into_supercontigs_SOAP_denovo.pl /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_MALEgenome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_MALEgenome_scafSeq_supercontigs.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_MALEgenome_scafSeq_supercontigs_index
+#perl Combines_fragmented_genome_into_supercontigs_SOAP_denovo.pl /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_FEMALEgenome.scafSeq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_FEMALEgenome_scafSeq_supercontigs.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_FEMALEgenome_scafSeq_supercontigs_index
 
 # Combines_fragmented_genome_into_supercontigs_SOAP_denovo.pl subset.fasta supercontigs.fasta supercontig.index
 
