@@ -56,6 +56,8 @@ Total: 133570
 ```
 RepeatMasker [-options] <seqfiles(s) in fasta format>
 /usr/local/RepeatMasker/RepeatMasker -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis  -a /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8.fa
+
+/usr/local/RepeatMasker/RepeatMasker -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis -species "xenopus genus" -a /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8.fa
 ```
 When we will obtain the results: add our library made previously with RepARK and TEclass, with:
 ```
