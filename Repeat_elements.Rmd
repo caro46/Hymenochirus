@@ -63,6 +63,9 @@ When we will obtain the results: add our library made previously with RepARK and
 ```
 /usr/local/RepeatMasker/RepeatMasker -lib /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814 -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis  -a /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa
 ```
+```
+/usr/local/RepeatMasker/RepeatMasker -lib /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/repeat_lib.fasta_1458332765/repeat_lib.fasta.lib -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/BJE3814_libRepARKteclass14 -a /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa
+```
 #### On scaffolds identified as caracteristic of one sex
 ```
 /usr/local/RepeatMasker/RepeatMasker -lib /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/repeat_lib.fasta_1458332765/repeat_lib.fasta.lib -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/scaff_sup_fem_depthRound1  -a /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/scaff_sup_fem_depthRound1/scaffolds_sup_fem_caract_depth_round1.fa
@@ -77,7 +80,8 @@ blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/blast/repeat_mas
 ## Comparison with *X. tropicalis*
 
 Do it on trop9 not masked:
-
+```
 makeblastdb -in /work/ben/2016_Hymenochirus/xenTro9/Xtropicalis_v9.fa -dbtype nucl -title xenBase_xenTro9 -out /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_NOTmasked_blastable
 
 blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/ -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_NOTmasked_blastable -out /work/ben/2016_Hymenochirus/ -outfmt 6 -max_target_seqs 1
+```
