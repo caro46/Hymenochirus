@@ -85,3 +85,10 @@ makeblastdb -in /work/ben/2016_Hymenochirus/xenTro9/Xtropicalis_v9.fa -dbtype nu
 
 blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/ -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_NOTmasked_blastable -out /work/ben/2016_Hymenochirus/ -outfmt 6 -max_target_seqs 1
 ```
+### Notes:
+```
+#CHANGE REpARK lib into RepeatMasker lib
+sed 's/|TEclass result: /#/' /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/repeat_libRepARKTEclass_BJE3814_RepeatMaskerFormat.fasta > /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/repeat_libRepARKTEclass_BJE3814_RepeatMaskerFormat1.fasta
+#Try
+/usr/local/RepeatMasker/RepeatMasker -lib /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/repeat_libRepARKTEclass_BJE3814_RepeatMaskerFormat.fasta -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/BJE3814_libRepARKteclass14/try_specificRepeatMaskerFormat_on_trop9 -a /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/Xtrop/Xtropicalis_v9_repeatMasked_soft.fa
+```
