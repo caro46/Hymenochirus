@@ -270,11 +270,15 @@ samtools view -bt /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/ab
 
 samtools sort /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/super_contigs/BJE3814_genomeAbyss_supercontigs_reads14.bam /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/super_contigs/BJE3814_genomeAbyss_supercontigs_reads14sorted
 
+samtools flagstat /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/super_contigs/BJE3814_genomeAbyss_supercontigs_reads14sorted.bam > BJE3814_genomeAbyss_supercontigs_reads14_sorted_flagstat.txt
+
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8_abyss_supercontigs.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz > /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/BJE3815_genomeAbyss_supercontigs_reads15.sam
 
 samtools view -bt /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8_abyss_supercontigs.fa -o /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/BJE3815_genomeAbyss_supercontigs_reads15.bam /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/BJE3815_genomeAbyss_supercontigs_reads15.sam
 
 samtools sort /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/super_contigs/BJE3815_genomeAbyss_supercontigs_reads15.bam /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/super_contigs/BJE3815_genomeAbyss_supercontigs_reads15sorted
+
+samtools flagstat /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/super_contigs/BJE3815_genomeAbyss_supercontigs_reads15sorted.bam > BJE3815_genomeAbyss_supercontigs_reads15_sorted_flagstat.txt
 ```
 ```
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome_scafSeq_supercontigs.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz > /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/SOAP_Hymeno_genome_scafSeq_supercontigs_reads15.sam
