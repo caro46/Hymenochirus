@@ -787,3 +787,23 @@ To check if something is running on the background:
 ```
 ps -elf | grep 'stampy'
 ```
+
+## NOTES:
+- xenTrop9 `Xtropicalis_v9_repeatMasked.fa` of Xenbase: soft masked. To make manually hard masked:
+```
+tr '[:lower:]' 'N' Xtropicalis_v9_repeatMasked.fa > Xtropicalis_v9_repeatMasked_HARD_MASK.fa
+sed 's/>CNN/>Chr/' Xtropicalis_v9_repeatMasked_HARD_MASK.fa >Xtropicalis_v9_repeatMasked_HARD_MASK1.fa
+sed 's/>NNNNNNNN_/>scaffold_/' Xtropicalis_v9_repeatMasked_HARD_MASK1.fa >Xtropicalis_v9_repeatMasked_HARD_MASK2.fa
+```
+Then run blast and BWA again
+```
+makeblastdb -in /work/ben/2016_Hymenochirus/xenTro9/Xtropicalis_v9_repeatMasked_HARD_MASK.fa -dbtype nucl -title xenBase_xenTro9_HARD -out /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable
+blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/blast/scaffolds_sup_fem_caract_depth_round1.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3814_scaffolds_sup_caract_fem_depth_round1_results_xenTro9_hard_mask_e20 -outfmt 6 -max_target_seqs 1
+blastn -evalue 1e-5 -query /work/ben/2016_Hymenochirus/BJE3814/blast/scaffolds_sup_fem_caract_depth_round1.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3814_scaffolds_sup_caract_fem_depth_round1_results_xenTro9_hard_mask_e5 -outfmt 6 -max_target_seqs 1
+```
+```
+bwa index /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/Xtrop/Xtropicalis_v9_repeatMasked_HARD_MASK.fa
+bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/Xtrop/Xtropicalis_v9_repeatMasked_HARD_MASK.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3814_S3_L003_R2_001_trim_paired.cor.fastq.gz >/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/aln_bwa_mem_Xtrop9_HARD_BJE3814_reads.sam
+
+bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/Xtrop/Xtropicalis_v9_repeatMasked_HARD_MASK.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz >/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/aln_bwa_mem_Xtrop9_HARD_BJE3815_reads.sam
+```
