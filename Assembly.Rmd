@@ -807,3 +807,9 @@ bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/Xtrop/
 
 bwa mem /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/Xtrop/Xtropicalis_v9_repeatMasked_HARD_MASK.fa /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R1_001_trim_paired.cor.fastq.gz /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/TCAG_20160129/160106_E00389_0017_AHK3LJCCXX/BJE3815_S4_L004_R2_001_trim_paired.cor.fastq.gz >/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/aln_bwa_mem_Xtrop9_HARD_BJE3815_reads.sam
 ```
+To do:
+```
+blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/BJE3814-8.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3814-8_xenTro9_hard_mask_e20 -outfmt 6 -max_target_seqs 1
+
+blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/BJE3815-8.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3815-8_xenTro9_hard_mask_e20 -outfmt 6 -max_target_seqs 1
+```
