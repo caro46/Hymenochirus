@@ -78,7 +78,10 @@ blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/blast/repeat_mas
 ```
 > No alignment length > 60bp (use e-value of 10^-20 and 10^-5)... > suggest our potential "female specific regions" very repetitive. See what happens when we mask the whole genome and map read against it.
 
-
+#### Try on super contigs
+```
+/usr/local/RepeatMasker/RepeatMasker -lib /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/repeat_lib.fasta_1458332765/repeat_lib.fasta.lib -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/BJE3814_libRepARKteclass14/super_contigs -a /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_abyss_supercontigs.fa
+```
 ## Comparison with *X. tropicalis*
 
 Do it on trop9 not masked:
