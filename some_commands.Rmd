@@ -1,0 +1,7 @@
+#### Size of the subdirectories within a directory
+`du -h --max-depth=1`
+#### `.tar` files
+- How to compress into a `.tar` file
+`tar -cvf Sample_BenEvansBJE3652_180bp_Library.tar Sample_BenEvansBJE3652_180bp_Library`
+- See the files contained in a `.tar` file
+`tar -tf BJE3652_6KB_Data_first_lane.tar`
