@@ -85,6 +85,13 @@ blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/blast/repeat_mas
 You can choose only one species option (including -species
 and -lib) at the time.
 evanslab:super_contigs % /usr/local/RepeatMasker/RepeatMasker -lib /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/repeat_lib.fasta_1458332765/repeat_lib.fasta.lib -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/BJE3814_libRepARKteclass14/super_contigs -a -qq /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_abyss_supercontigs.fa
+
+/usr/local/RepeatMasker/RepeatMasker -lib /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3815/repeat_lib.fasta_1458400567/repeat_lib.fasta.lib -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/BJE3815_libRepARKteclass15/super_contigs -a -qq -par 2 /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8_abyss_supercontigs.fa
+
+#Merge the 2 libraries
+cat /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3814/repeat_lib.fasta_1458332765/repeat_lib.fasta.lib /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3815/repeat_lib.fasta_1458400567/repeat_lib.fasta.lib > repeat_library_Female_Male_Merged_libRepARKTEclass
+
+/usr/local/RepeatMasker/RepeatMasker -lib /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/SOAP_chimerical_genome/repeat_library_Female_Male_Merged_libRepARKTEclass.fasta -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/SOAP_chimerical_genome -a -qq -par 2 /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome_scafSeq_supercontigs.fa
 ```
 ## Comparison with *X. tropicalis*
 
