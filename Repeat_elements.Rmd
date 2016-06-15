@@ -68,7 +68,7 @@ When we will obtain the results: add our library made previously with RepARK and
 
 /usr/local/RepeatMasker/RepeatMasker -lib /home/evanslab/Hymeno_fastqc/RepArk_analysis/repeat_BJE3815/repeat_lib.fasta_1458400567/repeat_lib.fasta.lib -dir /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/BJE3815_libRepARKteclass15 -par 5 -a /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8.fa
 ```
-When we use `-lib` option Repeatmasker will also looks for low complexity and simple repetitive DNA. We finally decided to use `-qq` option because of the huge amount of time necessary to run RepeatMasker on big draft genomes even using `-par 5` (that slowed down the jobs of everybody). Because our goal it's to mask the repeat elements to increase the mapping of future GBS data, it is OK to use `-qq` and miss more RE.
+When we use `-lib` option Repeatmasker will also looks for low complexity and simple repetitive DNA. We finally decided to use `-qq` (see "Try on super contigs" section) option because of the huge amount of time necessary to run RepeatMasker on big draft genomes even using `-par 5` (that slowed down the jobs of everybody). Because our goal it's to mask the repeat elements to increase the mapping of future GBS data, it is OK to use `-qq` and miss more RE.
 
 #### On scaffolds identified as caracteristic of one sex
 ```
