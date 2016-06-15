@@ -65,7 +65,7 @@ $status = system($commandline);
 ## Base recalibration
 
 We use [Haplotype Caller](https://www.broadinstitute.org/gatk/guide/tagged?tag=haplotypecaller) to call the SNPs as suggested on GATK website.   
-```
+```perl
 #!/usr/bin/perl
 use warnings;
 use strict;
