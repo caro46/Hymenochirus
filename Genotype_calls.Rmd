@@ -133,3 +133,15 @@ $commandline = $commandline." -o recalibrated_round1.vcf";
 
 $status = system($commandline);
 ```
+Note: 
+
+- The base recalibration step producing the recalibration table requires too much memory (still memory error with `-Xmx10G`). 
+- Many of Perl scripts of [VCFtools](http://vcftools.sourceforge.net/perl_module.html) require compressed and indexed files. If it is the case for the desired scrip: use bgzip & tabix as follow. 
+```
+bgzip BJE3814_nonrecal_varonly.vcf
+tabix -p vcf BJE3814_nonrecal_varonly.vcf.gz
+```
+## tab-delimited format
+```
+/usr/local/vcftools/src/perl/vcf-to-tab < BJE3814_nonrecal_varonly.vcf > BJE3814_nonrecal_varonly.tab
+```
