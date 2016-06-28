@@ -145,3 +145,15 @@ tabix -p vcf BJE3814_nonrecal_varonly.vcf.gz
 ```
 /usr/local/vcftools/src/perl/vcf-to-tab < BJE3814_nonrecal_varonly.vcf > BJE3814_nonrecal_varonly.tab
 ```
+## Stats
+```
+/usr/local/vcftools/src/perl/vcf-stats BJE3814_nonrecal_varonly.vcf.gz
+```
+## Nucleotide diversity
+```
+zcat BJE3814_nonrecal_varonly.vcf.gz | /usr/local/vcftools/src/cpp/vcftools --vcf --window-pi 500000 --out BJE3814_nonrecal_varonly_PIdiv_w500000
+```
+To select one supercontig
+```
+vcftools --gzvcf BJE3814_nonrecal_varonly.vcf.gz --chr "supercontig_1" --recode  --recode-INFO-all | gzip -c > BJE3814_nonrecal_varonly_supercontig_1.vcf.gz
+```
