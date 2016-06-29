@@ -163,6 +163,8 @@ zcat BJE3814_nonrecal_varonly.vcf.gz | /usr/local/vcftools/src/cpp/vcftools --vc
 WORKING:
 vcftools --gzvcf SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz --window-pi 1000 --out SOAP_chim_nonrecal_ALL_CONFIDENT_SITES_PIdiv_w1000
 /usr/local/vcftools/src/cpp/vcftools --gzvcf SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz --window-pi 500000 --out SOAP_chim_nonrecal_ALL_CONFIDENT_SITES_PIdiv_w500000
+
+/usr/local/vcftools/src/cpp/vcftools --gzvcf SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz --window-pi 1000 --indv /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/samfiles/SOAP_Hymeno_genome_scafSeq_supercontigs_reads14_sorted --out SOAP_chim_nonrecal_ALL_CONFIDENT_SITES_PIdiv_w1000_BJE3814only
 ```
 To select one supercontig
 ```
