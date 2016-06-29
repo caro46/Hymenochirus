@@ -161,7 +161,7 @@ WORKING (don't forget the little "-" after `--vcf`):
 zcat BJE3814_nonrecal_varonly.vcf.gz | /usr/local/vcftools/src/cpp/vcftools --vcf - --window-pi 500000 --out BJE3814_nonrecal_varonly_PIdiv_w500000
 
 WORKING:
-vcftools --gzvcf SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz --window-pi 1000 --out try
+vcftools --gzvcf SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz --window-pi 1000 --out SOAP_chim_nonrecal_ALL_CONFIDENT_SITES_PIdiv_w1000
 /usr/local/vcftools/src/cpp/vcftools --gzvcf SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz --window-pi 500000 --out SOAP_chim_nonrecal_ALL_CONFIDENT_SITES_PIdiv_w500000
 ```
 To select one supercontig
