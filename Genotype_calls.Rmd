@@ -140,14 +140,20 @@ Note:
 ```
 bgzip BJE3814_nonrecal_varonly.vcf
 tabix -p vcf BJE3814_nonrecal_varonly.vcf.gz
+#Example on info
+/usr/local/tabix/bgzip SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf
+/usr/local/tabix/tabix -p vcf SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz
 ```
 ## tab-delimited format
 ```
 /usr/local/vcftools/src/perl/vcf-to-tab < BJE3814_nonrecal_varonly.vcf > BJE3814_nonrecal_varonly.tab
+#If zipped file:
+zcat SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz | /usr/local/vcftools/src/perl/vcf-to-tab > SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.tab
 ```
 ## Stats
 ```
 /usr/local/vcftools/src/perl/vcf-stats BJE3814_nonrecal_varonly.vcf.gz
+/usr/local/vcftools/src/perl/vcf-stats SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz -p SOAP_chim_nonrecal_ALL_CONFIDENT_SITES_stats
 ```
 ## Nucleotide diversity
 ```
