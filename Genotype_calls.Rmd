@@ -157,7 +157,12 @@ zcat SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz | /usr/local/vcftools/src/per
 ```
 ## Nucleotide diversity
 ```
+NOT WORKING:
 zcat BJE3814_nonrecal_varonly.vcf.gz | /usr/local/vcftools/src/cpp/vcftools --vcf --window-pi 500000 --out BJE3814_nonrecal_varonly_PIdiv_w500000
+
+WORKING:
+vcftools --gzvcf SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz --window-pi 1000 --out try
+/usr/local/vcftools/src/cpp/vcftools --gzvcf SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz --window-pi 500000 --out SOAP_chim_nonrecal_ALL_CONFIDENT_SITES_PIdiv_w500000
 ```
 To select one supercontig
 ```
