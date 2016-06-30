@@ -6,7 +6,7 @@
 - See the files contained in a `.tar` file
 `tar -tf BJE3652_6KB_Data_first_lane.tar`
 
-#### Extract one seq from q big fasta file 
+#### Extract one seq from a big fasta file 
 ```
 samtools faidx SOAP_Hymeno_genome_scafSeq_supercontigs.fa
 samtools faidx SOAP_Hymeno_genome_scafSeq_supercontigs.fa supercontig_7 >SOAP_Hymeno_genome_scafSeq_supercontigs_7only.fa
