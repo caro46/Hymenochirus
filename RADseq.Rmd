@@ -1,0 +1,13 @@
+## Demultiplexing
+ 
+`RADpools --version`:
+Getopt::Long::GetOptions version 2.38; Perl version 5.10.1
+```
+/usr/local/RADtools -v -i [file] -d [output directory name, match sample tags file name]  -m [max_processes, default:1, set to 2] -e [restriction enzyme seq]
+```
+## [Checking sequences quality](https://github.com/caro46/Hymenochirus/blob/master/Starting.Rmd)
+- Fastqc
+- Trimmomatic
+- Quake (?)
+
+## GATK + vcftools
