@@ -11,3 +11,8 @@
 samtools faidx SOAP_Hymeno_genome_scafSeq_supercontigs.fa
 samtools faidx SOAP_Hymeno_genome_scafSeq_supercontigs.fa supercontig_7 >SOAP_Hymeno_genome_scafSeq_supercontigs_7only.fa
 ```
+### Perl libraries
+```
+cpan App::cpanminus
+cpan List::MoreUtils
+```
