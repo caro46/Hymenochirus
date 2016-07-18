@@ -144,6 +144,8 @@ tabix -p vcf BJE3814_nonrecal_varonly.vcf.gz
 /usr/local/tabix/bgzip SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf
 /usr/local/tabix/tabix -p vcf SOAP_chim_nonrecal_ALL_CONFIDENT_SITES.vcf.gz
 ```
+- RepeatMasker takes too much time to mask our genomes (even using the `qq` option). In order to deal with repeat elements and limit biais in evaluation of reads coverage: will use `--maxReadsInRegionPerSample` of HaplotypeCaller for RadSeq data.
+
 ## tab-delimited format
 ```
 /usr/local/vcftools/src/perl/vcf-to-tab < BJE3814_nonrecal_varonly.vcf > BJE3814_nonrecal_varonly.tab
