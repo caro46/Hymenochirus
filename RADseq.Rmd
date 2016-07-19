@@ -19,3 +19,5 @@ Getopt::Long::GetOptions version 2.38; Perl version 5.10.1
 
 ##JOINMAP?
 Compare linkage dist. between male and female?
+
+## [R OneMap](http://augusto-garcia.github.io/statgen-esalq/Hapmap-and-VCF-formats-and-its-integration-with-onemap/)
