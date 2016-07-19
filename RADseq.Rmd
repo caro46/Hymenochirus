@@ -13,6 +13,9 @@ Getopt::Long::GetOptions version 2.38; Perl version 5.10.1
 ## GATK + vcftools
 - linkage stats: `./vcftools --vcf input_data.vcf --hap-r2 --ld-window-bp 50000 --out ld_window_50000`.
 
+## Checking sex
+- SNPhylo / SNPrelate (R) using vcf file ? -> build a phylo to check males all together and females separated (if not: check sex on pictures + individual under microscope)
+
 ## Plink 
 - vcftools `./vcftools --vcf input_data.vcf --plink --chr 1 --out output_in_plink` (output `.map` `.ped`).
 - with R: Manhattan plot
