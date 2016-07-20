@@ -3,7 +3,7 @@
 `RADpools --version`:
 Getopt::Long::GetOptions version 2.38; Perl version 5.10.1
 ```
-/usr/local/RADtools -v -i [file] -d [output directory name, match sample tags file name]  -m [max_processes, default:1, set to 2] -e [restriction enzyme seq]
+/usr/local/RADtools RADpools -v [verbose] -f [If a MID sequence in a read contains an error, reads will be accepted and assigned to the nearest pool] -i [file] -d [output directory name, match sample tags file name]  -m [max_processes, default:1, set to 2] -e [restriction enzyme seq] -o [output_fastq]
 ```
 ## [Checking sequences quality](https://github.com/caro46/Hymenochirus/blob/master/Starting.Rmd)
 - Fastqc
