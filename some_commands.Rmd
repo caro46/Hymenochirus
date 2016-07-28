@@ -16,3 +16,7 @@ samtools faidx SOAP_Hymeno_genome_scafSeq_supercontigs.fa supercontig_7 >SOAP_Hy
 cpan App::cpanminus
 cpan List::MoreUtils
 ```
+### Counting number of files which match patterns in their names within a directory
+```
+find . -maxdepth 1 -name "*L006*_R1*_trim_paired.fastq.gz"| wc -l
+```
