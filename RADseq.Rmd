@@ -4,6 +4,8 @@
 Getopt::Long::GetOptions version 2.38; Perl version 5.10.1
 ```
 /usr/local/RADtools RADpools -v [verbose] -f [If a MID sequence in a read contains an error, reads will be accepted and assigned to the nearest pool] -i [file] -d [output directory name, match sample tags file name]  -m [max_processes, default:1, set to 2] -e [restriction enzyme seq] -o [output_fastq]
+
+/usr/local/RADtools/RADpools -v -f -i /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq -d /home/evanslab/Hymeno_fastqc/GBS_analysis/Hymenochirus_barcode -m 2 -s -o
 ```
 ## [Checking sequences quality](https://github.com/caro46/Hymenochirus/blob/master/Starting.Rmd)
 - Fastqc
