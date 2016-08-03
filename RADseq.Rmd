@@ -3,10 +3,57 @@
 `RADpools --version`:
 Getopt::Long::GetOptions version 2.38; Perl version 5.10.1
 ```
-/usr/local/RADtools RADpools -v [verbose] -f [If a MID sequence in a read contains an error, reads will be accepted and assigned to the nearest pool] -i [file] -d [output directory name, match sample tags file name]  -m [max_processes, default:1, set to 2] -e [restriction enzyme seq] -o [output_fastq]
+/usr/local/RADtools/RADpools -v [verbose] -f [If a MID sequence in a read contains an error, reads will be accepted and assigned to the nearest pool] -i [file] -d [output directory name, match sample tags file name]  -m [max_processes, default:1, set to 2] -e [restriction enzyme seq] -s -o [output_fastq]
 
 /usr/local/RADtools/RADpools -v -f -i /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq -d /home/evanslab/Hymeno_fastqc/GBS_analysis/Hymenochirus_barcode -m 2 -s -o
 ```
+OR
+```
+/usr/local/fastqc/fastqc -o /home/evanslab/Hymeno_fastqc/GBS_analysis/ /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq
+```
+No overrepresented sequences identified.
+```
+/usr/local/bin/process_radtags -f /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq -b /home/evanslab/Hymeno_fastqc/GBS_analysis/Hymenochirus_barcode -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex -e sbfI -t 75 -r -c -q --filter_illumina
+```
+Results
+```
+159322572 total sequences;
+  0 failed Illumina filtered reads;
+  18094064 ambiguous barcode drops;
+  8805 low quality read drops;
+  140545732 ambiguous RAD-Tag drops;
+673971 retained reads.
+```
+with -t 70
+```
+159322572 total sequences;
+  0 failed Illumina filtered reads;
+  18094064 ambiguous barcode drops;
+  8035 low quality read drops;
+  140545732 ambiguous RAD-Tag drops;
+674741 retained reads.
+```
+Sounds like people had issue with enzyme sites containing `N` or not being recognized by the software.
+```
+cat /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq | grep "^TCCGGAGCGCTGCAGG" | cut -c 9-16 | sort | uniq -c
+ 879367 GCTGCAGG
+```
+Checking using different barcode, we always obtained `GCTGCAGG` which is 1 bp difference from the restriction site in their [paper](http://www.g3journal.org/content/1/3/171.full) `CCTGCAGG`.
+
+Let's use the option `--disable_rad_check` for not checking the restriction site.
+```
+/usr/local/bin/process_radtags -f /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq -b /home/evanslab/Hymeno_fastqc/GBS_analysis/Hymenochirus_barcode -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex -e sbfI -t 70 -r -c -q --filter_illumina --disable_rad_check
+```
+Results
+```
+159322572 total sequences;
+  0 failed Illumina filtered reads;
+  18094064 ambiguous barcode drops;
+  1382003 low quality read drops;
+  0 ambiguous RAD-Tag drops;
+139846505 retained reads.
+```
+
 ## [Checking sequences quality](https://github.com/caro46/Hymenochirus/blob/master/Starting.Rmd)
 - Fastqc
 - Trimmomatic
