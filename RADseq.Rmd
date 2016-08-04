@@ -52,6 +52,9 @@ Results
 0 records with high-quality sequences less than 85 bp long
 Done
 ```
+```
+perl -I /home/evanslab/RADtools-master /home/evanslab/RADtools-master/RADpools -v -f -i /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq -d Hymenochirus_barcode_RADpools_correct.pools -m 2 -s -o
+```
 ###STACKS: process_radtags
 ```
 /usr/local/fastqc/fastqc -o /home/evanslab/Hymeno_fastqc/GBS_analysis/ /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq
@@ -80,10 +83,26 @@ with -t 70
 ```
 Sounds like people had issue with enzyme sites containing `N` or not being recognized by the software.
 ```
-cat /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq | grep "^TCCGGAGCGCTGCAGG" | cut -c 9-16 | sort | uniq -c
+cat /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq | grep "^TCCGGAGC" | cut -c 9-16 | sort | uniq -c
+...
+ 50 CCTGCAGG
+ ...
+ 393 GCTGCAAA
+ 178 GCTGCAAC
+ 263 GCTGCAAG
+ 369 GCTGCAAT
+ 395 GCTGCACA
+ 207 GCTGCACC
+ 327 GCTGCACG
+ 219 GCTGCACT
+ 665 GCTGCAGA
+ 3161 GCTGCAGC
  879367 GCTGCAGG
+ ...
+ 7 NCTGCAGG
+ ...
 ```
-Checking using different barcode, we always obtained `GCTGCAGG` which is only 1 bp difference from the restriction site in their [paper](http://www.g3journal.org/content/1/3/171.full) `CCTGCAGG`.
+Variations from the restriction site in their [paper](http://www.g3journal.org/content/1/3/171.full) `CCTGCAGG`.
 
 ***"Uncalled nucleotides, nonexistent barcodes, or deficient restriction enzyme cut sites can also cause Stacks to exclude reads. Stacks can correct isolated errors in the restriction cut site sequence or in the barcode if the barcode is two or more nucleotides distant in sequence space from other barcodes used in the same sequencing library. "*** ([Catchen et al. 2011](http://www.g3journal.org/content/1/3/171.full))
 
