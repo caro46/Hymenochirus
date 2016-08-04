@@ -119,6 +119,9 @@ Results
   0 ambiguous RAD-Tag drops;
 139846505 retained reads.
 ```
+```
+/usr/local/bin/process_radtags -f /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq -b /home/evanslab/Hymeno_fastqc/GBS_analysis/Hymenochirus_barcode_corr -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex -e sbfI -t 70 -r -c -q --filter_illumina
+```
 
 ## [Checking sequences quality](https://github.com/caro46/Hymenochirus/blob/master/Starting.Rmd)
 - Fastqc
