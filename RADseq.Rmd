@@ -166,6 +166,10 @@ Check that each barcode is unique
 ```
 sort Hymenochirus_barcode_corr | uniq -c
 ```
+Checking the quality again
+```
+fastqc -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/fastqc_results /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/BJE*/BJE*.fq
+```
 ## [Checking sequences quality](https://github.com/caro46/Hymenochirus/blob/master/Starting.Rmd)
 - Fastqc
 - Trimmomatic
