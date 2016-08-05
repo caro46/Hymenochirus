@@ -65,6 +65,18 @@ perl -I /home/evanslab/RADtools-master /home/evanslab/RADtools-master/RADpools -
 0 records with high-quality sequences less than 93 bp long
 Done
 ```
+```
+perl -I /home/evanslab/RADtools-master /home/evanslab/RADtools-master/RADpools -v -f -i /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq -d Hymenochirus_barcode_RADpools_no_overhang -m 2 -s -o
+
+141342773 records loaded, but discarded
+0 records not in FASTQ format,
+0 records not in RAD format,
+17458393 records not matching restriction enzyme site,
+521406 records not matching any listed P1 MIDs,
+0 records not matching any listed P2 MIDs, and
+0 records with high-quality sequences less than 91 bp long
+Done
+```
 ###STACKS: process_radtags
 ```
 /usr/local/fastqc/fastqc -o /home/evanslab/Hymeno_fastqc/GBS_analysis/ /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq
@@ -139,6 +151,16 @@ Results
   193 low quality read drops;
   145138911 ambiguous RAD-Tag drops;
 23067 retained reads.
+```
+```
+/usr/local/bin/process_radtags -f /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/563_S7_L007_R1_001.fastq -b /home/evanslab/Hymeno_fastqc/GBS_analysis/Hymenochirus_barcode_process_radtags -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex -e sbfI -t 70 -r -c -q --filter_illumina
+
+159322572 total sequences;
+  0 failed Illumina filtered reads;
+  14974841 ambiguous barcode drops;
+  1178793 low quality read drops;
+  3004958 ambiguous RAD-Tag drops;
+140163980 retained reads.
 ```
 Check that each barcode is unique
 ```
