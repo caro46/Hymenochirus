@@ -20,3 +20,7 @@ cpan List::MoreUtils
 ```
 find . -maxdepth 1 -name "*L006*_R1*_trim_paired.fastq.gz"| wc -l
 ```
+###Replace tab in a file
+```
+sed -i 's/\t/ /g' Hymenochirus_barcode_RADpools_no_overhang.pools
+```
