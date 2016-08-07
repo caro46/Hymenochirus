@@ -259,6 +259,9 @@ $status = system($commandline);
 
 Try to improve - multi kmers approach
 /home/evanslab/tetra_project/Assembly/SOAP/SOAPdenovo2-src-r240/SOAPdenovo-63mer all -s /home/evanslab/Hymeno_fastqc/assembly_SOAP_info_chimerical/hymeno.config -K 43 -m 63 -R -V -p 10 -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/Assembly/SOAP_Hymeno_genome_chimerical_43_63mers 
+killed
+
+/home/evanslab/tetra_project/Assembly/SOAP/SOAPdenovo2-src-r240/SOAPdenovo-63mer all -s /home/evanslab/Hymeno_fastqc/assembly_SOAP_info_chimerical/hymeno.config -K 63 -R -V -p 10 -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/Assembly/SOAP_Hymeno_genome_chimerical_63mers
 ```
 ## SOAP chimeric genome (reads from mom + dad) - statistics for the scaffolds
 ```
