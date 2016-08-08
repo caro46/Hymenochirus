@@ -262,6 +262,16 @@ Try to improve - multi kmers approach
 killed
 
 /home/evanslab/tetra_project/Assembly/SOAP/SOAPdenovo2-src-r240/SOAPdenovo-63mer all -s /home/evanslab/Hymeno_fastqc/assembly_SOAP_info_chimerical/hymeno.config -K 63 -R -V -p 10 -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/Assembly/SOAP_Hymeno_genome_chimerical_63mers
+killed
+
+/home/evanslab/tetra_project/Assembly/SOAP/SOAPdenovo2-src-r240/SOAPdenovo-63mer all -s /home/evanslab/Hymeno_fastqc/assembly_SOAP_info_chimerical/hymeno.config -K 61 -R -V -p 10 -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/Assembly/SOAP_Hymeno_genome_chimerical_61mers
+killed
+
+/home/evanslab/tetra_project/Assembly/SOAP/SOAPdenovo2-src-r240/SOAPdenovo-127mer all -s /home/evanslab/Hymeno_fastqc/assembly_SOAP_info_chimerical/hymeno.config -K 81 -R -V -p 10 -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/Assembly/SOAP_Hymeno_genome_chimerical_81mers
+Error: aio_return error
+Try another time: Killed
+
+/home/evanslab/tetra_project/Assembly/SOAP/SOAPdenovo2-src-r240/SOAPdenovo-127mer all -s /home/evanslab/Hymeno_fastqc/assembly_SOAP_info_chimerical/hymeno.config -K 91 -R -V -p 10 -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/Assembly/SOAP_Hymeno_genome_chimerical_91mers
 ```
 ## SOAP chimeric genome (reads from mom + dad) - statistics for the scaffolds
 ```
