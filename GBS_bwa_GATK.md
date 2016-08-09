@@ -81,3 +81,128 @@ $status = system($commandline);
 
 }
 ```
+`script_GATK_GBS.pl`
+```
+!/usr/bin/perl
+
+use warnings;
+use strict;
+
+# This script will run GATK on GBS data                                                         
+# # producing vcf files
+
+my $path_to_data="/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/";
+my $path_to_genome="/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/";
+my $path_to_output="/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/";
+my $genome="SOAP_Hymeno_genome_scafSeq_supercontigs.fa";
+my @individuals=("BJE3814",
+"BJE3815",
+"BJE3841",
+"BJE3842",
+"BJE3843",
+"BJE3849",
+"BJE3987",
+"BJE3990",
+"BJE3993",
+"BJE3994",
+"BJE3996",
+"BJE3998",
+"BJE3828",
+"BJE3829",
+"BJE3830",
+"BJE3831",
+"BJE3832",
+"BJE3833",
+"BJE3835",
+"BJE3838",
+"BJE3839",
+"BJE3844",
+"BJE3845",
+"BJE3846",
+"BJE3847",
+"BJE3848",
+"BJE3988",
+"BJE3989",
+"BJE3991",
+"BJE3992",
+"BJE3995",
+"BJE3997",
+"BJE3999",
+"BJE3078");
+
+my $commandline;
+my $status;
+
+#Index, make a .dict file
+
+my $path_to_picard = "/usr/local/picard-tools-1.131/";
+my $GATK_path = "/usr/local/gatk/";
+
+#$commandline= "samtools faidx ".$path_to_genome."\/".$genome;
+#$status = system($commandline);
+#$commandline= "java -jar ".$path_to_picard."picard.jar CreateSequenceDictionary REFERENCE="$path_to_genome.$genome" OUTPUT="$path_to_genome."SOAP_Hymeno_genome_scafSeq_supercontigs.dict";
+
+#INDEL realignment
+
+$commandline = "java -Xmx1G -jar ".$GATK_path."GenomeAnalysisTK.jar -T RealignerTargetCreator ";
+
+foreach my $individual (@individuals){
+    $commandline = $commandline." -I ".$path_to_output.$individual."_sorted.bam ";
+}
+
+$commandline = $commandline."-R ".$path_to_genome.$genome." -o SOAP_Chimerical_forIndelRealigner.intervals";
+print $commandline,"\n";
+$status = system($commandline);
+
+$commandline = "java -Xmx1G -jar ".$GATK_path."GenomeAnalysisTK.jar -T IndelRealigner ";
+
+foreach my $individual (@individuals){
+    $commandline = $commandline." -I ".$path_to_output.$individual."_sorted.bam ";
+}
+
+$commandline = $commandline." -R ".$path_to_genome.$genome." --targetIntervals SOAP_Chimerical_forIndelRealigner.intervals --nWayOut _realigned.bam";
+print $commandline,"\n";
+$status = system($commandline);
+
+# construct a commandline for the HaplotypeCaller; output a vcf file with only variable sites
+
+$commandline = "java -Xmx1G -jar ".$GATK_path."GenomeAnalysisTK.jar -T HaplotypeCaller -R ".$path_to_genome.$genome;
+foreach my $individual (@individuals){
+    $commandline = $commandline." -I ".$path_to_output.$individual."_sorted_realigned.bam ";
+}
+$commandline = $commandline."-out_mode EMIT_VARIANTS_ONLY -o ".$path_to_output."SOAP_Chimerical_nonrecal_varonly.vcf";
+print $commandline,"\n";
+# Execute this command line to call genotypes
+$status = system($commandline);
+
+# Now make a new commandline for the BaseRecalibrator, output a table for base recalibration
+$commandline = "java -Xmx3G -jar ".$GATK_path."GenomeAnalysisTK.jar -T BaseRecalibrator -R ".$path_to_genome.$genome;
+foreach my $individual (@individuals){
+    $commandline = $commandline." -I ".$path_to_output.$individual."_sorted_realigned.bam ";
+}
+
+$commandline = $commandline."-knownSites ".$path_to_output."SOAP_Chimerical_nonrecal_varonly.vcf -o ".$path_to_output."SOAP_Chimerical_recal_data.table";
+print $commandline,"\n";
+# Execute this command line
+$status = system($commandline);
+
+# Now use PrintReads to output a new concatenated bam file with recalibrated quality scores
+$commandline = "java -Xmx3G -jar ".$GATK_path."GenomeAnalysisTK.jar -T PrintReads -R ".$path_to_genome.$genome;
+
+foreach my $individual (@individuals){
+    $commandline = $commandline." -I ".$path_to_output.$individual."_sorted_realigned.bam ";
+}
+
+$commandline = $commandline."-BQSR ".$path_to_output."SOAP_Chimerical_recal_data.table -o ".$path_to_output."SOAP_Chimerical_concatenated_and_recalibrated_round1.bam";
+
+print $commandline,"\n";
+$status = system($commandline);
+
+# Now use HaplotypeCaller to recall bases with recalibrated quality scores; output a vcf file 
+$commandline = "java -Xmx3G -jar ".$GATK_path."GenomeAnalysisTK.jar -T HaplotypeCaller -R ".$path_to_genome.$genome;
+$commandline = $commandline." -I ".$path_to_output."SOAP_Chimerical_concatenated_and_recalibrated_round1.bam";
+$commandline = $commandline." -out_mode EMIT_ALL_CONFIDENT_SITES -o ".$path_to_output."SOAP_Chimerical_recalibrated_round1_allsites.vcf";
+
+print $commandline,"\n";
+$status = system($commandline);
+```
