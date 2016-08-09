@@ -82,7 +82,7 @@ $status = system($commandline);
 }
 ```
 `script_GATK_GBS.pl`
-```
+```perl
 !/usr/bin/perl
 
 use warnings;
