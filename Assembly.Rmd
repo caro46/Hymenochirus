@@ -272,6 +272,12 @@ Error: aio_return error
 Try another time: Killed
 
 /home/evanslab/tetra_project/Assembly/SOAP/SOAPdenovo2-src-r240/SOAPdenovo-127mer all -s /home/evanslab/Hymeno_fastqc/assembly_SOAP_info_chimerical/hymeno.config -K 91 -R -V -p 10 -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/Assembly/SOAP_Hymeno_genome_chimerical_91mers
+
+Iqaluk
+/work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/SOAPdenovo-127mer all -s /work/cauretc/2016_Hymenochirus/SOAP_chimerical/hymeno.config -K 65 -R -F -V -p 20 -o /work/cauretc/2016_Hymenochirus/SOAP_chimerical/SOAP_Hymeno_genome_chimerical_65mers
+
+/work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/SOAPdenovo-63mer all -s /work/cauretc/2016_Hymenochirus/SOAP_chimerical/hymeno.config -K 43 -m 63 -R -F -V -p 20 -o /work/cauretc/2016_Hymenochirus/SOAP_chimerical/SOAP_Hymeno_genome_chimerical_43_63mers
+
 ```
 **Notes 09/08**: Required too much memory to run on info even using `SOAPdenovo-63mer` or bigger kmer (in order to simplify the graph). Need to use sharcnet when clusters will be up and run with at least K = 65 & 67. Multi-kmer approach even if seemed to be very interesting require much more time & memory. Try with `-K 61 -m 71`.
 
