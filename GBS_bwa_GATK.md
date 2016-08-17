@@ -206,3 +206,21 @@ $commandline = $commandline." -out_mode EMIT_ALL_CONFIDENT_SITES -o ".$path_to_o
 print $commandline,"\n";
 $status = system($commandline);
 ```
+###Checking quality of mapping:
+```
+samtools flagstat /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/SOAP_Chimerical_concatenated_and_recalibrated_round1.bam >/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/SOAP_Chimerical_concatenated_and_recalibrated_round1_flagstat.txt
+```
+`SOAP_Chimerical_concatenated_and_recalibrated_round1_flagstat.txt`
+```
+140447386 + 0 in total (QC-passed reads + QC-failed reads)
+0 + 0 duplicates
+130937358 + 0 mapped (93.23%:-nan%)
+0 + 0 paired in sequencing
+0 + 0 read1
+0 + 0 read2
+0 + 0 properly paired (-nan%:-nan%)
+0 + 0 with itself and mate mapped
+0 + 0 singletons (-nan%:-nan%)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+```
