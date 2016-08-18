@@ -224,3 +224,10 @@ samtools flagstat /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_20
 0 + 0 with mate mapped to a different chr
 0 + 0 with mate mapped to a different chr (mapQ>=5)
 ```
+When we will have the putative sex-linked scaffolds: blast against tropicalis and each of the sex-specific assembly.
+```
+module load blast/2.2.28+
+blastn -evalue 1e-60 -query Hymenochirus_putative_sex_linked.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast/SOAP_chimerical_Hymenochirus_putative_sex_linked_xentrop9 -outfmt 6 -max_target_seqs 1
+
+blastn -evalue 1e-60 -query Hymenochirus_putative_sex_linked.fa -db /work/ben/2016_Hymenochirus/BJE3815/BJE3815_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast/SOAP_chimerical_Hymenochirus_putative_sex_linked_BJE3815abyss -outfmt 6 -max_target_seqs 1
+```
