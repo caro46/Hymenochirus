@@ -1,0 +1,8 @@
+#### Ratio only one sex / sex-linked sites
+```
+wc -l  /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/Hymenochirus_sex_linked_sites.txt
+evanslab:GBS_analysis % 324 /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/Hymenochirus_sex_linked_sites.txt
+evanslab:GBS_analysis % grep -w "Only_sons" -c /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/Hymenochirus_sex_linked_sites.txt
+11
+```
+`11/324 = 0.034` 
