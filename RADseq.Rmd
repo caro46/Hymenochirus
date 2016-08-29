@@ -181,11 +181,16 @@ fastqc -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_d
 ## Checking sex
 - SNPhylo / SNPrelate (R) using vcf file ? -> build a phylo to check males all together and females separated (if not: check sex on pictures + individual under microscope)
 
-## Plink 
+## Linkage map
+Some limitations with some sofwares about cross types: R/ASMap restricted to backcross, doubled haploid and recombinant inbred.
+### Plink 
 - vcftools `./vcftools --vcf input_data.vcf --plink --chr 1 --out output_in_plink` (output `.map` `.ped`).
 - with R: Manhattan plot
 
-##JOINMAP?
+### JOINMAP?
 Compare linkage dist. between male and female?
 
-## [R OneMap](http://augusto-garcia.github.io/statgen-esalq/Hapmap-and-VCF-formats-and-its-integration-with-onemap/)
+#### Input file
+To have the correct input file fomat we can either use `Stacks` or a perl script which converts a vcf file to a joinmap file.
+
+### [R OneMap](http://augusto-garcia.github.io/statgen-esalq/Hapmap-and-VCF-formats-and-its-integration-with-onemap/)
