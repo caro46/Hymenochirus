@@ -189,8 +189,20 @@ Some limitations with some sofwares about cross types: R/ASMap restricted to bac
 
 ### JOINMAP?
 Compare linkage dist. between male and female?
+***Bad point:*** only on windows?!
 
 #### Input file
-To have the correct input file fomat we can either use `Stacks` or a perl script which converts a vcf file to a joinmap file.
+To have the correct input file format we can either use `Stacks` or a perl script which converts a vcf file to a joinmap file.
+
+#### With FsLinkage-Map? As [Mousavi et al. (2016)](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4991039/)
+(links not really working)
+- 1 de novo assembly for each parent (for us use Abyss)
 
 ### [R OneMap](http://augusto-garcia.github.io/statgen-esalq/Hapmap-and-VCF-formats-and-its-integration-with-onemap/)
+Because of library compatibilities need to install an old R version if we one to use OneMap.
+
+### Lep-MAP2
+Comes with usefull script to convert different file formats into the required input format. Or Mega2 can also convert the input file
+
+### [HetMappS pipeline](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0134880)
+Seems to be the easiest ways, best explained and deals with vcf files, no need of a "reference" (de novo pipeline)
