@@ -180,7 +180,7 @@ fastqc -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_d
 
 ## Checking sex
 - SNPhylo / SNPrelate (R) using vcf file ? -> build a phylo to check males all together and females separated (if not: check sex on pictures + individual under microscope)
-
+  -with SNPhylo, need to change the name of the "chromosome": `sed -i 's/string_to_find/another_string/g'`
 ## Linkage map
 Some limitations with some sofwares about cross types: R/ASMap restricted to backcross, doubled haploid and recombinant inbred.
 ### Plink 
