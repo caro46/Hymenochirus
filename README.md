@@ -8,6 +8,7 @@ Sex-determination system is know to evolved quickly in the *Xenopus*. However th
 
 ## 2- [Assembling HiSeq reads](https://github.com/caro46/Hymenochirus/blob/master/Assembly.Rmd):
 #### - Reference guided: Stampy, de novo: Abyss, SOAPdenovo
+#### - Mapping BWA (for [RADseq](https://github.com/caro46/Hymenochirus/blob/master/GBS_bwa_GATK.md))
 #### - [Created bigger scaffolds for GATK](https://github.com/caro46/Hymenochirus/blob/master/supercontigs.Rmd) (see )
 
 ## 3- [Transposable elements](https://github.com/caro46/Hymenochirus/blob/master/Repeat_elements.Rmd)
