@@ -402,7 +402,12 @@ N70	321	911704
 N80	140	2087590
 N90	124	3972006
 ```
+Try to improve:
+```
+/home/evanslab/tetra_project/Assembly/SOAP/SOAPdenovo2-src-r240/SOAPdenovo-63mer all -s /home/evanslab/Hymeno_fastqc/assembly_SOAP_info_chimerical/hymeno_male_info.config -K 63 -R -V -F -p 10 -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/Assembly/SOAP_Hymeno_MALE_genome_info_63mers
 
+/work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/SOAPdenovo-63mer all -s /work/cauretc/2016_Hymenochirus/SOAP_chimerical/hymenoFEMALE.config -K 63 -R -F -V -p 20 -o /work/cauretc/2016_Hymenochirus/SOAP_chimerical/SOAP_Hymeno_genome_Female_63mers
+```
 # Mapping with `bwa` 
 
 Ref genome = `X. tropicalis v9.0 genome assembly` from [XenBase](http://www.xenbase.org/other/static/ftpDatafiles.jsp)
