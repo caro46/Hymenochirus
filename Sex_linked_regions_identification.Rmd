@@ -1,3 +1,1161 @@
+`script_find_sex_linked_regions4.pl`
+
+```perl
+#!/usr/local/perl5.24/perl-5.24.0/perl
+
+use strict;
+use warnings;
+use List::MoreUtils qw/ uniq /;
+use List::Util qw(min max);
+
+# This script reads in a tab delimited files that has scaffold
+# positions in a concatenated reference genome.  It generates
+# a hash that can be used later to parse genotype data.
+
+##Define all the different input and output files
+
+######OUTPUT file 
+my $outputfile1 = "/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/Hymenochirus_sex_linked_sites_Phred20_UnifGeno.txt";
+unless (open(OUTFILE1, ">$outputfile1")){
+        print "I can\'t write to $outputfile1   $!\n\n";
+        exit;
+}
+
+my $outputfile2 = "/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/Hymenochirus_invalid_sites_Phred20_UnifGeno.txt";
+unless(open(OUTFILE2, ">$outputfile2")){
+        print "I can\'t write to $outputfile2   $!\n\n";
+        exit;
+}
+
+my $outputfile3 = "/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/Hymenochirus_putative_sex_linked_Phred20_UnifGeno.fa";
+unless(open(OUTFILE3, ">$outputfile3")){
+        print "I can\'t write to $outputfile3   $!\n\n";
+        exit;
+}
+
+my $outputfile4 = "/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/Hymenochirus_genotypes_number_per_scaff_Phred20_UnifGeno.txt";
+unless(open(OUTFILE4, ">$outputfile4")){
+        print "I can\'t write to $outputfile4   $!\n\n";
+        exit;
+}
+
+my $outputfile5 = "/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/Hymenochirus_polym_sites_number_per_scaff_Phred20_UnifGeno.txt";
+unless(open(OUTFILE5, ">$outputfile5")){
+        print "I can\'t write to $outputfile5   $!\n\n";
+        exit;
+}
+
+my $outputfile6 = "/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/Hymenochirus_SL_male_sites_number_per_scaff_Phred20_UnifGeno.txt";
+unless(open(OUTFILE6, ">$outputfile6")){
+        print "I can\'t write to $outputfile6   $!\n\n";
+        exit;
+}
+
+######INPUT file 
+my $inputfile = "/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome_scafSeq_supercontigs_index";
+
+unless (open DATAINPUT, $inputfile) {
+        print "Can not find the input file $inputfile, jackass.\n";
+        exit;
+}
+
+my $inputfile2 = "/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/SOAP_Chimerical_recalibrated_round1_allsites_Phred20.tab";
+
+unless (open DATAINPUT2, $inputfile2) {
+        print "Can not find the input file $inputfile2, jackass.\n";
+        exit;
+}
+
+my $inputfile3 = "/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/pedigree_copy";
+
+unless (open DATAINPUT3, $inputfile3) {
+        print "Can not find the input file $inputfile3, jackass.\n";
+        exit;
+}
+
+my $inputfile4 = "/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/SOAP_Hymeno_genome.scafSeq";
+
+unless (open DATAINPUT4, $inputfile4) {
+        print "Can not find the input file $inputfile4, jackass.\n";
+        exit;
+}
+
+##Load inputfile1 info in hashes
+#It is the file which make the ling between supercontigs coordinates and real contigs produced by an assembler
+
+my @temp;
+my %coordinates;
+my $line;
+
+while (my $line=<DATAINPUT>){
+        chomp($line);
+        @temp=split('\t',$line);
+        if($temp[0] ne 'supercontig'){
+                $coordinates{$temp[0]}{$temp[2]}[0]=$temp[3]; # The first value is the stop position
+                $coordinates{$temp[0]}{$temp[2]}[1]=$temp[1]; # The second value is the SOAP scaffold name
+        } # endif to check for first line
+} # end while
+
+
+##Pedigree file: contains individual ID and family state (mom, dad, daughter, son) 
+my %sampleID;
+my @columnF3;
+while (my $line3 = <DATAINPUT3>){
+        chomp($line3);
+        @columnF3=split('\t',$line3);
+        $sampleID{$columnF3[0]}=$columnF3[1];
+}
+
+
+my $supercontigs;
+my $genotype_position;
+my @columnF2;
+my @boys;
+my @girls;
+my $mom;
+my $dad;
+my $y;
+my $z;
+my $l;
+my @c2;
+my $minimum_number_of_genotypes_from_sons;
+my $minimum_proportion_of_genotypes_from_one_offspring_sex=0.8;
+my $minimum_number_of_genotypes_from_daughters;
+my @bases;
+my @daughter_genotypes;
+my @son_genotypes;
+my @unique_daughters;
+my %unique_daug_geno;
+my %unique_son_geno;
+my @unique_sons;
+my @homozygous_genotypes=("A\/A","C\/C","T\/T","G\/G");
+my @heterozygous_genotypes=("A\/C","C\/A","A\/G","G\/A","A\/T","T\/A","G\/C","C\/G","C\/T","T\/C","G\/T","T\/G");
+#print @homozygous_genotypes;
+my $genotype_position_real_contigs;
+my @supercontigs_sex_spec;
+my @genotype_position_superconig_sex_spec;
+my %all_genotype;
+#%all_genotype=();
+my %real_contigs;
+#my %count_daughter_genotype;
+#my %count_son_genotype;
+#my $main_genotype_daughters;
+#my $main_genotype_sons;
+my $first_genotype_daughters;
+my $first_genotype_sons;
+my $i=0;
+my $scores=0;
+my %scores;
+my %count;
+my @fasta_names;
+my @temp4;
+my $switch=0;
+my @geno_mom_dad;
+my $temp;
+my @tempB;
+my $geno_mom_dad;
+
+my $minimum_seq_length=500;
+my $sequence_name;
+
+#my %polymorphic_sites;
+my %polymorphic_sites_mom;
+my %polymorphic_sites_dad;
+my %polymorphic_sites_daughter_only;
+my %polymorphic_sites_son_only;
+
+
+##VCF_tab contains information about genotypes of the family (SNPs are called using superscaffolds assembly)
+#we are looking for sites that differ between males and females
+#i.e.: sites homoz in dad (+sons) heteroz in mom (+daughters)
+#we need to take into account sequencing errors and under-calling sites
+
+while (my $line2=<DATAINPUT2>) {
+        chomp($line2);
+        @columnF2=split('\t',$line2);
+        if($columnF2[0] eq '#CHROM'){
+                print OUTFILE1 $line2,"\n";
+                print OUTFILE2 $line2,"\n";
+                $minimum_number_of_genotypes_from_sons=$minimum_proportion_of_genotypes_from_one_offspring_sex*($#boys+1);
+                $minimum_number_of_genotypes_from_daughters=$minimum_proportion_of_genotypes_from_one_offspring_sex*($#girls+1);
+       for ($y = 0 ; $y <= $#columnF2 ; $y++ ) {
+                foreach my $key (keys %sampleID) {
+                    if($columnF2[$y] =~ $key){
+                        if($sampleID{$key} eq 'mom'){
+                                $mom=$y;
+                                print "it is mom ",$y,"\n";
+                        }
+                        elsif($sampleID{$key} eq 'dad'){
+                                $dad=$y;
+                                print "it is dad ",$y,"\n"
+                        }
+                        elsif($sampleID{$key} eq 'son'){
+                                push(@boys,$y);
+                                print "it is a son ",$y,"\n";
+                        }
+                        elsif($sampleID{$key} eq 'daughter'){
+                                push(@girls,$y);
+                                print "it is a daughter ",$y,"\n";
+                        }
+                        else{
+                                print "Something is wrong with this ID ",$y,"\n";
+                        }
+                    }
+                }
+        }
+        $minimum_number_of_genotypes_from_sons=$minimum_proportion_of_genotypes_from_one_offspring_sex*($#boys+1);
+        $minimum_number_of_genotypes_from_daughters=$minimum_proportion_of_genotypes_from_one_offspring_sex*($#girls+1);
+        print "minimum_number_of_genotypes_from_sons ",$minimum_number_of_genotypes_from_sons," number boys ", $#boys+1, "\n";  
+        }
+                else{
+                # get rid of the first part of the supercontig name
+                @temp=split('_',$columnF2[0]);
+                $columnF2[0]=$temp[1];
+
+                # save all of the genotype positions in a hash with the supercontig as key
+                push (@{$all_genotype{$columnF2[0]}}, $columnF2[1]);
+                print "The supercontig position is ",$columnF2[1],"\n";
+                #print $all_genotype{$columnF2[0]}[0],"\n";
+                #print %all_genotype,"\n";
+                # Make AC CA (...) genotypes equivalent (needed for "uniq" function)
+                for ($y=0 ; $y<=$#columnF2 ; $y++) {
+                        if ($columnF2[$y] =~ "C\/A"){
+                                $columnF2[$y] = "A\/C"
+                        }
+                        elsif ($columnF2[$y] =~ "G\/A"){
+                                $columnF2[$y] = "A\/G"
+                        }
+                        elsif ($columnF2[$y] =~ "T\/A"){
+                                $columnF2[$y] = "A\/T"
+                        }
+                        elsif ($columnF2[$y] =~ "C\/G"){
+                                $columnF2[$y] = "G\/C"
+                        }
+                        elsif ($columnF2[$y] =~ "T\/C"){
+                                $columnF2[$y] = "C\/T"
+                        }
+                        elsif ($columnF2[$y] =~ "T\/G"){
+                                $columnF2[$y] = "G\/T"
+                        }
+#                       print $columnF2[$y],"\n";
+                }
+                if(($columnF2[$mom] =~ /\.+/)&&($columnF2[$dad] =~ /\.+/)){# this site is missing genotypes from both parents 
+
+         #but checking if potentially sex-linked in offspeing (coverage issues):
+
+         #- heteroz in one sex, homoz in the other 
+
+         #- nothing in one sex but homoz in the other 
+                        #### Caroline should check that this redex works for all situations including more than one dot in a particular genotype
+                        #for ($y = 0 ; $y <= $#girls ; $y++ ) {
+                                #if ($columnF2[$girls[$y]] ne "\.") ||
+                                #($columnF2[$boys[$y]] ne "\."){
+                                #       if  
+                        @daughter_genotypes=();  #need to clear the array for both sex each time (or we add the genotypes each line after each line)
+                        for ($y = 0 ; $y <= $#girls ; $y++ ) {
+                                if($columnF2[$girls[$y]] !~ /\.+/ ){
+                                                push(@daughter_genotypes, $columnF2[$girls[$y]]);
+                                }
+                        }
+                        @son_genotypes=();
+                        for ($y = 0 ; $y <= $#boys ; $y++ ) {
+                                if($columnF2[$boys[$y]] !~ /\.+/){
+                                        # a genotype call is present for this boy
+                                        push(@son_genotypes, $columnF2[$boys[$y]]);
+                                        print "boys ",$columnF2[$boys[$y]],"\n";
+                                }
+                        }
+                        @unique_daughters = uniq(@daughter_genotypes);
+                        @unique_sons = uniq(@son_genotypes);
+
+                        if(($#unique_daughters == 0)&&($#unique_sons == 0)){
+                                # this could be sex linked (length of array = 1 -> one genotype only on each sex); now check if only one is a homoz
+                                if(((grep $_ eq  $unique_daughters[0], @homozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))||
+                                        ((grep $_ eq $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @homozygous_genotypes))
+                                        ){
+                                        print OUTFILE1 $line2,"\n";
+
+                                        foreach (@unique_daughters){
+                                                push (@{$unique_daug_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                push (@{$polymorphic_sites_daughter_only{$columnF2[0]}},$columnF2[1]); #at least one sex heteroz
+                                                #push (@{$unique_daug_geno{ $columnF2[0]}{$columnF2[1]}},$unique_daughters[0]);
+                                                #print "hello ",$columnF2[0],"\t",$columnF2[1],"\t",$_,"\n";
+                                                #print "position ",$unique_daug_geno{ $columnF2[0]};
+                                        }
+                    foreach (@unique_sons){
+                        push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}},$_);
+                        push (@{$polymorphic_sites_son_only{$columnF2[0]}},$columnF2[1]); #at least one sex heteroz
+                    #push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}},$unique_sons[0]);
+                    }
+                                }
+                        }
+                        elsif(($#daughter_genotypes == -1)||($#son_genotypes == -1)){  # $# = null list -> we have missing data or no geno for one sex (sites spec for one sex)
+                        # there is more than a minimum number of genotypes for only one sex and there are none for the other
+                        # this is especially interesting for W-linked if it is only daughters.
+
+                                if($#son_genotypes >= $minimum_number_of_genotypes_from_sons){
+                                        push (@{$polymorphic_sites_son_only{$columnF2[0]}},$columnF2[1]); #one sex no geno, other yes 
+                                        print OUTFILE1 "Only_sons ",$line2,"\n";
+                                                foreach (@unique_sons){
+                                                        push (@{$unique_son_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                        #push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}},$unique_sons[0]);
+                                                }
+                                }
+                                elsif($#daughter_genotypes >= $minimum_number_of_genotypes_from_daughters){
+                                        push (@{$polymorphic_sites_daughter_only{$columnF2[0]}},$columnF2[1]); #one sex no geno, other yes 
+                                        print OUTFILE1 "Only_daughters ",$line2,"\n";
+                                                foreach (@unique_daughters){
+                                                        push (@{$unique_daug_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                        #print "hello ",$columnF2[0],"\t",$columnF2[1],"\t",$_,"\n";
+                                                        #push (@{$unique_daug_geno{ $columnF2[0]}{$columnF2[1]}},$unique_daughters[0]);
+                                                #
+                                                }
+                                }
+                        }
+                        else{
+                                #push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #polym more than 1 uniq geno
+                                push (@{$polymorphic_sites_daughter_only{$columnF2[0]}},$columnF2[1]); #SEE IF OK or add criteria
+                                push (@{$polymorphic_sites_son_only{$columnF2[0]}},$columnF2[1]); #SEE IF OK
+                                print OUTFILE2 $line2,"\n";
+                        }
+                }
+
+
+                ##Data for mom and dad. One is heteroz, the other homoz. Check if in the offspring we have only (or almost) one genotype for each sex. 
+                #Looking for sites on the PAR of the hemizygous chromosome (W or Y)
+                #Or sites on Z, not present on the W (male: ZZ heteroz, female: Z homoz) 
+
+                elsif(((grep $_ eq $columnF2[$mom], @homozygous_genotypes) && (grep $_ eq $columnF2[$dad], @heterozygous_genotypes)) ||
+                ((grep $_ eq $columnF2[$mom], @heterozygous_genotypes) && (grep $_ eq $columnF2[$dad], @homozygous_genotypes))
+                        ){ ##Compare homoz/heteroz combinations defined before with our data
+                        ##Check for missing data in children data, keep the genotype if no missing data. Then find sites only present in one sex 
+
+                        ##Check that genotype of the children can be made from the genotype of the parents (no nucleotide absent in the parents appears in the children or = sequencing errors /diff cov.))
+                                        $geno_mom_dad = join ("\t",$columnF2[$mom],$columnF2[$dad]);
+                                        print "geno_mom_dad \$",$geno_mom_dad,"\n";
+                                        print "geno_mom_dad mom",$columnF2[$mom],"\n";
+                                        print "geno_mom_dad dad",$columnF2[$dad],"\n";
+                                        @geno_mom_dad = split /["\t"\/]/, $geno_mom_dad ;
+                                        print "geno_mom_dad \@", @geno_mom_dad,"\n";
+
+                        @daughter_genotypes=();
+                        for ($y = 0 ; $y <= $#girls ; $y++ ) {
+                                if($columnF2[$girls[$y]] ne "\."){
+                                        $geno_mom_dad = join ("\t",$columnF2[$mom],$columnF2[$dad]);
+                                        @geno_mom_dad = split /["\t"\/]/, $geno_mom_dad;
+                                        #print "geno_mom_dad ", @geno_mom_dad;
+                                        @temp = split /[\/]/, $columnF2[$girls[$y]];
+                                        if ((grep $_ eq $temp[0], @geno_mom_dad)&&(grep $_ eq $temp[1], @geno_mom_dad)){
+                                        # a genotype call is present for this girl
+                                                push(@daughter_genotypes, $columnF2[$girls[$y]]);
+                                                print "girl geno ", $columnF2[$girls[$y]],"\n";
+                                        }
+                                }
+                        }
+                        @son_genotypes=();
+                        for ($y = 0 ; $y <= $#boys ; $y++ ) {
+                                if($columnF2[$boys[$y]] ne "\."){
+                                        $geno_mom_dad = join ("\t",$columnF2[$mom],$columnF2[$dad]);
+                                        @geno_mom_dad = split /["\t"\/]/, $geno_mom_dad;
+                                        @temp = split /[\/]/, $columnF2[$boys[$y]];
+                                        # a genotype call is present for this boy
+                                        if ((grep $_ eq $temp[0], @geno_mom_dad)&&(grep $_ eq $temp[1], @geno_mom_dad)){
+                                                push(@son_genotypes, $columnF2[$boys[$y]]);
+                                        }
+                                }
+                        }
+                        @unique_daughters = uniq(@daughter_genotypes);
+                        @unique_sons = uniq(@son_genotypes);
+
+#                       for ($y = 0 ; $y <= $#columnF2[$dad] ; $y++ ) {
+#                       $geno_mom_dad [$y] = join ('',$columnF2[$mom][$y],$columnF2[$dad][$y]);
+#                       $geno_mom_dad [$y] = split ('\/',$geno_mom_dad[$y]);
+#                       print $geno_mom_dad [$y];
+#                       }
+
+
+                        if (grep $_ eq $columnF2[$mom], @heterozygous_genotypes){
+                                push (@{$polymorphic_sites_mom{$columnF2[0]}},$columnF2[1]);
+                        }
+
+                        if (grep $_ eq $columnF2[$dad], @heterozygous_genotypes){
+                                push (@{$polymorphic_sites_dad{$columnF2[0]}},$columnF2[1]);
+                        }
+
+                        if(($#unique_daughters == 0)&&($#unique_sons == 0)){
+                                # this could be sex linked (length of array = 1 -> one genotype only on each sex); now check if only one is a homoz
+                                if(((grep $_ eq  $unique_daughters[0], @homozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))||
+                                        ((grep $_ eq $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @homozygous_genotypes))
+                                        ){
+                                        print OUTFILE1 $line2,"\n";
+
+                                        #push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #1 geno per sex but 1 heteroz
+
+                                        foreach (@unique_daughters){
+                                                push (@{$unique_daug_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                #push (@{$unique_daug_geno{ $columnF2[0]}{$columnF2[1]}},$unique_daughters[0]);
+                                        #       print "hello ",$columnF2[0],"\t",$columnF2[1],"\t",$_,"\n";
+                                        #       print "girl pos ",keys $unique_daug_geno{ $columnF2[0]},"\n";
+                                        }
+                                         foreach (@unique_sons){
+                                                 push (@{$unique_son_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                  #push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}},$unique_sons[0]);
+                                         }
+                                }
+                                ##Add here if one parent homoz, the other heteroz. The offspring: both heteroz (ZZ: AA, ZW: GT -> ZZ: AT, ZW: AG)
+                                elsif(((grep $_ eq  $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))&&
+                                        ($unique_daughters[0] ne $unique_sons[0])
+                                        ){
+                                                print OUTFILE1 $line2,"\n";
+
+                                                #push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #offspring heteroz
+
+                                                        foreach (@unique_daughters){
+                                                                push (@{$unique_daug_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                                #push (@{$unique_daug_geno{ $columnF2[0]}{$columnF2[1]}},$unique_daughters[0]);
+                                                #               print "hello ",$columnF2[0],"\t",$columnF2[1],"\t",$_,"\n";
+
+                                                        }
+                                                        foreach (@unique_sons){
+                                                                push (@{$unique_son_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                                #push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}},$unique_sons[0]);
+                                                        }
+                                }
+                                else{
+                                        #push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); # one genotype per sex within the offspring 
+                                        print OUTFILE2 $line2,"\n";
+                                }
+
+                        }
+                        # Now test whether this site is "almost sex linked" because a low number of possible genotype errors exist
+                        elsif (($#unique_daughters > 0)||($#unique_sons > 0)){
+
+                        #push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #more than one genotype
+
+                        $first_genotype_daughters=1;
+                        $first_genotype_sons=1;
+                                for ($y = 1 ; $y <= $#daughter_genotypes ; $y++ ) {
+                                        if($daughter_genotypes[0] eq $daughter_genotypes[$y]){
+                                        $first_genotype_daughters+=1;
+                                    }
+                            }
+                                for ($y = 1 ; $y <= $#son_genotypes ; $y++ ) {
+                                        if($son_genotypes[0] eq $son_genotypes[$y]){
+                                        $first_genotype_sons+=1;
+                                    }
+                            }
+                            if(
+                                ($#daughter_genotypes!=-1 && $#son_genotypes!=-1)&&
+                                (((($#daughter_genotypes+1)*($first_genotype_daughters/($#daughter_genotypes+1)))>$minimum_number_of_genotypes_from_daughters)||
+                                ((($#daughter_genotypes+1)*(($#daughter_genotypes+1-$first_genotype_daughters)/($#daughter_genotypes+1)))>$minimum_number_of_genotypes_from_daughters)||
+                                        ((($#son_genotypes+1)*($first_genotype_sons/($#son_genotypes+1)))>$minimum_number_of_genotypes_from_sons)||
+                                ((($#son_genotypes+1)*(($#son_genotypes+1-$first_genotype_sons)/($#son_genotypes+1)))>$minimum_number_of_genotypes_from_sons)))
+                                {
+                                        ##add checking for heteroz/homoz of the major geno
+                                        if (((grep $_ eq $daughter_genotypes[$first_genotype_daughters-1], @heterozygous_genotypes) &&
+                                                (grep $_ eq $son_genotypes[$first_genotype_sons-1], @homozygous_genotypes)) ||
+                                                ((grep $_ eq $daughter_genotypes[$first_genotype_daughters-1], @homozygous_genotypes) &&
+                                                (grep $_ eq $son_genotypes[$first_genotype_sons-1], @heterozygous_genotypes))
+                                                ){
+                                                if ($daughter_genotypes[$first_genotype_daughters-1] ne $son_genotypes[$first_genotype_sons-1]){
+                                                        push (@{$unique_daug_geno{$columnF2[0]}{$columnF2[1]}},$daughter_genotypes[$first_genotype_daughters-1]);
+                                                #       print "hello ",$columnF2[0],"\t",$columnF2[1],"\t",$daughter_genotypes[$first_genotype_daughters-1],"\n";
+
+                                                        push (@{$unique_son_geno{$columnF2[0]}{$columnF2[1]}},$son_genotypes[$first_genotype_sons-1]);
+
+                                                        print OUTFILE1 $line2,"\n";
+                                                }
+                                        }
+                                        else{
+                                        print OUTFILE2 $line2,"\n";
+                                        }
+                                }
+                                else{
+                                print OUTFILE2 $line2,"\n";
+                                }
+                        }
+                        else{
+                        print OUTFILE2 $line2,"\n";
+                        }
+                } # end of elsif to check if only one parent is heterozygous
+
+                ## Both parents are heterozygous
+                elsif(((grep $_ eq $columnF2[$mom], @heterozygous_genotypes) && (grep $_ eq $columnF2[$dad], @heterozygous_genotypes))
+                        ){
+
+                        #push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #parents heteroz
+
+                        push (@{$polymorphic_sites_mom{$columnF2[0]}},$columnF2[1]);
+                        push (@{$polymorphic_sites_dad{$columnF2[0]}},$columnF2[1]);
+
+
+                        @daughter_genotypes=();
+                        @son_genotypes=();
+                        for ($y = 0 ; $y <= $#girls ; $y++ ) {
+                                if($columnF2[$girls[$y]] ne "\.") {
+                                        $geno_mom_dad = join ("\t",$columnF2[$mom],$columnF2[$dad]);
+                                        @geno_mom_dad = split /["\t"\/]/, $geno_mom_dad;
+                                        @temp = split /[\/]/, $columnF2[$girls[$y]];
+                                        if ((grep $_ eq $temp[0], @geno_mom_dad)&&(grep $_ eq $temp[1], @geno_mom_dad)){
+                                                push(@daughter_genotypes, $columnF2[$girls[$y]]);
+                                        }
+                                }
+                        }
+
+                        for ($y = 0 ; $y <= $#boys ; $y++ ) {
+                                if ($columnF2[$boys[$y]] ne "\."){
+                                        $geno_mom_dad = join ("\t",$columnF2[$mom],$columnF2[$dad]);
+                                        @geno_mom_dad = split /["\t"\/]/, $geno_mom_dad;
+                                        @tempB = split /[\/]/, $columnF2[$boys[$y]];
+                                        if ((grep $_ eq $tempB[0], @geno_mom_dad)&&(grep $_ eq $tempB[1], @geno_mom_dad)){
+                                                push(@son_genotypes, $columnF2[$boys[$y]]);
+                                        }
+                                }
+                        }
+                #}
+                                        @unique_daughters = uniq(@daughter_genotypes);
+                                        @unique_sons = uniq(@son_genotypes);
+                                        if(($#unique_daughters == 1)&&($#unique_sons == 1)){
+                                                if (((($unique_daughters[0]) ne ($unique_sons[0])) && (($unique_daughters[1]) ne ($unique_sons[1])))&&
+                                                        ((($unique_daughters[0]) ne ($unique_sons[1])) && (($unique_daughters[1]) ne ($unique_sons[0])))){
+                                                        #ZZ:AT ZW:CG -> ZZ:AC/TC ZW:AG/TG (everybody is heterozygous)
+                                                        if (((grep $_ eq  $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))&&
+                                                        ((grep $_ eq $unique_daughters[1], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[1], @heterozygous_genotypes))
+                                                        ){
+                                                                print OUTFILE1 $line2,"\n";
+                                                                        foreach (@unique_daughters){
+                                                                        push (@{$unique_daug_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                                        #push (@{$unique_daug_geno{ $columnF2[0]}{$columnF2[1]}{$unique_daughters[0]}},$unique_daughters[1]);
+                                                                #       print "hello ",$columnF2[0],"\t",$columnF2[1],"\t",$_,"\n";
+
+                                                                        }
+                                                                        foreach (@unique_sons){
+                                                        push (@{$unique_son_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                        #push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}{$unique_sons[0]}},$unique_sons[1]);
+                                                                        }
+                                                        }
+                                        #ZZ:AT ZW:TG -> ZZ:AT/TT ZW:AG/TG (everybody is heterozygous except one group of children)
+                                        #1st:1group of females homoz [1]
+                                                        elsif ((((grep $_ eq  $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))&&
+                                                        ((grep $_ eq $unique_daughters[1], @homozygous_genotypes)&&(grep $_ eq $unique_sons[1], @heterozygous_genotypes))) ||
+                                                        #2nd:1group of females homoz [0]
+                                                        (((grep $_ eq  $unique_daughters[0], @homozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))&&
+                                                        ((grep $_ eq $unique_daughters[1], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[1], @heterozygous_genotypes))) ||
+                                                        #3rd:1group of males homoz [0]
+                                                        (((grep $_ eq  $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @homozygous_genotypes))&&
+                                                        ((grep $_ eq $unique_daughters[1], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[1], @heterozygous_genotypes))) ||
+                                                        #4th:1group of males homoz [1]
+                                                        (((grep $_ eq  $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))&&
+                                                        ((grep $_ eq $unique_daughters[1], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[1], @homozygous_genotypes)))
+                                                        ){
+                                                                print OUTFILE1 $line2,"\n";
+                                                                        foreach (@unique_daughters){
+                                                                                push (@{$unique_daug_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                                        #push (@{$unique_daug_geno{ $columnF2[0]}{$columnF2[1]}{$unique_daughters[0]}},$unique_daughters[1]);
+                                                                #       print "hello ",$columnF2[0],"\t",$columnF2[1],"\t",$_,"\n";
+
+                                                                        }
+                                                                        foreach (@unique_sons){
+                                                                                push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}},$_);
+                                                                                #push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}{$unique_sons[0]}},$unique_sons[1]);
+                                                                        }
+                                                        }
+                                                        else{
+                                                                print OUTFILE2 $line2,"\n";
+                                                        }
+                                                }
+                                                else{
+                                                        print OUTFILE2 $line2,"\n";
+                                                }
+                                        }
+                                        #We have more data for the parents so if we have ZZ: CA (heteroz) & ZW:A/. -> children: ZZ:CC(homoz) and ZW:A/. (not enough data to call homoz A)
+                                        elsif(($#unique_daughters==-1 && $#unique_sons==0)||
+                                        ($#unique_daughters==0 && $#unique_sons==-1)){
+                                                if ((grep $_ eq $unique_daughters[0],@homozygous_genotypes)||
+                                                (grep $_ eq $unique_sons[0],@homozygous_genotypes)){
+                                                        print OUTFILE1 $line2,"\n";
+                                                        foreach (@unique_daughters){
+                                                                push (@{$unique_daug_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                        }
+                                                        foreach (@unique_sons){
+                                                                push (@{$unique_son_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                        }
+                                                }
+                                        }
+                                        else{
+                                        print OUTFILE2 $line2,"\n";
+                                        }
+                        # }
+                       # else{
+                       # print OUTFILE2 $line2,"\n";
+                       # }
+
+                                #       else{
+                                #       print OUTFILE2 $line2,"\n";
+                                #       }
+                                #}
+                                #else{
+                                #print OUTFILE2 $line2,"\n";
+                                #}
+                        #}
+                }
+
+                ## now check: no missing data, both homoz: check if potential sex-linked pattern in offspring: one sex homoz & one heteroz (pb of cov): +do it with heteroz/heteroz that it is a possible heteroz in off
+
+                elsif (((grep $_ eq $columnF2[$mom], @homozygous_genotypes) && (grep $_ eq $columnF2[$dad], @homozygous_genotypes))
+                        ){
+                        @daughter_genotypes=();
+                        @son_genotypes=();
+                        for ($y = 0 ; $y <= $#girls ; $y++ ) {
+                                if($columnF2[$girls[$y]]!~/\.+/) {
+                                        push(@daughter_genotypes, $columnF2[$girls[$y]]);
+                                }
+                        }
+                        for ($y = 0 ; $y <= $#boys ; $y++ ) {
+                                if($columnF2[$boys[$y]] !~/\.+/){
+                                        # a genotype call is present for this boy
+                                        push(@son_genotypes, $columnF2[$boys[$y]]);
+                                }
+                        }
+                        @unique_daughters = uniq(@daughter_genotypes);
+                        @unique_sons = uniq(@son_genotypes);
+
+                        if(($#unique_daughters == 0)&&($#unique_sons == 0)){
+                                # this could be sex linked (length of array = 1 -> one genotype only on each sex); now check if only one is a homoz
+                                if(((grep $_ eq  $unique_daughters[0], @homozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))||
+                                ((grep $_ eq $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @homozygous_genotypes))
+                                ){
+
+#                                       push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #one sex heteroz
+
+                                        print OUTFILE1 $line2,"\n";
+                                                foreach (@unique_daughters){
+                                                        push (@{$unique_daug_geno{ $columnF2[0]}{$columnF2[1]}},$_);
+                                                        #push (@{$unique_daug_geno{ $columnF2[0]}{$columnF2[1]}},$unique_daughters[0]);
+                                                        #print "hello ",$columnF2[0],"\t",$columnF2[1],"\t",$_,"\n";
+
+                                                }
+                        foreach (@unique_sons){
+                                push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}},$_);
+                                #push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}},$unique_sons[0]);
+                        }
+                                }
+                                else{
+                                print OUTFILE2 $line2,"\n";
+                                }
+                        }
+#                       elsif(($#unique_daughters > 0)||($#unique_sons > 0)) {
+
+#                               push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #more than one genotype
+#                       }
+                        else{
+                                print OUTFILE2 $line2,"\n";
+                        }
+                }
+
+
+        elsif(
+                ##Check if one parent is homozygous or heterozygous and the other is a dot "." (missing data in vcf files). 
+                #Looking for sites on the hemizygous chromosome. (present in one copy in one sex)
+
+                (($columnF2[$mom] !~ /\.+/)&&($columnF2[$dad] =~ /\.+/))||
+                (($columnF2[$mom] =~ /\.+/)&&($columnF2[$dad] !~/\.+/))
+                ){
+                @daughter_genotypes=();
+                @son_genotypes=();
+                # now check if all heterozygotes are only in one sex and all homozygotes are only in the other sex
+                # but allow for missing calls
+
+                        for ($y = 0 ; $y <= $#girls ; $y++ ) {
+                                if($columnF2[$girls[$y]] !~ /\.+/){
+                        # a genotype call is present for this girl
+                                        push(@daughter_genotypes, $columnF2[$girls[$y]]);
+                                }
+                        }
+                        for ($y = 0 ; $y <= $#boys ; $y++ ) {
+                                if($columnF2[$boys[$y]] !~ /\.+/){
+                        # a genotype call is present for this boy       
+                                        push(@son_genotypes, $columnF2[$boys[$y]]);
+                                }
+                        }
+                                # now check if one sex is all heterozygotes and the other
+                                # is all homozygotes.
+
+                        @unique_daughters = uniq(@daughter_genotypes);
+                        @unique_sons = uniq(@son_genotypes);
+                        #print "@unique_daughters @unique_sons";
+                        #print " ",$#unique_daughters," ",$#unique_sons,"\n";
+                        if(($#unique_daughters == 0)&&($#unique_sons == 0)){ #check if after unique we only have one genotype (#$==0)
+                                #print "@unique_daughters @unique_sons\n";
+                                if(((grep $_ eq $unique_daughters[0], @homozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))||
+                                ((grep $_ eq $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @homozygous_genotypes))
+                                ){
+                        # eventually add another check to confirm that the sex specific genotypes could actually be derived from the parents
+                        # for which a genotype was inferred
+
+                                        #push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #one sex heteroz
+                                        if (grep $_ eq $unique_daughters[0], @heterozygous_genotypes){
+                                                push (@{$polymorphic_sites_daughter_only{$columnF2[0]}},$columnF2[1]);
+                                        }
+
+                                        if (grep $_ eq $unique_sons[0], @heterozygous_genotypes){
+                                                push (@{$polymorphic_sites_son_only{$columnF2[0]}},$columnF2[1]);
+                                        }
+
+
+                                        print OUTFILE1 $line2,"\n";
+                                                foreach (@unique_daughters){
+                                                        push (@{$unique_daug_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                                                        #print "hello ",$columnF2[0],"\t",$columnF2[1],"\t",$_,"\n";
+
+                                #push (@{$unique_daug_geno{ $columnF2[0]}{$columnF2[1]}},$unique_daughters[0]);
+                                                }
+                                                foreach (@unique_sons){
+                                                        push (@{$unique_son_geno{$columnF2[0]}{$columnF2[1]}},$_);
+                        #push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}},$unique_sons[0]);
+                                                }
+                                }#if grep genotype potentially sex-linked
+                                else{
+                                print OUTFILE2 $line2,"\n";
+                                }
+                        }#if only one genotype in one sex
+                        elsif(($#daughter_genotypes == -1)||($#son_genotypes == -1)){  # $# = null list -> we have missing data or no geno for one sex (sites spec for one sex)
+                                if(($#daughter_genotypes >= $minimum_number_of_genotypes_from_daughters)||
+                                ($#son_genotypes >= $minimum_number_of_genotypes_from_sons)){ #check that it is sex-linked and not only poor coverage or seq error 
+                        # there is more than a minimum number of genotypes for only one sex and there are none for the other
+                        # this is especially interesting for W-linked if it is only daughters.
+
+                                        #push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #one no data, other yes
+
+                                        if ($columnF2[$mom] !~ /\.+/){ #XY
+                                                push (@{$polymorphic_sites_mom{$columnF2[0]}},$columnF2[1]);
+                                        }
+
+                                        if ($columnF2[$dad] !~ /\.+/){ #ZW
+                                                push (@{$polymorphic_sites_dad{$columnF2[0]}},$columnF2[1]);
+                                        }
+
+                                        if(($#unique_daughters == -1)&&($columnF2[$mom] =~ /\.+/)){
+                                                print OUTFILE1 "Only_sons ",$line2,"\n";
+                                                        foreach (@unique_sons){
+                                                                push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}},$_);
+                                                                #push (@{$unique_son_geno{ $columnF2[0]}{$columnF2[1]}},$unique_sons[0]);
+                                                        }
+                                        }
+                                        elsif(($#son_genotypes == -1)&&($columnF2[$dad] =~ /\.+/)){
+                                                print OUTFILE1 "Only_daughters ",$line2,"\n";
+                                                        foreach (@unique_daughters){
+                                                                push (@{$unique_daug_geno{ $columnF2[0]}{$columnF2[1]}},$_);
+                                                        #       print "hello ",$columnF2[0],"\t",$columnF2[1],"\t",$_,"\n";
+                                                                #push (@{$unique_daug_geno{ $columnF2[0]}{$columnF2[1]}},$unique_daughters[0]);
+                                                        }
+
+                                        }
+                                } #if good number of genotypes
+                                else{
+                                print OUTFILE2 $line2,"\n";
+                                }
+                        } #elsif missing data
+
+                        else{
+                                #SEE if informative to add somtg polym here
+                        #       push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #more genotypes than 1
+                                print OUTFILE2 $line2,"\n";
+
+                                if ($#unique_daughters > 1){ #XY
+                                        push (@{$polymorphic_sites_daughter_only{$columnF2[0]}},$columnF2[1]);
+                                }
+
+                                if ($#unique_sons > 1){ #ZW
+                                        push (@{$polymorphic_sites_son_only{$columnF2[0]}},$columnF2[1]);
+                                }
+                        }
+                        #else{
+                        # both are heterozygous; 
+                        # check if a homozygote class is only in one sex, and never in the other
+                        #}
+                }
+                else{
+                print OUTFILE2 $line2,"\n";
+                }
+        }
+}
+#was transformation super-contigs / real-contigs for potential Sex-linked sites   
+
+###Calculate total called genotypes for each contig
+my %genotype_position_real_contigs_all;
+my %count_geno_all=();
+my %contigs_coordinates_all;
+my %count_geno_daug=();
+my %count_geno_son=();
+my %count_polymorphic_sites=();
+#my %real_contigs;
+my $key4;
+#my $ratio_geno_SS_TS_limit=2/3;
+my $ratio_geno_SS_TS_limit=0;
+my %ratio_female_SS=();
+my %ratio_male_SS=();
+my %mean_female_male_sites=();
+my %ratio_total_SS=();
+my $total_count_female=0;
+my $total_count_male=0;
+#my $minimum_total_number_SS_calls=500;
+my $minimum_total_number_SS_calls=1;
+#my $minimum_total_polymorphic_sites=2;
+my $minimum_total_polymorphic_sites=1;
+#my $minimum_total_called_sites=50;
+#my $minimum_total_called_sites=50;
+#my $minimum_total_called_sites=25;
+#my $minimum_total_called_sites=10;
+#my $minimum_total_called_sites=20;
+#######the problem came from $minimum_total_called_sites, ok when 10 
+#my $minimum_total_called_sites=15;
+#my $minimum_total_called_sites=1;
+my $minimum_total_called_sites=50;
+#my $ratio_geno_poly_limit=0.1;
+my $ratio_geno_poly_limit=0.5;
+#my $ratio_geno_poly_limit=0.1;
+#my $ratio_geno_poly_limit=0.05;
+#my $ratio_geno_poly_limit=0.01;
+#my $ratio_geno_poly_limit=0.0001;
+#my $ratio_geno_poly_limit=0;
+#######not working with $ratio_geno_poly_limit=0,$minimum_total_called_sites=25, $minimum_total_polymorphic_sites=1, $minimum_total_number_SS_calls=1 -> because of $minimum_total_called_sites?
+#my $ratio_geno_poly_limit=0.00001;
+#my $ratio_geno_poly_limit=0;
+my %ratio_SL_polym=();
+my $scaffold_size;
+my %count_polymorphic_sites_dad=();
+my %count_polymorphic_sites_mom=();
+my %count_polymorphic_sites_son=();
+my %count_polymorphic_sites_daughter=();
+my %count_polymorphic_sites_females_total;
+my %count_polymorphic_sites_males_total;
+my %scaffold_ID_size;
+my %ratio_SL_polym_FEMALE = ();
+my %ratio_SL_polym_MALE = ();
+
+# In the hash %all_genotypes, the key is the supercontig; this refers to an array that contains the positions of all genotypes on that supercontig
+foreach my $supercontig (keys %all_genotype) {
+        print "The key for the all_genotype hash is ",$supercontig,"\n";
+        foreach my $supercontig_genotype_position (keys @{ $all_genotype{$supercontig} }) {
+        #foreach my $supercontig_genotype_position (keys %{ $all_genotype{$supercontig} }) {
+                print "The key for thesupercontig genotype position is ", $all_genotype{$supercontig}[$supercontig_genotype_position],"\n";
+                # in the hash %coordinates, the secong key is start of the real contig (the first one is the supercontig)
+                # the $coordinates{$supercontig}{$start_position}[0] is the stop position
+                foreach my $start_position_in_supercontig_of_real_scaffold (keys %{ $coordinates{$supercontig} }) {
+                        if(($all_genotype{$supercontig}[$supercontig_genotype_position] >= $start_position_in_supercontig_of_real_scaffold)&&($all_genotype{$supercontig}[$supercontig_genotype_position] <= $coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0])){
+                                #Size criteria for the scaffold
+                                if ($coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0] - $start_position_in_supercontig_of_real_scaffold >= $minimum_seq_length){
+                                        print "This genotype position is on real scaffold ",$coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[1],"\n";
+                                        $count_geno_all{$coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[1]}+=1;
+                                        $scaffold_size = $coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0] - $start_position_in_supercontig_of_real_scaffold;
+                                        push (@{$scaffold_ID_size{$coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[1]}}, $scaffold_size);
+                                }
+                        }
+                }
+        }
+}
+print OUTFILE4 "scaffold","\t","genotype_count","\t","scaffold_size","\n";
+foreach my $real_scaffold (keys %count_geno_all) {
+        print "The number of genotypes on ",$real_scaffold," is ",$count_geno_all{$real_scaffold},"\n";
+        print OUTFILE4 $real_scaffold,"\t",$count_geno_all{$real_scaffold},"\t",$scaffold_ID_size{$real_scaffold}[0],"\n";
+}
+
+# now for the sex specific sites 
+foreach my $supercontig (keys %unique_daug_geno ) {
+        #print "supercontig ",$supercontig,"\n";
+        foreach my $genotype_position_sex_linked (keys %{ $unique_daug_geno{$supercontig} }){
+                #print "genotype_position_sex_linked ", $genotype_position_sex_linked,"\n";
+                foreach my $start_position_in_supercontig_of_real_scaffold (keys %{ $coordinates{$supercontig} }) {
+                        if(( $genotype_position_sex_linked >= $start_position_in_supercontig_of_real_scaffold)&&($genotype_position_sex_linked<= $coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0])){
+                                #Size criteria for the scaffold
+                                if ($coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0] - $start_position_in_supercontig_of_real_scaffold >= $minimum_seq_length){
+                                        $count_geno_daug{$coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[1]}+=1;
+                                        foreach my $genotypes (keys @{ $unique_daug_geno{$supercontig}{$genotype_position_sex_linked} }){
+                                        #foreach my $genotypes (keys %{ $unique_daug_geno{$supercontig}{$genotype_position_sex_linked} }){
+                                                print "supercontig ",$supercontig," genotype_position_sex_linked ", $genotype_position_sex_linked,"\n";
+                                                print "genotype_position_sex_linked ",$genotype_position_sex_linked," genotype SL female ", $unique_daug_geno{$supercontig}{$genotype_position_sex_linked}[$genotypes],"\n" ;
+                                        }
+                                }
+                        }
+                }
+        }
+}
+foreach my $real_scaffold (keys %count_geno_daug) {
+        print "keys daughter geno ", keys %count_geno_daug,"\n";
+        print "The number of daughter SL genotypes on ",$real_scaffold," is ",$count_geno_daug{$real_scaffold},"\n";
+}
+foreach my $supercontig (keys %unique_son_geno ) {
+        foreach my $genotype_position_sex_linked (keys %{ $unique_son_geno{$supercontig} }){
+                foreach my $start_position_in_supercontig_of_real_scaffold (keys %{ $coordinates{$supercontig} }) {
+                        if(( $genotype_position_sex_linked >= $start_position_in_supercontig_of_real_scaffold)&&($genotype_position_sex_linked <= $coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0])){
+                                #Size criteria for the scaffold
+                                if ($coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0] - $start_position_in_supercontig_of_real_scaffold >= $minimum_seq_length){
+                                        $count_geno_son{$coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[1]}+=1;
+                                }
+                        }
+                }
+        }
+}
+print OUTFILE6 "scaffold","\t","genotype_SL_male_count","\t","scaffold_size","\n";
+foreach my $real_scaffold (keys %count_geno_son) {
+        print "keys son geno ", keys %count_geno_son;
+        print "The number of son SL genotypes on ",$real_scaffold," is ",$count_geno_son{$real_scaffold},"\n";
+        print OUTFILE6 $real_scaffold,"\t",$count_geno_son{$real_scaffold},"\t",$scaffold_ID_size{$real_scaffold}[0],"\n";
+}
+
+#Count the number of polymorphic sites
+#foreach my $supercontig (keys %polymorphic_sites) {    
+#       foreach my $genotype_position_sex_linked (keys @{ $polymorphic_sites{$supercontig} }){
+#               foreach my $start_position_in_supercontig_of_real_scaffold (keys %{ $coordinates{$supercontig} }) {  
+#                       if(( $polymorphic_sites{$supercontig}[$genotype_position_sex_linked] >= $start_position_in_supercontig_of_real_scaffold)&&($polymorphic_sites{$supercontig}[$genotype_position_sex_linked] <= $coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0])){
+#                       #Size criteria for the scaffold
+#                               if ($coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0] - $start_position_in_supercontig_of_real_scaffold >= $minimum_seq_length){
+#                                       $count_polymorphic_sites{$coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[1]}+=1;
+#                               }
+#                       }
+#               }       
+#       }       
+#}
+#print OUTFILE5 "scaffold","\t","polymorphic_count","\t","scaffold_size","\n";
+#foreach my $real_scaffold (keys %count_polymorphic_sites) {    
+#       print "keys son geno ", keys %count_polymorphic_sites;
+#       print "The number of polymorphic sites on ",$real_scaffold," is ",$count_polymorphic_sites{$real_scaffold},"\n";
+#       print OUTFILE5 $real_scaffold,"\t",$count_polymorphic_sites{$real_scaffold},"\t",$scaffold_ID_size{$real_scaffold}[0],"\n";
+#}
+
+print OUTFILE5 "pedigree","\t","scaffold","\t","polymorphic_count","\t","scaffold_size","\n";
+
+#Count the number of polymorphic sites DAD
+foreach my $supercontig (keys %polymorphic_sites_dad) {
+        foreach my $genotype_position_sex_linked (keys @{ $polymorphic_sites_dad{$supercontig} }){
+                foreach my $start_position_in_supercontig_of_real_scaffold (keys %{ $coordinates{$supercontig} }) {
+                        if(( $polymorphic_sites_dad{$supercontig}[$genotype_position_sex_linked] >= $start_position_in_supercontig_of_real_scaffold)&&($polymorphic_sites_dad{$supercontig}[$genotype_position_sex_linked] <= $coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0])){
+                        #Size criteria for the scaffold
+                                if ($coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0] - $start_position_in_supercontig_of_real_scaffold >= $minimum_seq_length){
+                                        $count_polymorphic_sites_dad{$coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[1]}+=1;
+                                }
+                        }
+                }
+        }
+}
+foreach my $real_scaffold (keys %count_polymorphic_sites_dad) {
+        print OUTFILE5 "DAD","\t",$real_scaffold,"\t",$count_polymorphic_sites_dad{$real_scaffold},"\t",$scaffold_ID_size{$real_scaffold}[0],"\n";
+}
+
+#Count the number of polymorphic sites MOM
+foreach my $supercontig (keys %polymorphic_sites_mom) {
+        foreach my $genotype_position_sex_linked (keys @{ $polymorphic_sites_mom{$supercontig} }){
+                foreach my $start_position_in_supercontig_of_real_scaffold (keys %{ $coordinates{$supercontig} }) {
+                        if(( $polymorphic_sites_mom{$supercontig}[$genotype_position_sex_linked] >= $start_position_in_supercontig_of_real_scaffold)&&($polymorphic_sites_mom{$supercontig}[$genotype_position_sex_linked] <= $coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0])){
+                        #Size criteria for the scaffold
+                                if ($coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0] - $start_position_in_supercontig_of_real_scaffold >= $minimum_seq_length){
+                                        $count_polymorphic_sites_mom{$coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[1]}+=1;
+                                }
+                        }
+                }
+        }
+}
+foreach my $real_scaffold (keys %count_polymorphic_sites_mom) {
+        print OUTFILE5 "MOM","\t",$real_scaffold,"\t",$count_polymorphic_sites_mom{$real_scaffold},"\t",$scaffold_ID_size{$real_scaffold}[0],"\n";
+}
+
+#Count the number of polymorphic sites DAUGHTER
+foreach my $supercontig (keys %polymorphic_sites_daughter_only) {
+        foreach my $genotype_position_sex_linked (keys @{ $polymorphic_sites_daughter_only{$supercontig} }){
+                foreach my $start_position_in_supercontig_of_real_scaffold (keys %{ $coordinates{$supercontig} }) {
+                        if(( $polymorphic_sites_daughter_only{$supercontig}[$genotype_position_sex_linked] >= $start_position_in_supercontig_of_real_scaffold)&&($polymorphic_sites_daughter_only{$supercontig}[$genotype_position_sex_linked] <= $coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0])){
+                        #Size criteria for the scaffold
+                                if ($coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0] - $start_position_in_supercontig_of_real_scaffold >= $minimum_seq_length){
+                                        $count_polymorphic_sites_daughter{$coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[1]}+=1;
+                                }
+                        }
+                }
+        }
+}
+foreach my $real_scaffold (keys %count_polymorphic_sites_daughter) {
+        print OUTFILE5 "DAUGHTER","\t",$real_scaffold,"\t",$count_polymorphic_sites_daughter{$real_scaffold},"\t",$scaffold_ID_size{$real_scaffold}[0],"\n";
+}
+
+#Count the number of polymorphic sites SON
+foreach my $supercontig (keys %polymorphic_sites_son_only) {
+        foreach my $genotype_position_sex_linked (keys @{ $polymorphic_sites_son_only{$supercontig} }){
+                foreach my $start_position_in_supercontig_of_real_scaffold (keys %{ $coordinates{$supercontig} }) {
+                        if(( $polymorphic_sites_son_only{$supercontig}[$genotype_position_sex_linked] >= $start_position_in_supercontig_of_real_scaffold)&&($polymorphic_sites_son_only{$supercontig}[$genotype_position_sex_linked] <= $coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0])){
+                        #Size criteria for the scaffold
+                                if ($coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[0] - $start_position_in_supercontig_of_real_scaffold >= $minimum_seq_length){
+                                        $count_polymorphic_sites_son{$coordinates{$supercontig}{$start_position_in_supercontig_of_real_scaffold}[1]}+=1;
+                                }
+                        }
+                }
+        }
+}
+foreach my $real_scaffold (keys %count_polymorphic_sites_son) {
+        print OUTFILE5 "SON","\t",$real_scaffold,"\t",$count_polymorphic_sites_son{$real_scaffold},"\t",$scaffold_ID_size{$real_scaffold}[0],"\n";
+}
+#now compare the ratio sex-linked / all sites with our limit
+foreach my $real_scaffold (keys %count_geno_all) {
+        #if "boy and girl marker" on the scaffold
+        if (exists($count_geno_daug{$real_scaffold}) && exists($count_geno_son{$real_scaffold}) ){
+                #$ratio_female_SS{$real_scaffold}=$count_geno_daug{$real_scaffold}/$count_geno_all{$real_scaffold};
+                #print "ratio_female_SS ",$ratio_female_SS{$real_scaffold},"on ",$real_scaffold,"\n";
+                #$ratio_male_SS{$real_scaffold}=$count_geno_son{$real_scaffold}/$count_geno_all{$real_scaffold};
+                $mean_female_male_sites{$real_scaffold}=($count_geno_daug{$real_scaffold}+$count_geno_son{$real_scaffold})/2;
+                #print "mean ",$mean_female_male_sites{$real_scaffold},"\n";
+                #$ratio_total_SS{$real_scaffold}=$mean_female_male_sites{$real_scaffold}/$count_geno_all{$real_scaffold};
+                #$ratio_SL_polym{$real_scaffold} = $mean_female_male_sites{$real_scaffold}/$count_polymorphic_sites{$real_scaffold};
+                if (exists($count_polymorphic_sites_son{$real_scaffold}) && ($count_polymorphic_sites_dad{$real_scaffold})){
+                        $count_polymorphic_sites_males_total{$real_scaffold}=($count_polymorphic_sites_dad{$real_scaffold}+$count_polymorphic_sites_son{$real_scaffold});
+                }
+                if (exists($count_polymorphic_sites_son{$real_scaffold}) || exists($count_polymorphic_sites_dad{$real_scaffold})){
+                        if (exists($count_polymorphic_sites_son{$real_scaffold})){
+                        $count_polymorphic_sites_males_total{$real_scaffold}=($count_polymorphic_sites_son{$real_scaffold});
+                        }
+                        else{
+                                $count_polymorphic_sites_males_total{$real_scaffold}=($count_polymorphic_sites_dad{$real_scaffold});
+                        }
+                }
+                if (exists($count_polymorphic_sites_daughter{$real_scaffold}) && ($count_polymorphic_sites_mom{$real_scaffold})){
+                        $count_polymorphic_sites_females_total{$real_scaffold}=($count_polymorphic_sites_mom{$real_scaffold}+$count_polymorphic_sites_daughter{$real_scaffold});
+                }
+                if (exists($count_polymorphic_sites_daughter{$real_scaffold}) || exists($count_polymorphic_sites_mom{$real_scaffold})){
+                        if (exists($count_polymorphic_sites_daughter{$real_scaffold})){
+                        $count_polymorphic_sites_females_total{$real_scaffold}=($count_polymorphic_sites_daughter{$real_scaffold});
+                        }
+                        else{
+                                $count_polymorphic_sites_females_total{$real_scaffold}=($count_polymorphic_sites_mom{$real_scaffold});
+                        }
+                }
+                #$count_polymorphic_sites_males_total{$real_scaffold}=($count_polymorphic_sites_dad{$real_scaffold}+$count_polymorphic_sites_son{$real_scaffold});
+                #$count_polymorphic_sites_females_total{$real_scaffold}=($count_polymorphic_sites_mom{$real_scaffold}+$count_polymorphic_sites_daughter{$real_scaffold});
+                $ratio_SL_polym_MALE{$real_scaffold}=$count_geno_son{$real_scaffold}/($count_polymorphic_sites_males_total{$real_scaffold});
+                $ratio_SL_polym_FEMALE{$real_scaffold}=$count_geno_daug{$real_scaffold}/($count_polymorphic_sites_females_total{$real_scaffold});
+                print "ratio_SL_polym_FEMALE ",$ratio_SL_polym_FEMALE{$real_scaffold},"\n";
+                #print "The number of total genotypes on ",$real_scaffold," is ",$count_geno_all{$real_scaffold},"\n",
+                #"the ratio of total sex-linked sites ( (female+male) /2 ) on ",$real_scaffold," is ",$ratio_total_SS{$real_scaffold},"\n",
+                #"the ratio of `female` sex-linked on ",$real_scaffold," is " ,$ratio_female_SS{$real_scaffold}, "\n",
+                #"the ratio of `male` sex-linked on ",$real_scaffold," is " ,$ratio_male_SS{$real_scaffold}, "\n";
+
+
+                        if ((($ratio_SL_polym_MALE{$real_scaffold}>=$ratio_geno_poly_limit) &&
+                                ($count_polymorphic_sites_males_total{$real_scaffold}>=$minimum_total_polymorphic_sites)&&
+                                ($count_geno_all{$real_scaffold}>=$minimum_total_called_sites)) ||
+                                (($ratio_SL_polym_FEMALE{$real_scaffold}>=$ratio_geno_poly_limit) &&
+                                ($count_polymorphic_sites_females_total{$real_scaffold}>=$minimum_total_polymorphic_sites)&&
+                                ($count_geno_all{$real_scaffold}>=$minimum_total_called_sites)))
+                        {
+#                       if (($ratio_SL_polym{$real_scaffold}>=$ratio_geno_poly_limit) &&
+#                               ($count_polymorphic_sites{$real_scaffold}>=$minimum_total_polymorphic_sites)&&
+#                               ($count_geno_all{$real_scaffold}>=$minimum_total_called_sites)){
+                        #if ((($ratio_female_SS{$real_scaffold} >= $ratio_geno_SS_TS_limit) ||
+                        #($ratio_male_SS{$real_scaffold} >= $ratio_geno_SS_TS_limit))){
+                        #&&(($count_geno_daug{$real_scaffold} + $count_geno_son{$real_scaffold}) >= $minimum_total_number_SS_calls)){
+                                push(@fasta_names,$real_scaffold);
+                                $total_count_female=$total_count_female+$count_geno_daug{$real_scaffold};
+                                $total_count_male=$total_count_male+$count_geno_son{$real_scaffold};
+                        }
+                }
+elsif (((!exists($count_geno_son{$real_scaffold})) &&
+                exists($count_geno_daug{$real_scaffold})>=$minimum_total_called_sites)||
+                ((!exists($count_geno_daug{$real_scaffold})) &&
+                exists($count_geno_son{$real_scaffold})>=$minimum_total_called_sites))
+                #elsif (((!exists($count_geno_son{$real_scaffold})) &&
+                #$count_geno_daug{$real_scaffold} >= $minimum_total_number_SS_calls)||
+                #((!exists($count_geno_daug{$real_scaffold})) &&
+                #$count_geno_son{$real_scaffold} >= $minimum_total_number_SS_calls))
+                {
+                        push(@fasta_names,$real_scaffold);
+                        if (exists($count_geno_daug{$real_scaffold})){
+                                $total_count_female=$total_count_female+$count_geno_daug{$real_scaffold};
+                        }
+                        if (exists($count_geno_son{$real_scaffold})){
+                                $total_count_male=$total_count_male+$count_geno_son{$real_scaffold};
+                        }
+                }
+        }
+                print "ratio: total_count_female ", $total_count_female, "total_count_male ",$total_count_male, "\n";
+                @fasta_names = uniq (@fasta_names);
+                        foreach my $seq(@fasta_names){
+                                print "sequence name ",$seq,"\n";
+                        }
+my $complete_sequence=();
+my $index=0;
+
+while (my $line4=<DATAINPUT4>) {
+        chomp($line4);
+        @temp4=split(/[>\s]/,$line4);
+
+        if($switch==1) {
+                if ($line4!~/^>/){
+                #print "temp4 ",$temp4[0];
+                #print "line 4 ",$line4;
+                $complete_sequence=$complete_sequence.$temp4[0];
+                }
+                else {
+                $switch=0;
+                print "CS ", $complete_sequence,"\n";
+                print OUTFILE3 $sequence_name,"\n",$complete_sequence,"\n";
+                $complete_sequence=();
+                }
+
+        }
+
+        if(defined($temp4[1])){
+                print $temp4[1],"\n";
+                print scalar @fasta_names,"\n";
+                        if(grep $_ eq $temp4[1], @fasta_names) {
+                                $sequence_name=$line4;
+                                #print OUTFILE3 $line4,"\n"; #print the sequence name
+                                print "seq name ",$sequence_name;
+                                #print "switch 0",$line4,"\n";
+                                $switch=1;
+                        my $index=0;
+                        $index++ until $fasta_names[$index] eq "$temp4[1]";
+                        splice(@fasta_names, $index, 1);
+                        #print "index ",$index;
+                        }
+                }
+        }
+
+
+if (defined($total_count_female/$total_count_male)<1){
+        # if difference between $total_count_female & $total_count_male, maily results in difference in "only male or female markers"
+        print "It is a XY system, SS markers ratio = ", $total_count_female/$total_count_male, "\n";
+}
+if (defined($total_count_female/$total_count_male)>1){
+        print "It is a ZW system, SS markers ratio = ", $total_count_female/$total_count_male, "\n";
+}
+if (defined($total_count_female/$total_count_male)==1){
+        print "We don't know what sex-determining system it is, SS markers ratio = ", $total_count_female/$total_count_male, "\n";
+}
+
+#print $index;
+#print $i, "\n";
+#print values %count, "\n";
+#print $scores, "\n";
+#print keys (%count),"\n";
+close DATAINPUT;
+print "Done with input file 1\n";
+close DATAINPUT2;
+print "Done with input file 2\n";
+close DATAINPUT3;
+print "Done with input file 3\n";
+#close OUTFILE;
+#print "Done with outputfile \n";
+close OUTFILE3;
+print "Done with outputfile 3\n";
+close OUTFILE2;
+print "Done with outputfile 2\n";
+close OUTFILE1;
+print "Done with outputfile 1\n";
+close OUTFILE4;
+close OUTFILE5;
+close OUTFILE6;
+
+
+#} # end of while
+```
+
 #### Ratio only one sex / sex-linked sites
 ```
 wc -l  /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/Hymenochirus_sex_linked_sites.txt
