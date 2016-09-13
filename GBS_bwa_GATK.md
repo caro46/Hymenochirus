@@ -232,6 +232,7 @@ blastn -evalue 1e-60 -query Hymenochirus_putative_sex_linked.fa -db /work/ben/20
 blastn -evalue 1e-60 -query Hymenochirus_putative_sex_linked.fa -db /work/ben/2016_Hymenochirus/BJE3815/BJE3815_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast/SOAP_chimerical_Hymenochirus_putative_sex_linked_BJE3815abyss -outfmt 6 -max_target_seqs 1
 ```
 ***NOTE:***
+
 **HaplotypeCaller vs UnifiedGenotyper**
 
 GATK developers advice to prefer `HaplotypeCaller`. It better deals with INDELs (which is good for us if something is only present in one sex). However it calls sites by "group of sites". Better to use `UnifiedGenotyper` if we set criteria based on number of calling and polymorphic sites. 
