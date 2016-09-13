@@ -281,6 +281,8 @@ Iqaluk
 ```
 **Notes 09/08**: Required too much memory to run on info even using `SOAPdenovo-63mer` or bigger kmer (in order to simplify the graph). Need to use sharcnet when clusters will be up and run with at least K = 65 & 67. Multi-kmer approach even if seemed to be very interesting require much more time & memory. Try with `-K 61 -m 71`.
 
+**Notes **: Can't use other k-mer size than the default for SOAPdenovo when trying to build the chimerical genome (K-mer size= 67, 65, 37...). All the time failed because of memory issues. Even then, because changing k-mer size doesn't change drastically the results obtained for male and female genomes, we can still use the chimerical one.
+
 ## SOAP chimeric genome (reads from mom + dad) - statistics for the scaffolds
 ```
 Size_includeN	2818397698
@@ -408,6 +410,8 @@ Try to improve:
 
 /work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/SOAPdenovo-63mer all -s /work/cauretc/2016_Hymenochirus/SOAP_chimerical/hymenoFEMALE.config -K 63 -R -F -V -p 20 -o /work/cauretc/2016_Hymenochirus/SOAP_chimerical/SOAP_Hymeno_genome_Female_63mers
 ```
+For the male genome we obtain less "big" scaffolds (63mers: 3 scaffolds>100K, default: 5 scaffolds>100K, also smaller median size). For both genomes N50 and longest sequence size are a little better (still less convincing than abyss individual genomes).
+
 # Mapping with `bwa` 
 
 Ref genome = `X. tropicalis v9.0 genome assembly` from [XenBase](http://www.xenbase.org/other/static/ftpDatafiles.jsp)
