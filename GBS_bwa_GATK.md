@@ -231,3 +231,38 @@ blastn -evalue 1e-60 -query Hymenochirus_putative_sex_linked.fa -db /work/ben/20
 
 blastn -evalue 1e-60 -query Hymenochirus_putative_sex_linked.fa -db /work/ben/2016_Hymenochirus/BJE3815/BJE3815_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast/SOAP_chimerical_Hymenochirus_putative_sex_linked_BJE3815abyss -outfmt 6 -max_target_seqs 1
 ```
+***NOTE:***
+**HaplotypeCaller vs UnifiedGenotyper**
+
+GATK developers advice to prefer `HaplotypeCaller`. It better deals with INDELs (which is good for us if something is only present in one sex). However it calls sites by "group of sites". Better to use `UnifiedGenotyper` if we set criteria based on number of calling and polymorphic sites. 
+
+**Me:** Do both and compare results. For example: no *only female sites* called with `HaplotypeCaller` but some with `UnifiedGenotyper`.  
+
+**Mark duplicate vs not-marking**
+
+Apparently according to the GATK forum, GBS people regularly ask about marking or not the duplicate for RADseq data. GATK people recently (April 2016) refered to a twit to answer: 
+
+GATK Dev Team
+
+***‏@gatk_dev***
+***GATK Dev Team Retweeted brant faircloth***
+***We get lots of Qs from RADseq users re marking duplicates before #GATK. Now have something to point ppl to.***
+
+brant faircloth twit:
+
+***Our take on sequence capture based RADseq with duplicate removal and #GATK analysis. Low cost, high consistency***
+
+**Me:** Do both with and without marking to make sure. We lost a lot of information when marking:
+```
+INFO  19:06:28,628 MicroScheduler - 127624673 reads were filtered out during the traversal out of approximately 131330679 total reads (97.18%)
+INFO  19:06:28,628 MicroScheduler -   -> 0 reads (0.00% of total) failing BadCigarFilter
+INFO  19:06:28,629 MicroScheduler -   -> 0 reads (0.00% of total) failing BadMateFilter
+INFO  19:06:28,629 MicroScheduler -   -> 127624673 reads (97.18% of total) failing DuplicateReadFilter
+INFO  19:06:28,629 MicroScheduler -   -> 0 reads (0.00% of total) failing FailsVendorQualityCheckFilter
+INFO  19:06:28,630 MicroScheduler -   -> 0 reads (0.00% of total) failing MalformedReadFilter
+INFO  19:06:28,630 MicroScheduler -   -> 0 reads (0.00% of total) failing MappingQualityUnavailableFilter
+INFO  19:06:28,630 MicroScheduler -   -> 0 reads (0.00% of total) failing NotPrimaryAlignmentFilter
+INFO  19:06:28,630 MicroScheduler -   -> 0 reads (0.00% of total) failing UnmappedReadFilter
+INFO  19:06:29,968 GATKRunReport - Uploaded run statistics report to AWS S3
+```
+See if we still have enough data after the filtering. If yes cool (decrease time and memory), if not use not marking stuff. Probably use not marking anyway (see when done running).
