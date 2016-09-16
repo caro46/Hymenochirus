@@ -172,6 +172,9 @@ fastqc -o /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_d
 ```
 ## [Checking sequences quality](https://github.com/caro46/Hymenochirus/blob/master/Starting.Rmd)
 - Fastqc
+All together: no identification of adapters (no repeat sequences identified).
+After Demultiplexing, checking the reads number: mom: 	9,806,471 dad: 10,815,303 (also fq file: male 1.7G ~ female: 1.6G)  
+
 - Trimmomatic
 - Quake (?)
 
