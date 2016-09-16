@@ -267,3 +267,7 @@ INFO  19:06:28,630 MicroScheduler -   -> 0 reads (0.00% of total) failing Unmapp
 INFO  19:06:29,968 GATKRunReport - Uploaded run statistics report to AWS S3
 ```
 See if we still have enough data after the filtering. If yes cool (decrease time and memory), if not use not marking stuff. Probably use not marking anyway (see when done running).
+
+See recommendations for [Hard filtering](http://gatkforums.broadinstitute.org/wdl/discussion/3225/i-am-unable-to-use-vqsr-recalibration-to-filter-variants) + [variant filtration](https://software.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_gatk_tools_walkers_filters_VariantFiltration.php#--filterName)
+
+
