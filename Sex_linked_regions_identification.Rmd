@@ -1155,7 +1155,10 @@ close OUTFILE6;
 
 #} # end of while
 ```
-
+To run it
+```
+/usr/local/perl5.24/perl-5.24.0/perl -I /usr/local/perl5.24/perl-5.24.0/lib -I /home/evanslab/Hymeno_fastqc/lib_perl5/List-MoreUtils-master/lib -I /home/evanslab/Hymeno_fastqc/lib_perl5/p5-exporter-tiny-master/lib script_name
+```
 #### Ratio only one sex / sex-linked sites
 ```
 wc -l  /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/Hymenochirus_sex_linked_sites.txt
