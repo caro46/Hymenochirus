@@ -414,6 +414,7 @@ For the male genome we obtain less "big" scaffolds (63mers: 3 scaffolds>100K, de
 ```
 /work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/SOAPdenovo-63mer all -s /work/cauretc/2016_Hymenochirus/SOAP_chimerical/hymenoFEMALE.config -K 43 -R -V -p 20 -o /work/cauretc/2016_Hymenochirus/SOAP_chimerical/SOAP_Hymeno_genome_Female_43mers
 ```
+N50 is better, the mean size too but the longest sequence is smaller and this time we have only 1 scaffold with a size > 100K and 26648 scaffolds >10K.
 
 # Mapping with `bwa` 
 
