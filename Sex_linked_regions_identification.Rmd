@@ -1178,6 +1178,11 @@ samtools flagstat /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_20
 samtools depth /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted.bam >/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted_depth.txt
 ```
 
+|Sex|Female|Male|
+|------|------|------|
+|Average\_depth\_per\_site\_per\_individual|45.58452|39.47739|
+|Average\_number\_sites\_per\_individual|6168398|6275318|
+|Average\_reads\_number\_per_individual|4208112|3705400|
 
 #### Ratio only one sex / sex-linked sites
 ```
