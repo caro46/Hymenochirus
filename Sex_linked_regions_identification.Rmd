@@ -1159,6 +1159,12 @@ To run it
 ```
 /usr/local/perl5.24/perl-5.24.0/perl -I /usr/local/perl5.24/perl-5.24.0/lib -I /home/evanslab/Hymeno_fastqc/lib_perl5/List-MoreUtils-master/lib -I /home/evanslab/Hymeno_fastqc/lib_perl5/p5-exporter-tiny-master/lib script_name
 ```
+**Note 19/09:**
+Need to add criteria:
+- heteroz female (AC) x homoz male (AA): sex-linked only if daughters AC and sons AA or daughters: AA/AC sons: CC/AA (male A. == AA when calling). -> Add criteria (1st ex): ok if AC of daughters = 0.8 of genotypes for the famale (if coverage not sufficient the AC can appear as CC or AA) 
+- To correct: Mom GA x dad GG -> sons GG/GA daughters: GG **NOT SEX-LINKED**
+- We were hilighted sites for which we only had data for 1 sex: also need to compare different cases for "heterozygous": heteroz female AC (A on Z) x homoz male AA > sons: homoz AA ; daughters: CA + heteroz female CA (A on W) x homoz male AA > sons: AC ; daughters: AA = ZW system. Opposite for XY.
+
 #### Ratio only one sex / sex-linked sites
 ```
 wc -l  /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/Hymenochirus_sex_linked_sites.txt
