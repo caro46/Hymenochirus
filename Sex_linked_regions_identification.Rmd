@@ -1172,7 +1172,7 @@ Need to add criteria:
  
 **21/09 note:**
 - Now we need to check that "Only_sons" is not due to better sequencing: check number of mapped reads + coverage + number of genotypes for each of the individuals
-- 
+
 ```
 samtools flagstat /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted.bam > /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted_flagstat.txt
 samtools depth /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted.bam >/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted_depth.txt
