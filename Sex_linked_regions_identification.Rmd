@@ -1167,6 +1167,7 @@ Need to add criteria:
 
 **20-21/09 note:**
 - We obtained a lot of "Only\_sons" sites (using Phred20 and UnifiedGenotyper). To check if issues with our script does something not wanted (example not considering females for some sites): randomly exchange who is a male or a female in the pedigree file -> see if we still have a huge number of "Only\_sons", if it is the case: something wrong; if not great!
+
  -> with the randomization of the pedigree the script identified only "heterozygous" sites.
 
 #### Ratio only one sex / sex-linked sites
