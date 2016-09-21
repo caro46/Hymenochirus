@@ -860,3 +860,37 @@ blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/BJE3814-8.fa -db
 
 blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/BJE3815-8.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/BJE3814/blast/BJE3815-8_xenTro9_hard_mask_e20 -outfmt 6 -max_target_seqs 1
 ```
+
+##To sum up: comparing assembly quality
+
+In the table the ***values*** will represent the best values obtaines between the different assembly attempted (between abyss and SOAP de novo we only compare n50). Between the different SOAP de novo attempted we can notice that depending on the criteria the "best" assembly is not the same: 
+- if `n50` is the criteria: 43mer assembly is the best, 
+- considering `scaffolds>100K`: 23 and 63mers are the best
+- `Longest_Seq`: 23mer assembly is the best
+
+|Individuals|BJE3814|BJE3815|chimerical|
+|------|------|------|------|
+|**abyss**||||
+|kmer_size|64|64|failed|
+|n50|<font color='red'>***6580***</font>|<font color='red'>6536</font>||
+|**soapdenovo**||||
+|*kmer_size*|23|23|23|
+|n50|1886|1835|631|
+|Mean_Size|396|397|293|
+|Median_Size|131|131|130|
+|Longest_Seq|<font color='red'>***150321***</font>|132924|116517|
+|scaffolds>100K|<font color='red'>***5***</font>|5|3|
+|*kmer_size*|43|||
+|n50|<font color='red'>***4281***|||
+|Mean_Size|<font color='red'>***931***|||
+|Median_Size|224|||
+|Longest_Seq|128647|||
+|scaffolds>100K|1|||
+|*kmer_size*|63|63||
+|n50|1971|1954||
+|Mean_Size|400|398||
+|Median_Size|127|127||
+|Longest_Seq|145680|199901||
+|scaffolds>100K|<font color='red'>***5***|3||
+
+
