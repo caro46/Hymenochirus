@@ -1165,6 +1165,10 @@ Need to add criteria:
 - To correct: Mom GA x dad GG -> sons GG/GA daughters: GG **NOT SEX-LINKED**
 - We were hilighted sites for which we only had data for 1 sex: also need to compare different cases for "heterozygous": heteroz female AC (A on Z) x homoz male AA > sons: homoz AA ; daughters: CA + heteroz female CA (A on W) x homoz male AA > sons: AC ; daughters: AA = ZW system. Opposite for XY.
 
+**20-21/09 note:**
+- We obtained a lot of "Only\_sons" sites (using Phred20 and UnifiedGenotyper). To check if issues with our script does something not wanted (example not considering females for some sites): randomly exchange who is a male or a female in the pedigree file -> see if we still have a huge number of "Only\_sons", if it is the case: something wrong; if not great!
+ -> with the randomization of the pedigree the script identified only "heterozygous" sites.
+
 #### Ratio only one sex / sex-linked sites
 ```
 wc -l  /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/Hymenochirus_sex_linked_sites.txt
