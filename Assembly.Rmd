@@ -863,6 +863,8 @@ blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/BJE3815-8.fa -db
 
 ##To sum up: comparing assembly quality
 
+2 softwares were used: Abyss & SOAP de novo CONTINUE HERE. 
+
 In the table the ***values*** will represent the best values obtaines between the different assembly attempted (between abyss and SOAP de novo we only compare n50). Between the different SOAP de novo attempted we can notice that depending on the criteria the "best" assembly is not the same.
 For the female BJE3814:
 - if `n50` is the criteria: 43mer assembly is the best, 
@@ -894,4 +896,4 @@ For the female BJE3814:
 |Longest_Seq|145680|199901||
 |scaffolds>100K|<font color='red'>***5***|3||
 
-
+We also need to keep in mind smaller k-mers produces more complicated graph (more memory used).
