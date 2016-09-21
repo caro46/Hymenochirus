@@ -1169,6 +1169,9 @@ Need to add criteria:
 - We obtained a lot of "Only\_sons" sites (using Phred20 and UnifiedGenotyper). To check if issues with our script does something not wanted (example not considering females for some sites): randomly exchange who is a male or a female in the pedigree file -> see if we still have a huge number of "Only\_sons", if it is the case: something wrong; if not great!
 
  -> with the randomization of the pedigree the script identified only "heterozygous" sites.
+ 
+**21/09 note:**
+- Now we need to check that "Only_sons" is not due to better sequencing: check number of mapped reads + coverage + number of genotypes for each of the individuals
 
 #### Ratio only one sex / sex-linked sites
 ```
