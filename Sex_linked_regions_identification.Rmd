@@ -1184,6 +1184,45 @@ samtools depth /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/
 |Average\_number\_sites\_per\_individual|6168398|6275318|
 |Average\_reads\_number\_per_individual|4208112|3705400|
 
+**Note 22/09:**
+
+Check if sites only present in males have a very low coverage
+```
+evanslab:GBS_analysis % grep '49340765' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3999_sorted_depth.txt
+supercontig_1	49340765	36
+evanslab:GBS_analysis % grep '49340766' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3999_sorted_depth.txt
+supercontig_1	49340766	36
+evanslab:GBS_analysis % grep '49340765' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3815_sorted_depth.txt
+supercontig_1	49340765	116
+evanslab:GBS_analysis % grep '49340765' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted_depth.txt
+evanslab:GBS_analysis % grep '49340766' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3998_sorted_depth.txt
+evanslab:GBS_analysis % grep '49340765' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3998_sorted_depth.txt
+evanslab:GBS_analysis % grep '49340800' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3998_sorted_depth.txt
+evanslab:GBS_analysis % grep '49340800' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3999_sorted_depth.txt
+supercontig_1	49340800	22
+evanslab:GBS_analysis % grep '49340800' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3815_sorted_depth.txt
+supercontig_1	49340800	50
+evanslab:GBS_analysis % grep '49340800' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted_depth.txt
+
+evanslab:GBS_analysis % grep '121512902' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3815_sorted_depth.txt
+supercontig_1	121512902	125
+evanslab:GBS_analysis % grep '121512902' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted_depth.txt
+supercontig_1	121512902	84
+evanslab:GBS_analysis % grep '121512902' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3999_sorted_depth.txt
+supercontig_1	121512902	33
+evanslab:GBS_analysis % grep '121512902' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3998_sorted_depth.txt
+supercontig_1	121512902	10
+evanslab:GBS_analysis % grep '121512902' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/SOAP_Chimerical_recalibrated_round1_allsites_Phred20.tab
+supercontig_1	121512902	C	./.	./.	C/C	./.	C/C	C/C	C/C	C/C	C/C	./.	C/C	C/C	./.	./.	./.	C/C	C/C	C/C	C/C	C/C	./.	./.	C/C	C/C	./.	C/C	C/C	./.	./.	C/C	./.	C/C	./.	C/C
+evanslab:GBS_analysis % grep '121512926' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/SOAP_Chimerical_recalibrated_round1_allsites_Phred20.tab
+supercontig_1	121512926	G	./.	./.	G/G	./.	G/G	G/G	G/G	G/G	G/G	./.	G/G	G/G	./.	./.	./.	G/G	G/G	G/G	G/G	G/G	./.	./.	G/G	G/G	./.	G/G	G/G	./.	./.	G/G	./.	G/G	./.	G/G
+evanslab:GBS_analysis % grep '121512902' BJE3815_sorted_realigned_depth.txt
+supercontig_1	121512902	125
+evanslab:GBS_analysis % grep '121512902' BJE3814_sorted_realigned_depth.txt
+supercontig_1	121512902	84
+```
+At first what we obtain sounds surprising: some sites appear to have data only in males but if we look at the depth, neither sex has 0 (or a very small values). Seems to be a recurrent issue on GATK forum (see see the [troubleshooting guidelines](http://gatkforums.broadinstitute.org/gatk/discussion/1235/i-expect-to-see-a-variant-at-a-specific-site-but-its-not-getting-called) and this apparently [unsolved question](http://gatkforums.broadinstitute.org/gatk/discussion/6344/haplotypecaller-does-not-call-all-variants)). However it tends to make some sense considering the realignment steps, quality thresholds... If the reads have a lot of mismatches with the reference they will be realign or not called, if the quality/depth is too small, will not be called either. Some people (example [here](http://gatkforums.broadinstitute.org/gatk/discussion/6525/incosistent-genotype-results)) didn't see the same genotypes called when they check with igv probably because of that.
+
 #### Ratio only one sex / sex-linked sites
 ```
 wc -l  /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/Hymenochirus_sex_linked_sites.txt
