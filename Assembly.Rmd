@@ -863,7 +863,15 @@ blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/BJE3814/BJE3815-8.fa -db
 
 ##To sum up: comparing assembly quality
 
-2 softwares were used: Abyss & SOAP de novo CONTINUE HERE. 
+2 softwares were used: Abyss & SOAP de novo. Only SOAP was able to produce a chimerical assembly. Different k-mer size was used with SOAP de novo when dealing with a scpecific assembly for each sex. With abyss we only used the recommended default size. 
+
+To choose k-mer size:
+
+***- Odd numbers range from 3 to 127 (for SOAP de novo)*** (If you accidentally use an even number: SOAP uses the default value 23mers)
+
+***- Smaller k-mer for heterozygous genome***
+
+***- Larger k-mer for genomes with high proportion of repeats***
 
 In the table the ***values*** will represent the best values obtaines between the different assembly attempted (between abyss and SOAP de novo we only compare n50). Between the different SOAP de novo attempted we can notice that depending on the criteria the "best" assembly is not the same.
 For the female BJE3814:
@@ -877,7 +885,7 @@ For the female BJE3814:
 |kmer_size|64|64|failed|
 |n50|<font color='red'>***6580***</font>|<font color='red'>6536</font>||
 |**soapdenovo**||||
-|*kmer_size*|23|23|23|
+|*kmer_size*|23(=default)|23|23|
 |n50|1886|1835|631|
 |Mean_Size|396|397|293|
 |Median_Size|131|131|130|
