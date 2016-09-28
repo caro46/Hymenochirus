@@ -875,9 +875,9 @@ To choose k-mer size:
 
 In the table the ***values*** will represent the best values obtaines between the different assembly attempted (between abyss and SOAP de novo we only compare n50). Between the different SOAP de novo attempted we can notice that depending on the criteria the "best" assembly is not the same.
 For the female BJE3814:
-- if `n50` is the criteria: 43mer assembly is the best, 
-- considering `scaffolds>100K`: 23 and 63mers are the best
-- `Longest_Seq`: 23mer assembly is the best
+- if `n50` is the criteria: 23mer assembly is the best, 
+- considering `scaffolds>100K`: 63mer (& 64) is the best
+- `Longest_Seq`: 63mer (& 64) assembly is the best
 
 |Individuals|BJE3814|BJE3815|chimerical|
 |------|------|------|------|
