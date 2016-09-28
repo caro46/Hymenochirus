@@ -885,15 +885,21 @@ For the female BJE3814:
 |kmer_size|64|64|failed|
 |n50|<font color='red'>***6580***</font>|<font color='red'>6536</font>||
 |**soapdenovo**||||
-|*kmer_size*|23(=default)|23|23|
+|*kmer_size*|64(not odd)|64|64|
 |n50|1886|1835|631|
 |Mean_Size|396|397|293|
 |Median_Size|131|131|130|
 |Longest_Seq|<font color='red'>***150321***</font>|132924|116517|
 |scaffolds>100K|<font color='red'>***5***</font>|5|3|
+|*kmer_size*|23(=default)|23|23|
+|n50|**4777**|4746||
+|Mean_Size|**1347**|296||
+|Median_Size|263|187||
+|Longest_Seq|102077|86976||
+|scaffolds>100K|1|0||
 |*kmer_size*|43|43||
-|n50|<font color='red'>***4281***|4262||
-|Mean_Size|<font color='red'>***931***|931||
+|n50|4281|4262||
+|Mean_Size|931|931||
 |Median_Size|224|224||
 |Longest_Seq|128647|104146||
 |scaffolds>100K|1|1||
