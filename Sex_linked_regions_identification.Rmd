@@ -1223,6 +1223,25 @@ supercontig_1	121512902	84
 ```
 At first what we obtain sounds surprising: some sites appear to have data only in males but if we look at the depth, neither sex has 0 (or a very small values). Seems to be a recurrent issue on GATK forum (see see the [troubleshooting guidelines](http://gatkforums.broadinstitute.org/gatk/discussion/1235/i-expect-to-see-a-variant-at-a-specific-site-but-its-not-getting-called) and this apparently [unsolved question](http://gatkforums.broadinstitute.org/gatk/discussion/6344/haplotypecaller-does-not-call-all-variants)). However it tends to make some sense considering the realignment steps, quality thresholds... If the reads have a lot of mismatches with the reference they will be realign or not called, if the quality/depth is too small, will not be called either. Some people (example [here](http://gatkforums.broadinstitute.org/gatk/discussion/6525/incosistent-genotype-results)) didn't see the same genotypes called when they check with igv probably because of that.
 
+**Note 30/09:**
+Results from: `script_find_sex_linked_regions6.pl`
+```
+evanslab:GBS_analysis % grep -c "Only_sons" /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/Hymenochirus_sex_linked_sites_Phred20_UnifGeno_v6.txt
+12733
+evanslab:GBS_analysis % grep -c "Only_daughters" /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/Hymenochirus_sex_linked_sites_Phred20_UnifGeno_v6.txt
+0
+evanslab:GBS_analysis % grep -c "XY" /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/Hymenochirus_sex_linked_sites_Phred20_UnifGeno_v6.txt
+95
+evanslab:GBS_analysis % grep -c "ZW" /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/Hymenochirus_sex_linked_sites_Phred20_UnifGeno_v6.txt
+6
+evanslab:GBS_analysis % grep -c "Heterozygous_sons.*ZW" /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/Hymenochirus_sex_linked_sites_Phred20_UnifGeno_v6.txt
+6
+evanslab:GBS_analysis % grep -c "Heterozygous_sons.*XY" /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/Hymenochirus_sex_linked_sites_Phred20_UnifGeno_v6.txt
+67
+evanslab:GBS_analysis % grep -c "Heterozygous_daughters.*XY" /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/Hymenochirus_sex_linked_sites_Phred20_UnifGeno_v6.txt
+28
+```
+
 #### Ratio only one sex / sex-linked sites
 ```
 wc -l  /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/Hymenochirus_sex_linked_sites.txt
