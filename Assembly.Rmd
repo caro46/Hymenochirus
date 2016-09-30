@@ -897,6 +897,12 @@ For the female BJE3814:
 |Median_Size|263|187||
 |Longest_Seq|102077|86976||
 |scaffolds>100K|1|0||
+|*kmer_size*|33|33||
+|n50|4612|||
+|Mean_Size|1067|||
+|Median_Size|231|||
+|Longest_Seq|105860|||
+|scaffolds>100K|1|||
 |*kmer_size*|43|43||
 |n50|4281|4262||
 |Mean_Size|931|931||
