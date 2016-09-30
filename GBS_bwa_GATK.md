@@ -268,6 +268,18 @@ INFO  19:06:29,968 GATKRunReport - Uploaded run statistics report to AWS S3
 ```
 See if we still have enough data after the filtering. If yes cool (decrease time and memory), if not use not marking stuff. Probably use not marking anyway (see when done running).
 
+**NOTE:**
+
+See also this [publication](http://www.molecularecologist.com/2016/08/the-trouble-with-pcr-duplicates/#more-9102)
+Problem: paired end reads - us: single ends -> can't use mark duplicates
+
+**Variant filtering:**
+
 See recommendations for [Hard filtering](http://gatkforums.broadinstitute.org/wdl/discussion/3225/i-am-unable-to-use-vqsr-recalibration-to-filter-variants) + [variant filtration](https://software.broadinstitute.org/gatk/gatkdocs/org_broadinstitute_gatk_tools_walkers_filters_VariantFiltration.php#--filterName)
 
+Pb for using vqsr `not available for organisms other than humans` so need to use hard filtering. Except that when we used the recommended values, we lost all our data. After discussion with Ben, don't use hard filtering because we will confirm what we find by:
+- blasting against each parent genome 
+- blasting against *X. tropicalis* annotated genome
+- PCRs
+Also we only consider sites that are calling in a high majority of samples (depending on the criteria at least 80% of offspring in 1 sex).
 
