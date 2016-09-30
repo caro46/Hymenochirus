@@ -1177,7 +1177,11 @@ Need to add criteria:
 samtools flagstat /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted.bam > /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted_flagstat.txt
 samtools depth /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted.bam >/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted_depth.txt
 ```
-
+To have the mean coverage per individual:
+```
+awk '{sum+=$3} END { print "Average = ",sum/NR}' /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/BJE3814_sorted_depth.txt
+Average =  96.2695
+```
 |Sex|Female|Male|
 |------|------|------|
 |Average\_depth\_per\_site\_per\_individual|45.58452|39.47739|
