@@ -1245,7 +1245,14 @@ evanslab:GBS_analysis % grep -c "Heterozygous_sons.*XY" /net/infofile4-inside/vo
 evanslab:GBS_analysis % grep -c "Heterozygous_daughters.*XY" /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/Hymenochirus_sex_linked_sites_Phred20_UnifGeno_v6.txt
 28
 ```
-
+**Note 3/10:**
+Haplotype caller:
+```
+evanslab:GBS_analysis % grep -c "ZW" /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/noDupliMark/Hymenochirus_sex_linked_sites_Phred20_HaplotypeCaller_v6.txt
+2
+evanslab:GBS_analysis % grep -c "XY" /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/noDupliMark/Hymenochirus_sex_linked_sites_Phred20_HaplotypeCaller_v6.txt
+54
+```
 #### Ratio only one sex / sex-linked sites
 ```
 wc -l  /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/Hymenochirus_sex_linked_sites.txt
