@@ -1289,3 +1289,5 @@ No change compared with blast without marking the repeats 1st.
 makeblastdb -in /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_Phred20_HaplotypeCaller_v6.fa -dbtype nucl -title Hymenochirus_putative_sex_linked_Phred20_HaplotypeCaller -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_Phred20_HaplotypeCaller_v6_blastable
 blastn -evalue 1e-2 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Sox6_trop_ensembl_cdna.fa -db /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_Phred20_HaplotypeCaller_v6_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_Phred20_HaplotypeCaller_v6_Sox6_e2_target_seq_3 -outfmt 6 -max_target_seqs 3
 ```
+**Note**
+When we call all the sites (with UnifiedGenotyper), the `script_find_sex_linked_regions.pl` takes too much time even with a binary research. So we run it individually for each scaffold.
