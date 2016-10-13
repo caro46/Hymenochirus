@@ -9,58 +9,37 @@ my $path_to_tab = "/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2
 my $commandline;
 my $status;
 
-#for (my $i=1; $i <= 16; $i++) {
-#$commandline = "grep \"supercontig_".$i."\" ".$path_to_tab."SOAP_Chimerical_recalibrated_round1_allsites_Phred20.tab \> ".$path_to_tab."big_scaffolds_separated\/"."SOAP_Chimerical_recalibrated_round1_allsites_Phred20_supercontig_".$i."_temp.tab";
-#print $commandline;
-#$status = system($commandline);
-#}
+##Genotype tab deliminated file
+for (my $i=1; $i <= 16; $i++) {
+$commandline = "grep \"supercontig_".$i."  \" ".$path_to_tab."SOAP_Chimerical_recalibrated_round1_allsites_Phred20.tab \> ".$path_to_tab."big_scaffolds_separated\/"."SOAP_Chimerical_recalibrated_round1_allsites_Phred20_supercontig_".$i."_temp.tab";
+print $commandline;
+$status = system($commandline);
+}
 
-#my $header="header.text";
-#for (my $i=1; $i <= 16; $i++) {
-#$commandline = "cat ".$header." ".$path_to_tab."big_scaffolds_separated\/"."SOAP_Chimerical_recalibrated_round1_allsites_Phred20_supercontig_".$i."_temp.tab \> ".$path_to_tab."big_scaffolds_separated\/"."SOAP_Chimerical_recalibrated_round1_allsites_Phred20_supercontig_".$i.".tab" ;
-#print $commandline;
-#$status = system($commandline);
-#$commandline = "rm -f ".$path_to_tab."big_scaffolds_separated\/"."SOAP_Chimerical_recalibrated_round1_allsites_Phred20_supercontig_".$i."_temp.tab";
-#print $commandline;
-#$status = system($commandline);
-#}
+my $header="header.text";
+for (my $i=1; $i <= 16; $i++) {
+$commandline = "cat ".$header." ".$path_to_tab."big_scaffolds_separated\/"."SOAP_Chimerical_recalibrated_round1_allsites_Phred20_supercontig_".$i."_temp.tab \> ".$path_to_tab."big_scaffolds_separated\/"."SOAP_Chimerical_recalibrated_round1_allsites_Phred20_supercontig_".$i.".tab" ;
+print $commandline;
+$status = system($commandline);
+$commandline = "rm -f ".$path_to_tab."big_scaffolds_separated\/"."SOAP_Chimerical_recalibrated_round1_allsites_Phred20_supercontig_".$i."_temp.tab";
+print $commandline;
+$status = system($commandline);
+}
 
+##Superscaffold index
 my $path_to_inputfile = "/net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/";
 my $inputfile = "SOAP_Hymeno_genome_scafSeq_supercontigs_index";
 my $header="header2.txt";
-#for (my $i=1; $i <= 16; $i++) {
+for (my $i=1; $i <= 16; $i++) {
 
-#$commandline = "grep \"^".$i."\" ".$path_to_inputfile.$inputfile." \> ".$path_to_tab."big_scaffolds_separated\/".$inputfile."_supercontig_".$i."_temp";
-#print $commandline;
-#$status = system($commandline);
-#$commandline = "cat ".$header." ".$path_to_tab."big_scaffolds_separated\/".$inputfile."_supercontig_".$i."_temp \> ".$path_to_tab."big_scaffolds_separated\/".$inputfile."_supercontig_".$i;
-#print $commandline;
-#$status = system($commandline);
-#$commandline = "rm -f ".$path_to_tab."big_scaffolds_separated\/".$inputfile."_supercontig_".$i."_temp";
-#print $commandline;
-#$status = system($commandline);
-#}
-
-#super contig 1 issue
-$commandline = "grep \"supercontig_1    \" ".$path_to_tab."SOAP_Chimerical_recalibrated_round1_allsites_Phred20.tab \> ".$path_to_tab."big_scaffolds_separated\/"."SOAP_Chimerical_recalibrated_round1_allsites_Phred20_supercontig_1_temp.tab";
+$commandline = "grep \"^".$i." \" ".$path_to_inputfile.$inputfile." \> ".$path_to_tab."big_scaffolds_separated\/".$inputfile."_supercontig_".$i."_temp";
 print $commandline;
 $status = system($commandline);
-
-my $header="header.text";
-$commandline = "cat ".$header." ".$path_to_tab."big_scaffolds_separated\/"."SOAP_Chimerical_recalibrated_round1_allsites_Phred20_supercontig_1_temp.tab \> ".$path_to_tab."big_scaffolds_separated\/"."SOAP_Chimerical_recalibrated_round1_allsites_Phred20_supercontig_1.tab" ;
+$commandline = "cat ".$header." ".$path_to_tab."big_scaffolds_separated\/".$inputfile."_supercontig_".$i."_temp \> ".$path_to_tab."big_scaffolds_separated\/".$inputfile."_supercontig_".$i;
 print $commandline;
 $status = system($commandline);
-$commandline = "rm -f ".$path_to_tab."big_scaffolds_separated\/"."SOAP_Chimerical_recalibrated_round1_allsites_Phred20_supercontig_1_temp.tab";
+$commandline = "rm -f ".$path_to_tab."big_scaffolds_separated\/".$inputfile."_supercontig_".$i."_temp";
 print $commandline;
 $status = system($commandline);
-
-$commandline = "grep \"^1       \" ".$path_to_inputfile.$inputfile." \> ".$path_to_tab."big_scaffolds_separated\/".$inputfile."_supercontig_1_temp";
-print $commandline;
-$status = system($commandline);
-$commandline = "cat ".$header." ".$path_to_tab."big_scaffolds_separated\/".$inputfile."_supercontig_1_temp \> ".$path_to_tab."big_scaffolds_separated\/".$inputfile."_supercontig_1";
-print $commandline;
-$status = system($commandline);
-$commandline = "rm -f ".$path_to_tab."big_scaffolds_separated\/".$inputfile."_supercontig_1_temp";
-print $commandline;
-$status = system($commandline);
+}
 ```
