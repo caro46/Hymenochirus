@@ -923,3 +923,11 @@ For the female BJE3814:
 |scaffolds>100K|<font color='red'>***5***|3||
 
 We also need to keep in mind smaller k-mers produces more complicated graph (more memory used).
+
+###GapCloser
+```
+/work/ben/2016_Hymenochirus/GapCloser_dir/GapCloser –b /work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/hymenoFEMALE.config –a /work/cauretc/2016_Hymenochirus/SOAP_chimerical/SOAP_Hymeno_genome_Female_23mers.scafSeq -t 4 –o /work/cauretc/2016_Hymenochirus/SOAP_chimerical/GapCloser/SOAP_Hymeno_genome_Female_23mers_GapCloser.scafSeq
+
+/work/ben/2016_Hymenochirus/GapCloser_dir/GapCloser –a /work/ben/2016_Hymenochirus/GapCloser_dir/SOAP_Hymeno_genome_Female_23mers.scafSeq –b /work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/hymenoFEMALE.config -t 4 –o /work/cauretc/2016_Hymenochirus/SOAP_chimerical/GapCloser/SOAP_Hymeno_genome_Female_23mers_GapCloser.scafSeq
+```
+Trying with .gz and unziped files (even if we were supposed to use the same files as SOAPdenovo...no previous issue with these files and SOAP...); with all the files in the directory of the program; with the program withing the directory of SOAPdenovo but it is still not working. Everything was run from Ben's account: no problem to open the different files, or to find them. Some people had the some issues with the program with apparently no answer... So let's forget this program and give a shot to GapFiller.
