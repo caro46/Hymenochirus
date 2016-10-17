@@ -1291,3 +1291,18 @@ blastn -evalue 1e-2 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regio
 ```
 **Note**
 When we call all the sites (with UnifiedGenotyper), the `script_find_sex_linked_regions.pl` takes too much time even with a binary research. So we run it individually for each scaffold.
+
+##Improving
+We are using SNPs called for HaplotypeCaller (obtained following best practice) + all confident sites from Unified genotyper. For the all confident sites because it took too much time we tried (thanks Andrew) to improve it:
+
+       a) binary search for the position of the genotype of interest within each supercontig to match them into a real scaffold.
+        
+       b) still not fast enough so tried parallel with perl for the binary search. But not really improved (overrunning)
+       
+       c) Ben suggested to run each scaffold independently to be faster as a "plan B". Ok.
+       
+       d) Andrew decided to write the binary search in C++ which apparently will solve our issue
+
+##Checking
+- RepeatMasker on the scaffold when we have the potential "sex-linked" scaffolds
+- When we have the data from "all confident sites": blast the scaffold against the "best" sex-specific assembly as a first checking that it is not an artifact of a bad chimerical assembly. Hopefully even if it is less "only one sex sites", and so a reduce part of a better real scaffold, we will still have some. Perhaps due to repeat sequences specific in each sex in the sex-determining region, the assembly can be kinda bad there which is still informative. 
