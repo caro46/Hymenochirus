@@ -923,7 +923,8 @@ For the female BJE3814:
 |scaffolds>100K|<font color='red'>***5***|3||
 
 We also need to keep in mind smaller k-mers produces more complicated graph (more memory used).
-
+**Note 17/10: lab meeting:** 
+Suggestion of Brian, why not using Velvet? (Usually good results).
 ###GapCloser
 ```
 /work/ben/2016_Hymenochirus/GapCloser_dir/GapCloser –b /work/ben/2016_Hymenochirus/SOAPdenovo2-src-r240/hymenoFEMALE.config –a /work/cauretc/2016_Hymenochirus/SOAP_chimerical/SOAP_Hymeno_genome_Female_23mers.scafSeq -t 4 –o /work/cauretc/2016_Hymenochirus/SOAP_chimerical/GapCloser/SOAP_Hymeno_genome_Female_23mers_GapCloser.scafSeq
