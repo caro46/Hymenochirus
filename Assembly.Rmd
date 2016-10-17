@@ -923,6 +923,7 @@ For the female BJE3814:
 |scaffolds>100K|<font color='red'>***5***|3||
 
 We also need to keep in mind smaller k-mers produces more complicated graph (more memory used).
+
 **Note 17/10: lab meeting:** 
 Suggestion of Brian, why not using Velvet? (Usually good results).
 ###GapCloser
