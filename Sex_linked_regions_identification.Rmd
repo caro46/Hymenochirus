@@ -1300,7 +1300,7 @@ We are using SNPs called for HaplotypeCaller (obtained following best practice) 
        b) still not fast enough so tried parallel with perl for the binary search. But not really improved (overrunning)
        
        c) Ben suggested to run each scaffold independently to be faster as a "plan B". Ok.
-       
+        Path: /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/big_scaffolds_separated
        d) Andrew decided to write the binary search in C++ which apparently will solve our issue
 
 ##Checking
