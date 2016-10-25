@@ -1,0 +1,29 @@
+### Pipeline 
+**Remember:** issue when using tab deliminated file obtained with vcftools after calling genotypes from all the sites: takes a very long time. We need to have this "big file" to have sites only present in one of the 2 sexes since we are using our chimerical genome (which are supposed to have all the possible sites - so can't obtain sites with insertion compared to the reference genome). Sites that are homozygous in one sex and missing in the other won't be called as SNP, consider as an active region by GATK (since no difference in theory with the reference for some individuals and missing data for other individuals).
+When we call variants with Haplotype caller, we only obtain only 1 sex if it differs from the reference (ex. A in reference, T in one sex or A/T) but we expect no difference for one sex compare to the reference (ex. A in reference, A/A in one sex, ./. in the other). So we need to call all the confident sites.
+
+1- perl script `script_find_sex_linked_regions` to find the sites that are "Sex linked" & polymorphic 
+
+*Inputs:* tab deliminated file from GATK/vcftools
+
+*Outputs:* tab deliminated files: 
+
+          a) Polymorphic file: dad/mom/son/daughter_heterozygous \t supercontig_name \t position  
+          
+          b) Sex linked file: XY/ZW_system(also can contain in addition "Only_son" or "Only_daughter") \t supercontig_name \t position
+
+2- C++ script `add the final name of the script there` to obtain the positions of the different types of genotypes on the real scaffold (count the number of genotypes from each categories on each real scaffold) 
+
+*Inputs:* Index (supercontig_number \t real_scaffold_name \t start \t end), Polymorphic, Sex linked & the tab deliminated from GATK/vcftools (for counting the total number of genotypes called / real scaffold) files
+
+*Outputs:* tab deliminated files:
+
+          a) `count.txt` (11 columns): scaffold_name \t number_total_called_genotype \t number_XY_sites \t number_ZW_sites \t number_polymorphic_dad_sites \t number_polymorphic_mom_sites \t number_polymorphic_daughter_sites \t number_polymorphic_son_sites \t scaffold_size
+          
+          b) `count_scaffolds_per_SD_system.txt`: "XY_scaffolds_number" \t count \t "ZW_scaffolds_number" \t count
+          
+3- perl little script `add the final name of the script there` to obtain the scaffolds displaying a sex inheritance pattern
+
+*Inputs:* `count.txt`, `SOAP_Hymeno_genome.scafSeq`
+
+*Outputs:* file with scaffolds that display sex-inheritance pattern. In the sequence name: `>scaffold_name \t XY(or ZW)`
