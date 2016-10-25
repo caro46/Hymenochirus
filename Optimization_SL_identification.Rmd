@@ -27,3 +27,889 @@ When we call variants with Haplotype caller, we only obtain only 1 sex if it dif
 *Inputs:* `count.txt`, `SOAP_Hymeno_genome.scafSeq`
 
 *Outputs:* file with scaffolds that display sex-inheritance pattern. In the sequence name: `>scaffold_name \t XY(or ZW)`
+
+###Scripts
+NOTE:need to check and run it after the simplification compared to the previous script which was doing all the steps with perl.
+```perl
+#!/usr/local/perl5.24/perl-5.24.0/perl
+
+use strict;
+use warnings;
+use List::MoreUtils qw/ uniq /;
+use List::Util qw(min max);
+
+# This script reads in a tab delimited files that has scaffold
+# positions in a concatenated reference genome.  It generates
+# a hash that can be used later to parse genotype data.
+
+##Define all the different input and output files
+
+######OUTPUT file
+
+my $path_to_output="/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/big_scaffolds_separated/";
+my $separated_scaffold="supercontig_1";
+ 
+my $outputfile1 = $path_to_output.$separated_scaffold."\/Hymenochirus_sex_linked_sites_Phred20_UnifiedGenotyper_v6_opt.txt";
+unless (open(OUTFILE1, ">$outputfile1")){
+	print "I can\'t write to $outputfile1   $!\n\n";
+	exit;
+}
+
+my $outputfile2 = $path_to_output.$separated_scaffold."\/Hymenochirus_invalid_sites_Phred20_UnifiedGenotyper_v6_opt.txt";
+unless(open(OUTFILE2, ">$outputfile2")){
+	print "I can\'t write to $outputfile2   $!\n\n";
+	exit;
+}
+
+my $outputfile3 = $path_to_output.$separated_scaffold."\/Hymenochirus_polymorphic_sites_Phred20_UnifiedGenotyper_v6_opt.txt";
+unless(open(OUTFILE2, ">$outputfile2")){
+	print "I can\'t write to $outputfile2   $!\n\n";
+	exit;
+}
+
+
+######INPUT file 
+
+my $inputfile1 = $path_to_output.$separated_scaffold."\/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_".$separated_scaffold.".tab";
+
+unless (open DATAINPUT1, $inputfile1) {
+        print "Can not find the input file $inputfile1, jackass.\n";
+        exit;
+}
+
+my $inputfile2 = "/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/pedigree_copy";
+
+unless (open DATAINPUT2, $inputfile2) {
+        print "Can not find the input file $inputfile2, jackass.\n";
+        exit;
+}
+
+#my $ex = sprintf "%.0f", (5/2);
+#print $ex; 
+
+###TEST
+#my $outputfile1 = "Hymenochirus_sex_linked_sites_opt.txt";
+#unless (open(OUTFILE1, ">$outputfile1")){
+#	print "I can\'t write to $outputfile1   $!\n\n";
+#	exit;
+#}
+
+#my $outputfile2 = "Hymenochirus_invalid_sites_opt.txt";
+#unless(open(OUTFILE2, ">$outputfile2")){
+#	print "I can\'t write to $outputfile2   $!\n\n";
+#	exit;
+#}
+
+#my $outputfile3 = "Hymenochirus_polymorphic_sites_opt.txt";
+#unless(open(OUTFILE3, ">$outputfile3")){
+#	print "I can\'t write to $outputfile3   $!\n\n";
+#	exit;
+#}
+
+#my $inputfile1 = "sample_SOAP_allconf_test.tab";
+
+#unless (open DATAINPUT1, $inputfile1) {
+#        print "Can not find the input file $inputfile1, jackass.\n";
+#        exit;
+#}
+
+#my $inputfile2 = "pedigree_copy";
+
+#unless (open DATAINPUT2, $inputfile2) {
+#        print "Can not find the input file $inputfile2, jackass.\n";
+#        exit;
+#}
+
+##Load inputfile1 info in hashes
+#It is the file which make the ling between supercontigs coordinates and real contigs produced by an assembler
+
+my @temp;
+my $line;
+
+
+##Pedigree file: contains individual ID and family state (mom, dad, daughter, son) 
+my %sampleID;
+my @columnF2;
+while (my $line2 = <DATAINPUT2>){
+        chomp($line2);
+        @columnF2=split('\t',$line2);
+        $sampleID{$columnF2[0]}=$columnF2[1];
+}
+
+
+my $supercontigs;
+my $genotype_position;
+my @columnF2;
+my @boys;
+my @girls;
+my $mom;
+my $dad;
+my $minimum_number_of_genotypes_from_sons;
+my $minimum_proportion_of_genotypes_from_one_offspring_sex=0.8;
+my $minimum_number_of_genotypes_from_daughters; 
+my @bases;
+my @daughter_genotypes;
+my @son_genotypes;
+my @unique_daughters;
+my %unique_daug_geno;
+my %unique_son_geno;
+my @unique_sons;
+my @homozygous_genotypes=("A\/A","C\/C","T\/T","G\/G");
+my @heterozygous_genotypes=("A\/C","C\/A","A\/G","G\/A","A\/T","T\/A","G\/C","C\/G","C\/T","T\/C","G\/T","T\/G");
+my $genotype_position_real_contigs;
+my @supercontigs_sex_spec;
+my @genotype_position_superconig_sex_spec;
+my %all_genotype;
+my %real_contigs;
+my $first_genotype_daughters;
+my $first_genotype_sons;
+my $i=0;
+my @temp4;
+my @geno_mom_dad;
+my $temp;
+my @tempB;
+my $geno_mom_dad;
+
+my %polymorphic_sites_mom;
+my %polymorphic_sites_dad;
+my %polymorphic_sites_daughter_only;
+my %polymorphic_sites_son_only;
+
+
+##VCF_tab contains information about genotypes of the family (SNPs are called using superscaffolds assembly)
+#we are looking for sites that differ between males and females
+#i.e.: sites homoz in dad (+sons) heteroz in mom (+daughters)
+#we need to take into account sequencing errors and under-calling sites
+
+while (my $line1=<DATAINPUT1>) {
+        chomp($line1);
+	@columnF1=split('\t',$line1);
+	if($columnF1[0] eq '#CHROM'){
+	 	print OUTFILE1 $line1,"\n";
+		print OUTFILE2 $line1,"\n";
+                    print OUTFILE3 $line1,"\n";
+		$minimum_number_of_genotypes_from_sons=$minimum_proportion_of_genotypes_from_one_offspring_sex*($#boys+1);
+		$minimum_number_of_genotypes_from_daughters=$minimum_proportion_of_genotypes_from_one_offspring_sex*($#girls+1);
+       for ($y = 0 ; $y <= $#columnF2 ; $y++ ) {
+        	foreach my $key (keys %sampleID) {
+        	    if($columnF1[$y] =~ $key){
+        	    	if($sampleID{$key} eq 'mom'){
+        	    		$mom=$y;
+        	    		print "it is mom ",$y,"\n";
+        	    	}
+        	    	elsif($sampleID{$key} eq 'dad'){
+        	    		$dad=$y;
+        	    		print "it is dad ",$y,"\n"
+        	    	}
+        	    	elsif($sampleID{$key} eq 'son'){
+        	    		push(@boys,$y);
+        	    		print "it is a son ",$y,"\n";
+        	    	}
+        	    	elsif($sampleID{$key} eq 'daughter'){
+        	    		push(@girls,$y);
+        	    		print "it is a daughter ",$y,"\n";
+        	    	}
+        	    	else{
+        	    		print "Something is wrong with this ID ",$y,"\n";
+        	    	}
+        	    }
+        	}
+        }
+	$minimum_number_of_genotypes_from_sons=$minimum_proportion_of_genotypes_from_one_offspring_sex*($#boys+1);
+	$minimum_number_of_genotypes_from_daughters=$minimum_proportion_of_genotypes_from_one_offspring_sex*($#girls+1);
+	print "minimum_number_of_genotypes_from_sons ",$minimum_number_of_genotypes_from_sons," number boys ", $#boys+1, "\n";	
+	}
+	else{
+		# get rid of the first part of the supercontig name
+		@temp=split('_',$columnF1[0]);
+		$columnF1[0]=$temp[1];
+
+		# Make AC CA (...) genotypes equivalent (needed for "uniq" function)
+		for ($y=0 ; $y<=$#columnF1 ; $y++) {
+			if ($columnF1[$y] =~ "C\/A"){
+				$columnF1[$y] = "A\/C"
+			}
+			elsif ($columnF1[$y] =~ "G\/A"){
+				$columnF1[$y] = "A\/G"
+			}
+			elsif ($columnF1[$y] =~ "T\/A"){
+				$columnF1[$y] = "A\/T"
+			}
+			elsif ($columnF1[$y] =~ "C\/G"){
+				$columnF1[$y] = "G\/C"
+			}
+			elsif ($columnF1[$y] =~ "T\/C"){
+				$columnF1[$y] = "C\/T"
+			}
+			elsif ($columnF1[$y] =~ "T\/G"){
+				$columnF1[$y] = "G\/T"
+			}
+#			print $columnF1[$y],"\n";
+		}
+		if(($columnF1[$mom] =~ /\.+/)&&($columnF1[$dad] =~ /\.+/)){
+			# this site is missing genotypes from both parents 
+			#but checking if potentially sex-linked in offspeing (coverage issues):
+				#- heteroz in one sex, homoz in the other 
+				#- nothing in one sex but homoz in the other 
+
+			@daughter_genotypes=();	 #need to clear the array for both sex each time (or we add the genotypes each line after each line)
+			for ($y = 0 ; $y <= $#girls ; $y++ ) { 
+				if($columnF1[$girls[$y]] !~ /\.+/ ){
+						push(@daughter_genotypes, $columnF2[$girls[$y]]);
+				}
+			}
+			@son_genotypes=();
+			for ($y = 0 ; $y <= $#boys ; $y++ ) { 
+				if($columnF1[$boys[$y]] !~ /\.+/){
+					# a genotype call is present for this boy
+					push(@son_genotypes, $columnF1[$boys[$y]]);
+					print "boys ",$columnF1[$boys[$y]],"\n";
+				}
+			}
+			@unique_daughters = uniq(@daughter_genotypes);
+			@unique_sons = uniq(@son_genotypes);
+#add a criteria for the number of genotypes needed in order to consider this site
+			if((($#unique_daughters == 0)&&($#unique_sons == 0))
+				&& (($#daughter_genotypes > $minimum_number_of_genotypes_from_daughters)||
+				($#son_genotypes > $minimum_number_of_genotypes_from_sons))){
+				# this could be sex linked (length of array = 1 -> one genotype only on each sex); now check if only one is a homoz
+				if(((grep $_ eq  $unique_daughters[0], @homozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))||
+					((grep $_ eq $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @homozygous_genotypes))
+					){
+					#Distinguish "polymorphic" sex-linked male and female
+					if (grep $_ eq $unique_daughters[0], @heterozygous_genotypes){ 
+						print OUTFILE1 "Heterozygous_daughters_no_parent_data ",$line1,"\n";
+					}
+					if (grep $_ eq $unique_sons[0], @heterozygous_genotypes){
+                                                print OUTFILE1 "Heterozygous_sons_no_parent_data ",$line1,"\n";
+                                        }
+
+					foreach (@unique_daughters){
+						push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$_);
+						push (@{$polymorphic_sites_daughter_only{$columnF1[0]}},$columnF1[1]); #at least one sex heteroz
+
+					}
+		                    foreach (@unique_sons){
+                		        push (@{$unique_son_geno{ $columnF1[0]}{$columnF1[1]}},$_);
+                       			push (@{$polymorphic_sites_son_only{$columnF1[0]}},$columnF1[1]); #at least one sex heteroz
+                                                  print OUTFILE3 "polymorphic_sites_son_only ",$line1,"\n";
+                   			}
+				}
+			}
+			elsif(($#daughter_genotypes == -1)||($#son_genotypes == -1)){  # $# = null list -> we have missing data or no geno for one sex (sites spec for one sex)
+			# there is more than a minimum number of genotypes for only one sex and there are none for the other
+			# this is especially interesting for W-linked if it is only daughters.
+
+				if($#son_genotypes >= $minimum_number_of_genotypes_from_sons){
+                                                  print OUTFILE3 "polymorphic_sites_son_only ",$line1,"\n";
+					push (@{$polymorphic_sites_son_only{$columnF1[0]}},$columnF1[1]); #one sex no geno, other yes 
+					print OUTFILE1 "Only_sons ",$line1,"\n";
+						foreach (@unique_sons){
+							push (@{$unique_son_geno{$columnF1[0]}{$columnF2[1]}},$_);
+						}
+				}	
+				elsif($#daughter_genotypes >= $minimum_number_of_genotypes_from_daughters){
+                                                  print OUTFILE3 "polymorphic_sites_daughter_only ",$line1,"\n";
+					push (@{$polymorphic_sites_daughter_only{$columnF1[0]}},$columnF1[1]); #one sex no geno, other yes 
+					print OUTFILE1 "Only_daughters ",$line1,"\n";
+						foreach (@unique_daughters){
+							push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$_);
+						}
+				}
+	 		}
+	 		else{
+	 			push (@{$polymorphic_sites_daughter_only{$columnF1[0]}},$columnF1[1]); #SEE IF OK or add criteria
+	 			push (@{$polymorphic_sites_son_only{$columnF1[0]}},$columnF1[1]); #SEE IF OK
+                                        print OUTFILE3 "polymorphic_sites_children_only ",$line1,"\n";
+                                        print OUTFILE2 $line1,"\n";
+ 			}
+	 	}
+
+
+	 	##Data for mom and dad. One is heteroz, the other homoz. Check if in the offspring we have only (or almost) one genotype for each sex. 
+	 	#Looking for sites on the PAR of the hemizygous chromosome (W or Y)
+	 	#Or sites on Z, not present on the W (male: ZZ heteroz, female: Z homoz) 
+
+		elsif(((grep $_ eq $columnF1[$mom], @homozygous_genotypes) && (grep $_ eq $columnF1[$dad], @heterozygous_genotypes)) ||
+		((grep $_ eq $columnF1[$mom], @heterozygous_genotypes) && (grep $_ eq $columnF1[$dad], @homozygous_genotypes))
+			){ ##Compare homoz/heteroz combinations defined before with our data
+			##Check for missing data in children data, keep the genotype if no missing data. Then find sites only present in one sex 
+
+			##Check that genotype of the children can be made from the genotype of the parents (no nucleotide absent in the parents appears in the children or = sequencing errors /diff cov.))
+
+					$geno_mom_dad = join ("\t",$columnF1[$mom],$columnF1[$dad]);
+					print "geno_mom_dad \$",$geno_mom_dad,"\n";
+					print "geno_mom_dad mom",$columnF1[$mom],"\n";
+					print "geno_mom_dad dad",$columnF1[$dad],"\n";
+					@geno_mom_dad = split /["\t"\/]/, $geno_mom_dad ;
+					print "geno_mom_dad \@", @geno_mom_dad,"\n";
+
+			@daughter_genotypes=();
+			for ($y = 0 ; $y <= $#girls ; $y++ ) { 
+				if($columnF1[$girls[$y]] ne "\."){
+					$geno_mom_dad = join ("\t",$columnF1[$mom],$columnF1[$dad]);
+					@geno_mom_dad = split /["\t"\/]/, $geno_mom_dad;
+					#print "geno_mom_dad ", @geno_mom_dad;
+					@temp = split /[\/]/, $columnF2[$girls[$y]];
+					if ((grep $_ eq $temp[0], @geno_mom_dad)&&(grep $_ eq $temp[1], @geno_mom_dad)){
+					# a genotype call is present for this girl
+						push(@daughter_genotypes, $columnF1[$girls[$y]]);
+						print "girl geno ", $columnF1[$girls[$y]],"\n";
+					}
+				}
+			}
+			@son_genotypes=();
+			for ($y = 0 ; $y <= $#boys ; $y++ ) { 
+				if($columnF2[$boys[$y]] ne "\."){
+					$geno_mom_dad = join ("\t",$columnF1[$mom],$columnF1[$dad]);
+					@geno_mom_dad = split /["\t"\/]/, $geno_mom_dad;
+					@temp = split /[\/]/, $columnF1[$boys[$y]];
+					# a genotype call is present for this boy
+					if ((grep $_ eq $temp[0], @geno_mom_dad)&&(grep $_ eq $temp[1], @geno_mom_dad)){
+						push(@son_genotypes, $columnF1[$boys[$y]]);
+					}
+				}
+			}
+			@unique_daughters = uniq(@daughter_genotypes);
+			@unique_sons = uniq(@son_genotypes);
+			
+			if (grep $_ eq $columnF1[$mom], @heterozygous_genotypes){
+				push (@{$polymorphic_sites_mom{$columnF1[0]}},$columnF1[1]);
+                                        print OUTFILE3 "polymorphic_sites_mom ",$line1,"\n";
+			}
+
+			if (grep $_ eq $columnF1[$dad], @heterozygous_genotypes){
+				push (@{$polymorphic_sites_dad{$columnF1[0]}},$columnF1[1]);
+				print "The supercontig POLYM position is ",$columnF2[1],"\n";
+                                        print OUTFILE3 "polymorphic_sites_dad ",$line1,"\n";
+			}
+
+			if(($#unique_daughters == 0)&&($#unique_sons == 0)){
+				# this could be sex linked (length of array = 1 -> one genotype only on each sex); now check if only one is a homoz
+				if(((grep $_ eq  $unique_daughters[0], @homozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))||
+					((grep $_ eq $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @homozygous_genotypes))
+					){
+					if ((grep $_ eq $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $columnF2[$mom], @heterozygous_genotypes)){
+						print OUTFILE1 "Heterozygous_daughters_mom_ZW ",$line1,"\n";
+					}
+					if ((grep $_ eq $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $columnF2[$dad], @heterozygous_genotypes)){
+                                                print OUTFILE1 "Heterozygous_daughters_dad_XY ",$line1,"\n";
+                                        }
+					if ((grep $_ eq $unique_sons[0], @heterozygous_genotypes)&&(grep $_ eq $columnF2[$dad], @heterozygous_genotypes)){
+                                                print OUTFILE1 "Heterozygous_sons_dad_XY ",$line1,"\n";
+                                        }
+					if ((grep $_ eq $unique_sons[0], @heterozygous_genotypes)&& (grep $_ eq $columnF2[$mom], @heterozygous_genotypes)){
+                                                print OUTFILE1 "Heterozygous_sons_mom_ZW ",$line1,"\n";
+                                        }
+
+					#push (@{$polymorphic_sites{$columnF1[0]}},$columnF1[1]); #1 geno per sex but 1 heteroz
+
+					foreach (@unique_daughters){
+						push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$_);
+					}
+                   			 foreach (@unique_sons){
+                       				 push (@{$unique_son_geno{$columnF1[0]}{$columnF1[1]}},$_);
+                   			 }
+				}
+
+				##Add here if one parent homoz, the other heteroz. The offspring: both heteroz (ZZ: AA, ZW: GT -> ZZ: AT, ZW: AG)
+				elsif(((grep $_ eq  $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))&&
+					($unique_daughters[0] ne $unique_sons[0])
+					){
+						print OUTFILE1 "Heterozygous_both_offspring ",$line1,"\n";
+
+						#push (@{$polymorphic_sites{$columnF1[0]}},$columnF1[1]); #offspring heteroz
+
+							foreach (@unique_daughters){
+								push (@{$unique_daug_geno{$columnF1[0]}{$columnF2[1]}},$_);
+
+							}
+                    					foreach (@unique_sons){
+                        					push (@{$unique_son_geno{$columnF1[0]}{$columnF2[1]}},$_);
+
+                    					}
+				}
+				else{
+					#push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); # one genotype per sex within the offspring 
+ 					print OUTFILE2 $line2,"\n";
+ 				}
+
+			}
+			# Now test whether this site is "almost sex linked" because a low number of possible genotype errors exist
+			# need $#unique_daughters == 1; if more will not work because we stop at the major or if not the other one
+			#elsif (($#unique_daughters > 0)||($#unique_sons > 0)){
+			elsif (($#unique_daughters == 1)||($#unique_sons == 1)){
+			#push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #more than one genotype
+				
+			$first_genotype_daughters=1;
+			$first_genotype_sons=1;
+				for ($y = 1 ; $y <= $#daughter_genotypes ; $y++ ) {
+					if($daughter_genotypes[0] eq $daughter_genotypes[$y]){
+			    		$first_genotype_daughters+=1;
+				    }
+			    }
+				for ($y = 1 ; $y <= $#son_genotypes ; $y++ ) {
+					if($son_genotypes[0] eq $son_genotypes[$y]){
+			    		$first_genotype_sons+=1;
+				    }
+			    }
+
+					if (($#daughter_genotypes!=-1 && $#son_genotypes!=-1)&&
+                             			   (((($#daughter_genotypes+1)*($first_genotype_daughters/($#daughter_genotypes+1)))>$minimum_number_of_genotypes_from_daughters))){
+						if ((($#son_genotypes+1)*(($first_genotype_sons)/($#son_genotypes+1)))>$minimum_number_of_genotypes_from_sons){
+							if ($daughter_genotypes[$first_genotype_daughters-1] ne $son_genotypes[$first_genotype_sons-1]){
+								if (((grep $_ eq $daughter_genotypes[$first_genotype_daughters-1], @heterozygous_genotypes) && 
+                                        			       (grep $_ eq $son_genotypes[$first_genotype_sons-1], @homozygous_genotypes)) ||
+                                                   			 ((grep $_ eq $daughter_genotypes[$first_genotype_daughters-1], @homozygous_genotypes) && 
+                                                                          (grep $_ eq $son_genotypes[$first_genotype_sons-1], @heterozygous_genotypes)) 
+                                                                           ){
+                                        
+										push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$daughter_genotypes[$first_genotype_daughters-1]);
+
+										push (@{$unique_son_geno{$columnF1[0]}{$columnF1[1]}},$son_genotypes[$first_genotype_sons-1]);
+										if ((grep $_ eq $daughter_genotypes[$first_genotype_daughters-1], @heterozygous_genotypes)&&(grep $_ eq $columnF2[$mom], @heterozygous_genotypes)){
+                                                                			print OUTFILE1 "Heterozygous_daughters_mom_ZW ",$line1,"\n";
+                                                        			}
+                                        					if ((grep $_ eq $daughter_genotypes[$first_genotype_daughters-1], @heterozygous_genotypes)&&(grep $_ eq $columnF2[$dad], @heterozygous_genotypes)){
+                                                					print OUTFILE1 "Heterozygous_daughters_dad_XY ",$line1,"\n";
+                                        					}
+                                        					if ((grep $_ eq $son_genotypes[$first_genotype_sons-1], @heterozygous_genotypes)&& (grep $_ eq $columnF2[$mom], @heterozygous_genotypes)){
+                                                					print OUTFILE1 "Heterozygous_sons_mom_ZW ",$line1,"\n";
+                                        					}
+										if ((grep $_ eq $son_genotypes[$first_genotype_sons-1], @heterozygous_genotypes)&&(grep $_ eq $columnF1[$dad], @heterozygous_genotypes)){
+			    								print OUTFILE1 "Heterozygous_sons_dad_XY ",$line1,"\n";
+										}
+								}	
+			    				}
+						}
+						elsif ((($#son_genotypes+1)*(($#son_genotypes+1-$first_genotype_sons)/($#son_genotypes+1)))>$minimum_number_of_genotypes_from_sons){
+							if ($daughter_genotypes[$first_genotype_daughters-1] ne $son_genotypes[$#son_genotypes-$first_genotype_sons]){
+                                                                if (((grep $_ eq $daughter_genotypes[$first_genotype_daughters-1], @heterozygous_genotypes) &&
+                                                                       (grep $_ eq $son_genotypes[$#son_genotypes-$first_genotype_sons], @homozygous_genotypes)) ||
+                                                                         ((grep $_ eq $daughter_genotypes[$first_genotype_daughters-1], @homozygous_genotypes) &&
+                                                                          (grep $_ eq $son_genotypes[$#son_genotypes-$first_genotype_sons], @heterozygous_genotypes))                        
+                                                                           ){
+										push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$daughter_genotypes[$first_genotype_daughters-1]);	
+										push (@{$unique_son_geno{$columnF1[0]}{$columnF1[1]}},$son_genotypes[$#son_genotypes-$first_genotype_sons]);
+                                                       				if ((grep $_ eq $daughter_genotypes[$first_genotype_daughters-1], @heterozygous_genotypes)&&(grep $_ eq $columnF1[$mom], @heterozygous_genotypes)){
+                                                                			print OUTFILE1 "Heterozygous_daughters_mom_ZW ",$line1,"\n";
+                                                        			}
+                                                        			if ((grep $_ eq $daughter_genotypes[$first_genotype_daughters-1], @heterozygous_genotypes)&&(grep $_ eq $columnF1[$dad], @heterozygous_genotypes)){
+                                                                			print OUTFILE1 "Heterozygous_daughters_dad_XY ",$line1,"\n";
+                                                        			}
+                                                        			if ((grep $_ eq $son_genotypes[$#son_genotypes-$first_genotype_sons], @heterozygous_genotypes)&& (grep $_ eq $columnF1[$mom], @heterozygous_genotypes)){
+                                                               				print OUTFILE1 "Heterozygous_sons_mom_ZW ",$line1,"\n";
+                                                        			}
+                                                        			if ((grep $_ eq $son_genotypes[$#son_genotypes-$first_genotype_sons], @heterozygous_genotypes)&&(grep $_ eq $columnF1[$dad], @heterozygous_genotypes)){
+                                                               				print OUTFILE1 "Heterozygous_sons_dad_XY ",$line1,"\n";
+                                                       				}
+                                                		}
+                                        	}
+                                        }
+					}#$first_genotype_daughters
+
+					elsif (($#daughter_genotypes!=-1 && $#son_genotypes!=-1)&&(($#daughter_genotypes+1)*(($#daughter_genotypes+1-$first_genotype_daughters)/($#daughter_genotypes+1)))>$minimum_number_of_genotypes_from_daughters){
+						if ((($#son_genotypes+1)*(($first_genotype_sons)/($#son_genotypes+1)))>$minimum_number_of_genotypes_from_sons){
+                                                        if ($daughter_genotypes[$#daughter_genotypes-$first_genotype_daughters] ne $son_genotypes[$first_genotype_sons-1]){
+                                                                if (((grep $_ eq $daughter_genotypes[$#daughter_genotypes-$first_genotype_daughters], @heterozygous_genotypes) &&
+                                                                       (grep $_ eq $son_genotypes[$first_genotype_sons-1], @homozygous_genotypes)) ||
+                                                                         ((grep $_ eq $daughter_genotypes[$#daughter_genotypes-$first_genotype_daughters], @homozygous_genotypes) &&
+                                                                          (grep $_ eq $son_genotypes[$first_genotype_sons-1], @heterozygous_genotypes))                        
+                                                                           ){
+									push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$daughter_genotypes[$#daughter_genotypes-$first_genotype_daughters]);
+									push (@{$unique_son_geno{$columnF1[0]}{$columnF1[1]}},$son_genotypes[$first_genotype_sons-1]);
+                                        			                if ((grep $_ eq $daughter_genotypes[$#daughter_genotypes-$first_genotype_daughters], @heterozygous_genotypes)&&(grep $_ eq $columnF1[$mom], @heterozygous_genotypes)){
+                                                         			       print OUTFILE1 "Heterozygous_daughters_mom_ZW ",$line1,"\n";
+                                                       				}
+                                                       				if ((grep $_ eq $daughter_genotypes[$#daughter_genotypes-$first_genotype_daughters], @heterozygous_genotypes)&&(grep $_ eq $columnF2[$dad], @heterozygous_genotypes)){
+                                                                			print OUTFILE1 "Heterozygous_daughters_dad_XY ",$line1,"\n";
+                                                        			}	
+                                                        			if ((grep $_ eq $son_genotypes[$first_genotype_sons-1], @heterozygous_genotypes)&& (grep $_ eq $columnF2[$mom], @heterozygous_genotypes)){
+                                                                			print OUTFILE1 "Heterozygous_sons_mom_ZW ",$line1,"\n";
+                                                        			}
+                                                        			if ((grep $_ eq $son_genotypes[$first_genotype_sons-1], @heterozygous_genotypes)&&(grep $_ eq $columnF2[$dad], @heterozygous_genotypes)){
+                                                                			print OUTFILE1 "Heterozygous_sons_dad_XY ",$line1,"\n";
+                                                        			}
+                                                		}
+                                        		}
+                                        	}
+                                        	if ((($#son_genotypes+1)*(($#son_genotypes+1-$first_genotype_sons)/($#son_genotypes+1)))>$minimum_number_of_genotypes_from_sons){
+                                                	if ($daughter_genotypes[$#daughter_genotypes-$first_genotype_daughters] ne $son_genotypes[$#son_genotypes-$first_genotype_sons]){
+                                                                if (((grep $_ eq $daughter_genotypes[$#daughter_genotypes-$first_genotype_daughters], @heterozygous_genotypes) &&
+                                                                       (grep $_ eq $son_genotypes[$#son_genotypes-$first_genotype_sons], @homozygous_genotypes)) ||
+                                                                         ((grep $_ eq $daughter_genotypes[$#daughter_genotypes-$first_genotype_daughters], @homozygous_genotypes) &&
+                                                                          (grep $_ eq $son_genotypes[$#son_genotypes-$first_genotype_sons], @heterozygous_genotypes))  
+                                                                           ){
+                                                                                push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$daughter_genotypes[$first_genotype_daughters-1]);
+                                                                                push (@{$unique_son_geno{$columnF1[0]}{$columnF1[1]}},$son_genotypes[$#son_genotypes-$first_genotype_sons]);
+                                                                                if ((grep $_ eq $daughter_genotypes[$#daughter_genotypes-$first_genotype_daughters], @heterozygous_genotypes)&&(grep $_ eq $columnF1[$mom], @heterozygous_genotypes)){
+                                                                                print OUTFILE1 "Heterozygous_daughters_mom_ZW ",$line1,"\n";
+                                                                                }
+                                                                                if ((grep $_ eq $daughter_genotypes[$#daughter_genotypes-$first_genotype_daughters], @heterozygous_genotypes)&&(grep $_ eq $columnF1[$dad], @heterozygous_genotypes)){
+                                                                                print OUTFILE1 "Heterozygous_daughters_dad_XY ",$line1,"\n";
+                                                                                }
+                                                                                if ((grep $_ eq $son_genotypes[$#son_genotypes-$first_genotype_sons], @heterozygous_genotypes)&& (grep $_ eq $columnF2[$mom], @heterozygous_genotypes)){
+                                                                                print OUTFILE1 "Heterozygous_sons_mom_ZW ",$line2,"\n";
+                                                                                }
+                                                                                if ((grep $_ eq $son_genotypes[$#son_genotypes-$first_genotype_sons], @heterozygous_genotypes)&&(grep $_ eq $columnF1[$dad], @heterozygous_genotypes)){
+                                                                                print OUTFILE1 "Heterozygous_sons_dad_XY ",$line1,"\n";
+                                                                                }
+                                                                }
+                                                }
+                                        }
+                                        #}
+			    		#else{
+ 					#print OUTFILE2 $line2,"\n";
+ 					#}
+				#}
+
+				###Looking for sites that are on the X or Z chromosomes and not on the other XX AT x XY A. -> XX AA/AT XY A./T.
+				if(($#unique_daughters == 1)&&($#unique_sons == 1)){
+					if
+					 (((grep $_ eq $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_daughters[1], @homozygous_genotypes)&&
+					(grep $_ eq $unique_sons[0], @homozygous_genotypes)&&(grep $_ eq $unique_sons[1], @homozygous_genotypes))||
+					((grep $_ eq $unique_daughters[1], @heterozygous_genotypes)&&(grep $_ eq $unique_daughters[0], @homozygous_genotypes)&&
+                                        (grep $_ eq $unique_sons[0], @homozygous_genotypes)&&(grep $_ eq $unique_sons[1], @homozygous_genotypes))){
+                                                print OUTFILE1 "XY_system_Xsites ",$line1,"\n";
+                                        }
+					if (((grep $_ eq $unique_daughters[0], @homozygous_genotypes)&&(grep $_ eq $unique_daughters[1], @homozygous_genotypes)&&
+                                        (grep $_ eq $unique_sons[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[1], @homozygous_genotypes))||
+					((grep $_ eq $unique_daughters[0], @homozygous_genotypes)&&(grep $_ eq $unique_daughters[1], @homozygous_genotypes)&&
+                                        (grep $_ eq $unique_sons[1], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @homozygous_genotypes))){
+                                                print OUTFILE1 "ZW_system_Zsites ",$line1,"\n";
+                                        }
+				}
+				}
+				else{
+ 				print OUTFILE2 $line1,"\n";
+ 				}
+			}
+			#else{
+			#print OUTFILE2 $line1,"\n";
+			#}
+		} # end of elsif to check if only one parent is heterozygous
+
+		## Both parents are heterozygous
+		elsif(((grep $_ eq $columnF1[$mom], @heterozygous_genotypes) && (grep $_ eq $columnF1[$dad], @heterozygous_genotypes)) 
+			){
+
+			#push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #parents heteroz
+
+			push (@{$polymorphic_sites_mom{$columnF2[0]}},$columnF2[1]);
+			push (@{$polymorphic_sites_dad{$columnF2[0]}},$columnF2[1]);
+                              print OUTFILE3 "polymorphic_sites_mom_and_dad ",$line1,"\n";
+			print "The supercontig POLYM position is ",$columnF2[1],"\n";
+
+			@daughter_genotypes=();
+			@son_genotypes=();
+			for ($y = 0 ; $y <= $#girls ; $y++ ) { 
+				if($columnF1[$girls[$y]] ne "\.") {
+					$geno_mom_dad = join ("\t",$columnF2[$mom],$columnF2[$dad]);
+					@geno_mom_dad = split /["\t"\/]/, $geno_mom_dad;
+					@temp = split /[\/]/, $columnF2[$girls[$y]];
+					if ((grep $_ eq $temp[0], @geno_mom_dad)&&(grep $_ eq $temp[1], @geno_mom_dad)){
+						push(@daughter_genotypes, $columnF1[$girls[$y]]);
+					}
+				}
+			}
+
+			for ($y = 0 ; $y <= $#boys ; $y++ ) { 
+				if ($columnF1[$boys[$y]] ne "\."){
+					$geno_mom_dad = join ("\t",$columnF1[$mom],$columnF1[$dad]);
+					@geno_mom_dad = split /["\t"\/]/, $geno_mom_dad;
+					@tempB = split /[\/]/, $columnF1[$boys[$y]];
+					if ((grep $_ eq $tempB[0], @geno_mom_dad)&&(grep $_ eq $tempB[1], @geno_mom_dad)){
+						push(@son_genotypes, $columnF1[$boys[$y]]);
+					}
+				}
+			}
+		#}
+					@unique_daughters = uniq(@daughter_genotypes);
+					@unique_sons = uniq(@son_genotypes);
+					if(($#unique_daughters == 1)&&($#unique_sons == 1)){
+						if (((($unique_daughters[0]) ne ($unique_sons[0])) && (($unique_daughters[1]) ne ($unique_sons[1])))&&
+							((($unique_daughters[0]) ne ($unique_sons[1])) && (($unique_daughters[1]) ne ($unique_sons[0])))){
+							#ZZ:AT ZW:CG -> ZZ:AC/TC ZW:AG/TG (everybody is heterozygous)
+							if (((grep $_ eq  $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))&&
+							((grep $_ eq $unique_daughters[1], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[1], @heterozygous_genotypes))
+							){ 
+								print OUTFILE1 $line1,"\n";
+									foreach (@unique_daughters){
+									push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$_);
+
+									}
+									foreach (@unique_sons){
+                        				push (@{$unique_son_geno{$columnF1[0]}{$columnF1[1]}},$_);
+                    							}
+                					}
+                			#ZZ:AT ZW:TG -> ZZ:AT/TT ZW:AG/TG (everybody is heterozygous except one group of children)
+                			#1st:1group of females homoz [1]
+                					elsif ((((grep $_ eq  $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))&&
+							((grep $_ eq $unique_daughters[1], @homozygous_genotypes)&&(grep $_ eq $unique_sons[1], @heterozygous_genotypes))) ||
+							#2nd:1group of females homoz [0]
+							(((grep $_ eq  $unique_daughters[0], @homozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))&&
+							((grep $_ eq $unique_daughters[1], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[1], @heterozygous_genotypes))) ||
+							#3rd:1group of males homoz [0]
+							(((grep $_ eq  $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @homozygous_genotypes))&&
+							((grep $_ eq $unique_daughters[1], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[1], @heterozygous_genotypes))) ||
+							#4th:1group of males homoz [1]
+							(((grep $_ eq  $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))&&
+							((grep $_ eq $unique_daughters[1], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[1], @homozygous_genotypes)))
+							){ 
+								print OUTFILE1 "Multiple_genotypes ",$line1,"\n";
+									foreach (@unique_daughters){
+										push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$_);
+
+									}
+									foreach (@unique_sons){
+                        							push (@{$unique_son_geno{ $columnF1[0]}{$columnF1[1]}},$_);
+                        							
+                    							}
+                    					}
+                					else{
+ 								print OUTFILE2 $line1,"\n";
+ 							}
+            					}
+            					else{
+							print OUTFILE2 $line1,"\n";
+						}
+					}
+					#We have more data for the parents so if we have ZZ: CA (heteroz) & ZW:A/. -> children: ZZ:AA(homoz) and ZW:C/. (not enough data to call homoz A)
+					elsif((($#unique_daughters==-1 && $#unique_sons==0)||
+                                	($#unique_daughters==0 && $#unique_sons==-1))
+ 					&& (($#daughter_genotypes > $minimum_number_of_genotypes_from_daughters)||
+                                	($#son_genotypes > $minimum_number_of_genotypes_from_sons))){
+                                        	if ((grep $_ eq $unique_daughters[0],@homozygous_genotypes)||
+                                        	(grep $_ eq $unique_sons[0],@homozygous_genotypes)){
+							if (grep $_ eq $unique_daughters[0],@homozygous_genotypes){
+                                                		print OUTFILE1 "Probably_XY ",$line1,"\n";
+							}
+							if (grep $_ eq $unique_sons[0],@homozygous_genotypes){
+                                                                print OUTFILE1 "Probably_ZW ",$line1,"\n";
+                                                        }
+                                                	foreach (@unique_daughters){
+                                                        	push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$_);
+                                                	}
+                                                	foreach (@unique_sons){
+                                                        	push (@{$unique_son_geno{$columnF1[0]}{$columnF1[1]}},$_);
+                                                	}
+                                        	}
+                               		}	
+                               		else{
+                               		print OUTFILE2 $line1,"\n";
+                               		}
+                       	# }
+                       # else{
+                       # print OUTFILE2 $line1,"\n";
+                       # }
+
+				#	else{
+ 				#	print OUTFILE2 $line2,"\n";
+ 				#	}
+				#}
+				#else{
+ 				#print OUTFILE2 $line2,"\n";
+ 				#}
+			#}
+		}
+
+		## now check: no missing data, both homoz: check if potential sex-linked pattern in offspring: one sex homoz & one heteroz (pb of cov): +do it with heteroz/heteroz that it is a possible heteroz in off
+
+		elsif (((grep $_ eq $columnF1[$mom], @homozygous_genotypes) && (grep $_ eq $columnF1[$dad], @homozygous_genotypes)) 
+			){
+			@daughter_genotypes=();
+			@son_genotypes=();
+			for ($y = 0 ; $y <= $#girls ; $y++ ) { 
+				if($columnF1[$girls[$y]]!~/\.+/) {
+					push(@daughter_genotypes, $columnF1[$girls[$y]]);
+				}
+			}
+			for ($y = 0 ; $y <= $#boys ; $y++ ) { 
+				if($columnF1[$boys[$y]] !~/\.+/){
+					# a genotype call is present for this boy
+					push(@son_genotypes, $columnF1[$boys[$y]]);
+				}
+			}
+			@unique_daughters = uniq(@daughter_genotypes);
+			@unique_sons = uniq(@son_genotypes);
+
+			if((($#unique_daughters == 0)&&($#unique_sons == 0))
+				&& (($#daughter_genotypes > $minimum_number_of_genotypes_from_daughters)||
+                                ($#son_genotypes > $minimum_number_of_genotypes_from_sons))){
+				# this could be sex linked (length of array = 1 -> one genotype only on each sex); now check if only one is a homoz
+				if(((grep $_ eq  $unique_daughters[0], @homozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))||
+				((grep $_ eq $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @homozygous_genotypes))
+				){
+
+#					push (@{$polymorphic_sites{$columnF1[0]}},$columnF1[1]); #one sex heteroz
+					if (grep $_ eq $unique_daughters[0], @heterozygous_genotypes){
+						print OUTFILE1 "Heterozygous_daughters_probably_XY ",$line1,"\n";
+					}
+					if (grep $_ eq $unique_sons[0], @heterozygous_genotypes){
+                                                print OUTFILE1 "Heterozygous_sons_probably_ZW ",$line1,"\n";
+                                        }
+						foreach (@unique_daughters){
+							push (@{$unique_daug_geno{ $columnF1[0]}{$columnF1[1]}},$_);
+
+						}
+                    	foreach (@unique_sons){
+                        	push (@{$unique_son_geno{ $columnF1[0]}{$columnF1[1]}},$_);
+                    	}
+				}
+				else{
+ 				print OUTFILE2 $line1,"\n";
+ 				}
+			}
+
+			else{
+ 				print OUTFILE2 $line1,"\n";
+ 			}
+		}
+
+
+        elsif(
+
+		##Check if one parent is homozygous or heterozygous and the other is a dot "." (missing data in vcf files). 
+		#Looking for sites on the hemizygous chromosome. (present in one copy in one sex)
+
+		(($columnF1[$mom] !~ /\.+/)&&($columnF1[$dad] =~ /\.+/))||
+		(($columnF1[$mom] =~ /\.+/)&&($columnF1[$dad] !~/\.+/))
+		){
+		@daughter_genotypes=();
+		@son_genotypes=();
+		# now check if all heterozygotes are only in one sex and all homozygotes are only in the other sex
+		# but allow for missing calls
+
+			for ($y = 0 ; $y <= $#girls ; $y++ ) { 
+				if($columnF1[$girls[$y]] !~ /\.+/){
+			# a genotype call is present for this girl
+					push(@daughter_genotypes, $columnF1[$girls[$y]]);
+				}
+			}
+			for ($y = 0 ; $y <= $#boys ; $y++ ) { 
+				if($columnF1[$boys[$y]] !~ /\.+/){
+			# a genotype call is present for this boy	
+					push(@son_genotypes, $columnF1[$boys[$y]]);
+				}
+			}
+				# now check if one sex is all heterozygotes and the other
+				# is all homozygotes.
+
+			@unique_daughters = uniq(@daughter_genotypes);
+			@unique_sons = uniq(@son_genotypes);
+			#print "@unique_daughters @unique_sons";
+			#print " ",$#unique_daughters," ",$#unique_sons,"\n";
+			if((($#unique_daughters == 0)&&($#unique_sons == 0))
+ 				&& (($#daughter_genotypes > $minimum_number_of_genotypes_from_daughters)||
+                        	($#son_genotypes > $minimum_number_of_genotypes_from_sons))){ #check if after unique we only have one genotype (#$==0)
+				#print "@unique_daughters @unique_sons\n";
+				if(((grep $_ eq $unique_daughters[0], @homozygous_genotypes)&&(grep $_ eq $unique_sons[0], @heterozygous_genotypes))||
+				((grep $_ eq $unique_daughters[0], @heterozygous_genotypes)&&(grep $_ eq $unique_sons[0], @homozygous_genotypes))
+				){
+			# eventually add another check to confirm that the sex specific genotypes could actually be derived from the parents
+			# for which a genotype was inferred
+
+					#push (@{$polymorphic_sites{$columnF1[0]}},$columnF1[1]); #one sex heteroz
+					if (grep $_ eq $unique_daughters[0], @heterozygous_genotypes){
+						push (@{$polymorphic_sites_daughter_only{$columnF1[0]}},$columnF1[1]);
+						print OUTFILE1 "Heterozygous_daughters ",$line1,"\n";
+					}
+
+					if (grep $_ eq $unique_sons[0], @heterozygous_genotypes){
+						push (@{$polymorphic_sites_son_only{$columnF1[0]}},$columnF1[1]);
+						print OUTFILE1 "Heterozygous_sons ",$line1,"\n";
+					}
+
+
+					#print OUTFILE1 $line1,"\n";
+						foreach (@unique_daughters){
+                					push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$_);
+ 							#print "hello ",$columnF1[0],"\t",$columnF1[1],"\t",$_,"\n";
+
+                				}
+                				foreach (@unique_sons){
+                   			 		push (@{$unique_son_geno{$columnF1[0]}{$columnF1[1]}},$_);
+                    				}
+				}#if grep genotype potentially sex-linked
+				else{
+ 				print OUTFILE2 $line1,"\n";
+ 				}
+			}#if only one genotype in one sex
+			elsif(($#daughter_genotypes == -1)||($#son_genotypes == -1)){  # $# = null list -> we have missing data or no geno for one sex (sites spec for one sex)
+				if(($#daughter_genotypes >= $minimum_number_of_genotypes_from_daughters)||
+				($#son_genotypes >= $minimum_number_of_genotypes_from_sons)){ #check that it is sex-linked and not only poor coverage or seq error 
+			# there is more than a minimum number of genotypes for only one sex and there are none for the other
+			# this is especially interesting for W-linked if it is only daughters.
+
+					#push (@{$polymorphic_sites{$columnF1[0]}},$columnF1[1]); #one no data, other yes
+
+					if ($columnF2[$mom] !~ /\.+/){ #XY
+						push (@{$polymorphic_sites_mom{$columnF1[0]}},$columnF1[1]);
+					}
+
+					if ($columnF2[$dad] !~ /\.+/){ #ZW
+						push (@{$polymorphic_sites_dad{$columnF1[0]}},$columnF1[1]);
+						print "The supercontig POLYM position is ",$columnF1[1],"\n";
+					}
+
+					if(($#unique_daughters == -1)&&($columnF1[$mom] =~ /\.+/)){
+						print OUTFILE1 "Only_sons ",$line1,"\n";
+							foreach (@unique_sons){
+								push (@{$unique_son_geno{ $columnF2[0]}{$columnF1[1]}},$_);
+							}
+					}	
+					elsif(($#son_genotypes == -1)&&($columnF2[$dad] =~ /\.+/)){
+						print OUTFILE1 "Only_daughters ",$line1,"\n";
+							foreach (@unique_daughters){
+								push (@{$unique_daug_geno{ $columnF1[0]}{$columnF1[1]}},$_);
+							#	print "hello ",$columnF1[0],"\t",$columnF1[1],"\t",$_,"\n";
+							}
+
+					}
+				} #if good number of genotypes
+				else{
+ 				print OUTFILE2 $line1,"\n";
+ 				}
+			} #elsif missing data
+
+			else{
+				#SEE if informative to add somtg polym here
+			#	push (@{$polymorphic_sites{$columnF2[0]}},$columnF2[1]); #more genotypes than 1
+ 				print OUTFILE2 $line1,"\n";
+
+ 				if ($#unique_daughters > 1){ #XY
+					push (@{$polymorphic_sites_daughter_only{$columnF1[0]}},$columnF1[1]);
+                                                  print OUTFILE3 "polymorphic_sites_daughter_only ",$line1,"\n";
+				}
+
+				if ($#unique_sons > 1){ #ZW
+					push (@{$polymorphic_sites_son_only{$columnF1[0]}},$columnF1[1]);
+                                                  print OUTFILE3 "polymorphic_sites_son_only ",$line1,"\n";
+				}
+ 			}
+			#else{
+			# both are heterozygous; 
+			# check if a homozygote class is only in one sex, and never in the other
+			#}
+		}
+		else{
+ 		print OUTFILE2 $line1,"\n";
+ 		}
+	}
+}
+
+close DATAINPUT1;
+print "Done with input file 1\n";
+close DATAINPUT2;
+print "Done with input file 2\n";
+close OUTFILE3;
+print "Done with outputfile 3\n";
+close OUTFILE2;
+print "Done with outputfile 2\n";
+close OUTFILE1;
+print "Done with outputfile 1\n";
+
+```
+```
+
+```
