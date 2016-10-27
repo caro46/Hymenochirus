@@ -255,7 +255,7 @@ while (my $line1=<DATAINPUT1>) {
 			@daughter_genotypes=();	 #need to clear the array for both sex each time (or we add the genotypes each line after each line)
 			for ($y = 0 ; $y <= $#girls ; $y++ ) { 
 				if($columnF1[$girls[$y]] !~ /\.+/ ){
-						push(@daughter_genotypes, $columnF2[$girls[$y]]);
+					push(@daughter_genotypes, $columnF2[$girls[$y]]);
 				}
 			}
 			@son_genotypes=();
@@ -287,6 +287,7 @@ while (my $line1=<DATAINPUT1>) {
 					foreach (@unique_daughters){
 						push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$_);
 						push (@{$polymorphic_sites_daughter_only{$columnF1[0]}},$columnF1[1]); #at least one sex heteroz
+						print OUTFILE3 "polymorphic_sites_daughter_only ",$line1,"\n";
 
 					}
 		                    foreach (@unique_sons){
@@ -301,7 +302,7 @@ while (my $line1=<DATAINPUT1>) {
 			# this is especially interesting for W-linked if it is only daughters.
 
 				if($#son_genotypes >= $minimum_number_of_genotypes_from_sons){
-                                                  print OUTFILE3 "polymorphic_sites_son_only ",$line1,"\n";
+					print OUTFILE3 "polymorphic_sites_son_only ",$line1,"\n";
 					push (@{$polymorphic_sites_son_only{$columnF1[0]}},$columnF1[1]); #one sex no geno, other yes 
 					print OUTFILE1 "Only_sons ",$line1,"\n";
 						foreach (@unique_sons){
@@ -309,7 +310,7 @@ while (my $line1=<DATAINPUT1>) {
 						}
 				}	
 				elsif($#daughter_genotypes >= $minimum_number_of_genotypes_from_daughters){
-                                                  print OUTFILE3 "polymorphic_sites_daughter_only ",$line1,"\n";
+					print OUTFILE3 "polymorphic_sites_daughter_only ",$line1,"\n";
 					push (@{$polymorphic_sites_daughter_only{$columnF1[0]}},$columnF1[1]); #one sex no geno, other yes 
 					print OUTFILE1 "Only_daughters ",$line1,"\n";
 						foreach (@unique_daughters){
@@ -320,8 +321,8 @@ while (my $line1=<DATAINPUT1>) {
 	 		else{
 	 			push (@{$polymorphic_sites_daughter_only{$columnF1[0]}},$columnF1[1]); #SEE IF OK or add criteria
 	 			push (@{$polymorphic_sites_son_only{$columnF1[0]}},$columnF1[1]); #SEE IF OK
-                                        print OUTFILE3 "polymorphic_sites_children_only ",$line1,"\n";
-                                        print OUTFILE2 $line1,"\n";
+				print OUTFILE3 "polymorphic_sites_children_only ",$line1,"\n";
+				print OUTFILE2 $line1,"\n";
  			}
 	 	}
 
@@ -375,13 +376,13 @@ while (my $line1=<DATAINPUT1>) {
 			
 			if (grep $_ eq $columnF1[$mom], @heterozygous_genotypes){
 				push (@{$polymorphic_sites_mom{$columnF1[0]}},$columnF1[1]);
-                                        print OUTFILE3 "polymorphic_sites_mom ",$line1,"\n";
+				print OUTFILE3 "polymorphic_sites_mom ",$line1,"\n";
 			}
 
 			if (grep $_ eq $columnF1[$dad], @heterozygous_genotypes){
 				push (@{$polymorphic_sites_dad{$columnF1[0]}},$columnF1[1]);
 				print "The supercontig POLYM position is ",$columnF2[1],"\n";
-                                        print OUTFILE3 "polymorphic_sites_dad ",$line1,"\n";
+				print OUTFILE3 "polymorphic_sites_dad ",$line1,"\n";
 			}
 
 			if(($#unique_daughters == 0)&&($#unique_sons == 0)){
@@ -597,7 +598,7 @@ while (my $line1=<DATAINPUT1>) {
 
 			push (@{$polymorphic_sites_mom{$columnF2[0]}},$columnF2[1]);
 			push (@{$polymorphic_sites_dad{$columnF2[0]}},$columnF2[1]);
-                              print OUTFILE3 "polymorphic_sites_mom_and_dad ",$line1,"\n";
+			print OUTFILE3 "polymorphic_sites_mom_and_dad ",$line1,"\n";
 			print "The supercontig POLYM position is ",$columnF2[1],"\n";
 
 			@daughter_genotypes=();
@@ -635,11 +636,11 @@ while (my $line1=<DATAINPUT1>) {
 							){ 
 								print OUTFILE1 $line1,"\n";
 									foreach (@unique_daughters){
-									push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$_);
+										push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$_);
 
 									}
 									foreach (@unique_sons){
-                        				push (@{$unique_son_geno{$columnF1[0]}{$columnF1[1]}},$_);
+                        							push (@{$unique_son_geno{$columnF1[0]}{$columnF1[1]}},$_);
                     							}
                 					}
                 			#ZZ:AT ZW:TG -> ZZ:AT/TT ZW:AG/TG (everybody is heterozygous except one group of children)
@@ -744,9 +745,11 @@ while (my $line1=<DATAINPUT1>) {
 #					push (@{$polymorphic_sites{$columnF1[0]}},$columnF1[1]); #one sex heteroz
 					if (grep $_ eq $unique_daughters[0], @heterozygous_genotypes){
 						print OUTFILE1 "Heterozygous_daughters_probably_XY ",$line1,"\n";
+						print OUTFILE3 "polymorphic_sites_daughter ",$line1,"\n";
 					}
 					if (grep $_ eq $unique_sons[0], @heterozygous_genotypes){
                                                 print OUTFILE1 "Heterozygous_sons_probably_ZW ",$line1,"\n";
+						print OUTFILE3 "polymorphic_son_children ",$line1,"\n";
                                         }
 						foreach (@unique_daughters){
 							push (@{$unique_daug_geno{ $columnF1[0]}{$columnF1[1]}},$_);
@@ -812,11 +815,13 @@ while (my $line1=<DATAINPUT1>) {
 					#push (@{$polymorphic_sites{$columnF1[0]}},$columnF1[1]); #one sex heteroz
 					if (grep $_ eq $unique_daughters[0], @heterozygous_genotypes){
 						push (@{$polymorphic_sites_daughter_only{$columnF1[0]}},$columnF1[1]);
+						print OUTFILE3 "polymorphic_sites_daughter ",$line1,"\n";
 						print OUTFILE1 "Heterozygous_daughters ",$line1,"\n";
 					}
 
 					if (grep $_ eq $unique_sons[0], @heterozygous_genotypes){
 						push (@{$polymorphic_sites_son_only{$columnF1[0]}},$columnF1[1]);
+						print OUTFILE3 "polymorphic_sites_son ",$line1,"\n";
 						print OUTFILE1 "Heterozygous_sons ",$line1,"\n";
 					}
 
@@ -845,11 +850,13 @@ while (my $line1=<DATAINPUT1>) {
 
 					if ($columnF2[$mom] !~ /\.+/){ #XY
 						push (@{$polymorphic_sites_mom{$columnF1[0]}},$columnF1[1]);
+						print OUTFILE3 "polymorphic_sites_mom ",$line1,"\n";
 					}
 
 					if ($columnF2[$dad] !~ /\.+/){ #ZW
 						push (@{$polymorphic_sites_dad{$columnF1[0]}},$columnF1[1]);
 						print "The supercontig POLYM position is ",$columnF1[1],"\n";
+						print OUTFILE3 "polymorphic_sites_dad ",$line1,"\n";
 					}
 
 					if(($#unique_daughters == -1)&&($columnF1[$mom] =~ /\.+/)){
