@@ -41,7 +41,9 @@ use List::Util qw(min max);
 
 # This script reads in a tab delimited files that has scaffold
 # positions in a concatenated reference genome.  It generates
-# a hash that can be used later to parse genotype data.
+# 2 files: 1 containing the information of the potential 
+# sex-linked sites & 1 containing the information of polymorphic sites.
+# Both files will be used later as inputs of main.cpp
 
 ##Define all the different input and output files
 
@@ -926,6 +928,10 @@ use strict;
 use warnings;
 use List::MoreUtils qw/ uniq /;
 use List::Util qw(min max);
+
+# This script reads in a tab delimited files that contains information
+# for each scaffolds. It selects potential sex-linked scaffolds that will
+# be used later as input of blast. It uses a genome reference in a fasta format.
 
 ##INPUT files
 my $inputfile = "count.txt";
