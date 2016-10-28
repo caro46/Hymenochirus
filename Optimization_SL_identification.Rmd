@@ -343,7 +343,7 @@ while (my $line1=<DATAINPUT1>) {
                 if($#son_genotypes >= $minimum_number_of_genotypes_from_sons){
                     print OUTFILE3 "polymorphic_sites_son_only ",$line1,"\n";
                     push (@{$polymorphic_sites_son_only{$columnF1[0]}},$columnF1[1]); #one sex no geno, other yes 
-                    print OUTFILE1 "Only_sons ",$line1,"\n";
+                    print OUTFILE1 "Only_sons_XY ",$line1,"\n";
                         foreach (@unique_sons){
                             push (@{$unique_son_geno{$columnF1[0]}{$columnF1[1]}},$_);
                         }
@@ -351,7 +351,7 @@ while (my $line1=<DATAINPUT1>) {
                 elsif($#daughter_genotypes >= $minimum_number_of_genotypes_from_daughters){
                     print OUTFILE3 "polymorphic_sites_daughter_only ",$line1,"\n";
                     push (@{$polymorphic_sites_daughter_only{$columnF1[0]}},$columnF1[1]); #one sex no geno, other yes 
-                    print OUTFILE1 "Only_daughters ",$line1,"\n";
+                    print OUTFILE1 "Only_daughters_ZW ",$line1,"\n";
                         foreach (@unique_daughters){
                             push (@{$unique_daug_geno{$columnF1[0]}{$columnF1[1]}},$_);
                         }
@@ -899,13 +899,13 @@ while (my $line1=<DATAINPUT1>) {
                     }
 
                     if(($#unique_daughters == -1)&&($columnF1[$mom] =~ /\.+/)){
-                        print OUTFILE1 "Only_sons ",$line1,"\n";
+                        print OUTFILE1 "Only_sons_XY ",$line1,"\n";
                             foreach (@unique_sons){
                                 push (@{$unique_son_geno{ $columnF1[0]}{$columnF1[1]}},$_);
                             }
                     }   
                     elsif(($#son_genotypes == -1)&&($columnF1[$dad] =~ /\.+/)){
-                        print OUTFILE1 "Only_daughters ",$line1,"\n";
+                        print OUTFILE1 "Only_daughters_ZW ",$line1,"\n";
                             foreach (@unique_daughters){
                                 push (@{$unique_daug_geno{ $columnF1[0]}{$columnF1[1]}},$_);
                             #   print "hello ",$columnF1[0],"\t",$columnF1[1],"\t",$_,"\n";
