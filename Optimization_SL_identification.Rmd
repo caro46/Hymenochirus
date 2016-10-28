@@ -49,6 +49,26 @@ use List::Util qw(min max);
 
 ######OUTPUT file
 
+my $path_to_output="/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/multiple_steps/";
+
+my $outputfile1 = $path_to_output."Hymenochirus_sex_linked_sites_Phred20_UnifiedGenotyper_1st_part.txt";
+unless (open(OUTFILE1, ">$outputfile1")){
+    print "I can\'t write to $outputfile1   $!\n\n";
+    exit;
+}
+
+my $outputfile2 = $path_to_output."Hymenochirus_invalid_sites_Phred20_UnifiedGenotyper_1st_part.txt";
+unless(open(OUTFILE2, ">$outputfile2")){
+   print "I can\'t write to $outputfile2   $!\n\n";
+    exit;
+}
+
+my $outputfile3 = $path_to_output."Hymenochirus_polymorphic_sites_Phred20_UnifiedGenotyper_1st_part.txt";
+unless(open(OUTFILE3, ">$outputfile3")){
+    print "I can\'t write to $outputfile3   $!\n\n";
+    exit;
+}
+
 #my $path_to_output="/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/big_scaffolds_separated/";
 #my $separated_scaffold="supercontig_1";
 
@@ -73,6 +93,22 @@ use List::Util qw(min max);
 
 ######INPUT file 
 
+my $inputfile1 ="/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/SOAP_Chimerical_recalibrated_round1_allsites_Phred20.tab";
+
+#my $inputfile1 = $path_to_output.$separated_scaffold."\/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_".$separated_scaffold.".tab";
+
+unless (open DATAINPUT1, $inputfile1) {
+        print "Can not find the input file $inputfile1, jackass.\n";
+        exit;
+}
+
+my $inputfile2 = "/net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/pedigree_copy";
+
+unless (open DATAINPUT2, $inputfile2) {
+        print "Can not find the input file $inputfile2, jackass.\n";
+        exit;
+}
+
 #my $inputfile1 = $path_to_output.$separated_scaffold."\/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_".$separated_scaffold.".tab";
 
 #unless (open DATAINPUT1, $inputfile1) {
@@ -91,37 +127,37 @@ use List::Util qw(min max);
 #print $ex; 
 
 ###TEST
-my $outputfile1 = "Hymenochirus_sex_linked_sites_opt_1stpart.txt";
-unless (open(OUTFILE1, ">$outputfile1")){
-   print "I can\'t write to $outputfile1   $!\n\n";
-   exit;
-}
+#my $outputfile1 = "Hymenochirus_sex_linked_sites_opt_1stpart.txt";
+#unless (open(OUTFILE1, ">$outputfile1")){
+#   print "I can\'t write to $outputfile1   $!\n\n";
+#   exit;
+#}
 
-my $outputfile2 = "Hymenochirus_invalid_sites_opt_1stpart.txt";
-unless(open(OUTFILE2, ">$outputfile2")){
-   print "I can\'t write to $outputfile2   $!\n\n";
-   exit;
-}
+#my $outputfile2 = "Hymenochirus_invalid_sites_opt_1stpart.txt";
+#unless(open(OUTFILE2, ">$outputfile2")){
+#   print "I can\'t write to $outputfile2   $!\n\n";
+#   exit;
+#}
 
-my $outputfile3 = "Hymenochirus_polymorphic_sites_opt_1stpart.txt";
-unless(open(OUTFILE3, ">$outputfile3")){
-   print "I can\'t write to $outputfile3   $!\n\n";
-   exit;
-}
+#my $outputfile3 = "Hymenochirus_polymorphic_sites_opt_1stpart.txt";
+#unless(open(OUTFILE3, ">$outputfile3")){
+#   print "I can\'t write to $outputfile3   $!\n\n";
+#   exit;
+#}
 
-my $inputfile1 = "sample_SOAP_allconf_test.tab";
+#my $inputfile1 = "sample_SOAP_allconf_test.tab";
 
-unless (open DATAINPUT1, $inputfile1) {
-        print "Can not find the input file $inputfile1, jackass.\n";
-        exit;
-}
+#unless (open DATAINPUT1, $inputfile1) {
+#        print "Can not find the input file $inputfile1, jackass.\n";
+#        exit;
+#}
 
-my $inputfile2 = "pedigree_copy";
+#my $inputfile2 = "pedigree_copy";
 
-unless (open DATAINPUT2, $inputfile2) {
-        print "Can not find the input file $inputfile2, jackass.\n";
-        exit;
-}
+#unless (open DATAINPUT2, $inputfile2) {
+#        print "Can not find the input file $inputfile2, jackass.\n";
+#        exit;
+#}
 
 ##Load inputfile1 info in hashes
 #It is the file which make the ling between supercontigs coordinates and real contigs produced by an assembler
@@ -920,6 +956,8 @@ close OUTFILE1;
 print "Done with outputfile 1\n";
 
 ```
+Time: `934.090u 11.955s 15:52.24 99.3% 0+0k 2917256+1816624io 0pf+0w`.
+
 `3rd_part.pl`
 ```perl
 #!/usr/local/perl5.24/perl-5.24.0/perl
