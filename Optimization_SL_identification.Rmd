@@ -358,9 +358,9 @@ while (my $line1=<DATAINPUT1>) {
                 }
             }
             else{
-                push (@{$polymorphic_sites_daughter_only{$columnF1[0]}},$columnF1[1]); #SEE IF OK or add criteria
-                push (@{$polymorphic_sites_son_only{$columnF1[0]}},$columnF1[1]); #SEE IF OK
-                print OUTFILE3 "polymorphic_sites_children_only ",$line1,"\n";
+                #push (@{$polymorphic_sites_daughter_only{$columnF1[0]}},$columnF1[1]); #SEE IF OK or add criteria
+                #push (@{$polymorphic_sites_son_only{$columnF1[0]}},$columnF1[1]); #SEE IF OK
+                #print OUTFILE3 "polymorphic_sites_children_only ",$line1,"\n"; #print sites where a few individuals have homozygous sites, see with Ben if we should add smthg there
                 print OUTFILE2 $line1,"\n";
             }
         }
