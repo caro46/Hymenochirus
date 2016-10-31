@@ -28,7 +28,7 @@ sed -i 's/\t/ /g' Hymenochirus_barcode_RADpools_no_overhang.pools
 Can be downloaded from [here](ftp://ftp.gnu.org/gnu/gcc/gcc-6.2.0/). If only version `g++ (GCC) 4.4.7` on Info, need to do following steps:
 ```
  tar xzf gcc-6.2.0.tar.gz
- cd gcc-4.6.2
+ cd gcc-6.2.0
  ./contrib/download_prerequisites
  cd ..
  mkdir objdir
