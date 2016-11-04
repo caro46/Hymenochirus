@@ -1165,6 +1165,7 @@ print "Done with outputfile \n";
 - $ratio_geno_poly_limit = 0.8 & $minimum_total_called_sites = 50: `Hymenochirus_putative_sex_linked_opt_ratio08mingen50.fa`
 
           > 173 scaffolds identified as "XY_Yscaffold"
+
 **Blast of SL scaffolds**
 Blast of `Hymenochirus_putative_sex_linked_opt.fa` on `xenTro9_genome_HARDmasked_blastable`, `BJE3814_genomeAbyss_blastable` (`-evalue 1e-60`), `BJE3814_genomeAbyss_blastable` (`-evalue 1e-60`)
 ```
