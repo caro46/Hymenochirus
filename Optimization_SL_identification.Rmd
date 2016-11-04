@@ -1156,3 +1156,31 @@ close OUTFILE;
 print "Done with outputfile \n";
 
 ```
+**Criteria used**:
+
+- As specified in the 3rd part script: `Hymenochirus_putative_sex_linked_opt.fa` (no effect if we only change the ratio $ratio_geno_poly_limit to 0.5)
+
+          > 176 scaffolds
+
+- $ratio_geno_poly_limit = 0.8 & $minimum_total_called_sites = 50: `Hymenochirus_putative_sex_linked_opt_ratio08mingen50.fa`
+
+          > 173 scaffolds identified as "XY_Yscaffold"
+**Blast of SL scaffolds**
+Blast of `Hymenochirus_putative_sex_linked_opt.fa` on `xenTro9_genome_HARDmasked_blastable`, `BJE3814_genomeAbyss_blastable` (`-evalue 1e-60`), `BJE3814_genomeAbyss_blastable` (`-evalue 1e-60`)
+```
+blastn -evalue 1e-20 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/Hymenochirus_putative_sex_linked_opt.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/Hymenochirus_chimerical_putative_sex_linked_Phred20_UnifiedGenotyper_NonString_xenTro9_hard_mask_e20 -outfmt 6 -max_target_seqs 1
+
+blastn -evalue 1e-60 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/Hymenochirus_putative_sex_linked_opt.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/Hymenochirus_chimerical_putative_sex_linked_Phred20_UnifiedGenotyper_NonString_BJE3814abyss_e60 -outfmt 6 -max_target_seqs 1
+```
+We used the same criteria after masking the repeats (RepeatMasker `version open-3.2.6`, `-species "xenopus genus"`). Input becomes `Hymenochirus_putative_sex_linked_opt.fa.masked` and in the output name `*_NonString_masked_*`. When we blasted against *X.tropicalis*, we still have the same issue with the scaffold `C77398520` that blasted on Chr01 a lot of times with a length of 128 (all the times, same part of the scaffold that blasted at various places on the Chr01). Decided to mask the repeats using the 2 libraries (mom and dad) previously made using repARK/TEclass:
+```
+/usr/local/RepeatMasker/RepeatMasker -dir /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/multiple_steps -lib /home/evanslab/Hymeno_fastqc/repeatmasker_analysis/SOAP_chimerical_genome/repeat_library_Female_Male_Merged_libRepARKTEclass.fasta -pa 4 -a /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/UnifiedGenotyper/noMarkDupli/multiple_steps/REPARK_masked/Hymenochirus_putative_sex_linked_opt.f
+```
+Issue solved. Considering only the match > 100 bp, the scaffolds only match against Chr04 (`Hymenochirus_chimerical_putative_sex_linked_Phred20_UnifiedGenotyper_linked_opt_RepARKmasked_xenTro9_hard_mask_e5`).
+
+We then blast the results of more stringent criteria from `3rd_part.pl`: `Hymenochirus_putative_sex_linked_opt_ratio08mingen50`(e-value Abyss assemblies: `1e-70`, *X. tropicalis* `1e-20`, `1e-5`) as before repeatMaker using xenopus library and home made libraries. Again the results map only against Chr04. We then decided to map on *X. laevis* genome ([xenbase - version 9.1](http://gbrowse.xenbase.org/fgb2/gbrowse/xl9_1/?)). `scaffold348337` map to a length of `956` on `chr4L`. So I mapped against the Abyss genomes (`e70`) and xenbase *X. laevis* genome online to see if a gene appeared: grm2 (interesting publication about Metabotropic Glutamate Receptor Ligands [here](http://www.sciencedirect.com/science/article/pii/S002839081200442X)). Differences between male and female within this gene sequence but in a region of multiple C...    
+
+If want to print the query and subject sequences:
+```
+blastn -evalue 1e-70 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/scaffold348337.fa -db /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/Xla_v91_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/scaffold348337_Xlaevis91_e5_qseq_sseq -outfmt "6 qseq sseq" -max_target_seqs 1
+```
