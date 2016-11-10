@@ -1192,3 +1192,7 @@ If want to print the query and subject sequences:
 ```
 blastn -evalue 1e-70 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/scaffold348337.fa -db /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/Xla_v91_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/scaffold348337_Xlaevis91_e5_qseq_sseq -outfmt "6 qseq sseq" -max_target_seqs 1
 ```
+Want to select genotypes from a particular region 
+```
+vcftools --gzvcf BJE3814_nonrecal_varonly.vcf.gz --chr "supercontig_1" --from-bp --to-bp --recode  --recode-INFO-all | gzip -c > BJE3814_nonrecal_varonly_supercontig_1.vcf.gz
+```
