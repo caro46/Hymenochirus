@@ -1181,17 +1181,31 @@ Issue solved. Considering only the match > 100 bp, the scaffolds only match agai
 
 We then blast the results of more stringent criteria from `3rd_part.pl`: `Hymenochirus_putative_sex_linked_opt_ratio08mingen50`(e-value Abyss assemblies: `1e-70`, *X. tropicalis* `1e-20`, `1e-5`) as before repeatMaker using xenopus library and home made libraries. Again the results map only against Chr04. We then decided to map on *X. laevis* genome ([xenbase - version 9.1](http://gbrowse.xenbase.org/fgb2/gbrowse/xl9_1/?)). `scaffold348337` map to a length of `956` on `chr4L`. So I mapped against the Abyss genomes (`e70`) and xenbase *X. laevis* genome online to see if a gene appeared: grm2 (interesting publication about Metabotropic Glutamate Receptor Ligands [here](http://www.sciencedirect.com/science/article/pii/S002839081200442X)). Differences between male and female within this gene sequence but in a region of multiple C...    
 
-When we check with the sequence assembly if the sites identified with GBS data as "only one sex" are really absent in the mother: it is mostly not the case (example: `scaffold310710`,`scaffold348337` of the chimerical assembly, when blasted against the abyss scaffolds of the mother and the father: no only one sex sites.). When we are looking at the restriction sites on the scaffolds of abyss assemblies: variation between mother and father and some in the middle of 2 sets repeat sequences. Variation in coverage between sites seems to maily due to sequencing not because of real differences between males and females. Need to focuse on parts for which we have data for males and females. See if same scaffolds identified with a sex-inheritance pattern.
+When we check with the sequence assembly if the sites identified with GBS data as "only one sex" are really absent in the mother: it is mostly not the case (example: `scaffold310710`,`scaffold348337` of the chimerical assembly, when blasted against the abyss scaffolds of the mother and the father: no only one sex sites.). When we are looking at the restriction sites on the scaffolds of abyss assemblies: variation between mother and father and some in the middle of 2 sets repeat sequences. Variation in coverage between sites seems to mainly due to sequencing not because of real differences between males and females. 
+
+When we visualize (IGV) the reads (from GBS data) mapping to the scaffolds with identified "only one sex" sites (ex.:`scaffold89772`), regions with reads for males but 0 for all the females even if this region was identified as present in the assembly made using HiSeq data idependently for each parent. Heterozigosity of restriction enzyme sites, repeat sequences can create issues for genotype identification (see for example [Davey et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3712469/) and [Beissinger et al.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3606087/))
+
+Need to focus on parts for which we have data for males and females. See if same scaffolds identified with a sex-inheritance pattern.
 ```
 blastn -evalue 1e-5 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked -db /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/Xla_v91_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_chimerical_putative_sex_linked_Phred20_Haplotype_caller_linked_opt_tot1SS1polym1ratio0_RepARKmasked_Xla91_hard_mask_e5 -outfmt 6 -max_target_seqs 1
 
 blastn -evalue 1e-5 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_chimerical_putative_sex_linked_Phred20_Haplotype_caller_linked_opt_tot1SS1polym1ratio0_RepARKmasked_xenTro9_hard_mask_e5 -outfmt 6 -max_target_seqs 1
 ```
+`scaffold89772` displays sites identified as only present in one sex and also SNPs with sex-inheritance pattern. When we blast to both parents Abyss assembly: regions present in both sex. But the scaffold has a lot of repeats identified and masked when we used our repARK libraries.
+
+**Important point:** When we blast either scaffolds with sites identified as "only one sex" or with SNPs displaying a sex-inheritance pattern, after repeat masking with libraries from repARK: the scaffolds mapping to *X. tropicalis* map to Chr.04 (same with *X. laevis*).
 
 If want to print the query and subject sequences:
 ```
 blastn -evalue 1e-70 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/scaffold348337.fa -db /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/Xla_v91_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/scaffold348337_Xlaevis91_e5_qseq_sseq -outfmt "6 qseq sseq" -max_target_seqs 1
 ```
+###Potential sex-linked genes on *X. tropicalis* Chr.04
+**- SOX6**
+
+**- DMRT5**
+
+**- Kank4**
+
 Want to select genotypes from a particular region 
 ```
 vcftools --gzvcf BJE3814_nonrecal_varonly.vcf.gz --chr "supercontig_1" --from-bp --to-bp --recode  --recode-INFO-all | gzip -c > BJE3814_nonrecal_varonly_supercontig_1.vcf.gz
