@@ -1200,9 +1200,9 @@ If want to print the query and subject sequences:
 blastn -evalue 1e-70 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/scaffold348337.fa -db /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/Xla_v91_genome_HARDmasked_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Unified_genotyper/scaffold348337_Xlaevis91_e5_qseq_sseq -outfmt "6 qseq sseq" -max_target_seqs 1
 ```
 ###Potential sex-linked genes on *X. tropicalis* Chr.04
-**- SOX6**
+**- SOX6**: blast chimerical scaffold `C91947791`. Scaffold to small to be included in the supercontigs (\<500bp). Blast against male Abyss assembly: scaffold 24548123 (= supercontig 2: 160180161-160181357). Using data when we mapped HiSeq reads against assembly: a few SNPs (but no data from offspring to know if sex-inhheritance pattern).
 
-**- DMRT5**
+**- DMRT5**: if directly blast the gene seq. -> no hit. Needed to use sequence from the DM domain only. The scaffolds obtained don't have GBS data. Need to blast each scaffold again against *X. tropicalis* to see if now we can separate the different members of DM family and particularly the scaffold containing DMRT5.
 
 **- Kank4**
 
