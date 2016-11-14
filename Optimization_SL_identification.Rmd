@@ -1203,6 +1203,19 @@ blastn -evalue 1e-70 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regi
 **- SOX6**: blast chimerical scaffold `C91947791`. Scaffold to small to be included in the supercontigs (\<500bp). Blast against male Abyss assembly: scaffold 24548123 (= supercontig 2: 160180161-160181357). Using data when we mapped HiSeq reads against assembly: a few SNPs (but no data from offspring to know if sex-inhheritance pattern).
 
 **- DMRT5**: if directly blast the gene seq. -> no hit. Needed to use sequence from the DM domain only. The scaffolds obtained don't have GBS data. Need to blast each scaffold again against *X. tropicalis* to see if now we can separate the different members of DM family and particularly the scaffold containing DMRT5.
+```
+tblastx -evalue 1e-1 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/DM_domain.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/BJE3814_abyss_DM_domain_tblastx_e1_target_seq_3_qseq_sseq -outfmt "6 qseq sseq" -max_target_seqs 1
+
+awk -v seq="C92128961" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/SOAP_genomes/SOAP_Hymeno_genome.scafSeq >SOAP_chimerical_scaffoldC92128961.fa 
+```
+|SOAP_chimerical_scaffold|DM-member|
+-------------------------|----------|
+|C92128961|DMRT1 (Chr.01)|
+|**C92682523**|**DMRTa2 (Chr.04)**|
+|scaffold289841|DMRT1a1 (Chr.01)|
+|scaffold122580|DMRT2 (Chr.01)|
+|C92174591|DMRT3 (Chr.01)|
+|scaffold264|not clear|
 
 **- Kank4**
 
