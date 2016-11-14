@@ -1217,6 +1217,8 @@ awk -v seq="C92128961" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymeno
 |C92174591|DMRT3 (Chr.01)|
 |scaffold264|not clear|
 
+***Potential roles of DMRTa2***: "*DmrtA2 may play a role in ovary-differentiation and mature-ovary maintenance.* [in ayu]" ([Wang et al. 2014](http://molehr.oxfordjournals.org/content/20/10/960.full)), "*This study reveals, for the first time, the requirement of DMRTA2 for normal human female embryonic germ cell development. DMRTA2 appears to be necessary for proper differentiation of oogonia, prior to entry into meiosis, in the human species.*" ([Poulain et al. 2014](http://molehr.oxfordjournals.org/content/20/10/960.full)), "*zebrafish Dmrt5 have potentially important roles in gonadal development*" ([Guo et al. 2004](https://www.ncbi.nlm.nih.gov/pubmed/15474464)).
+
 **- Kank4**
 
 Want to select genotypes from a particular region 
