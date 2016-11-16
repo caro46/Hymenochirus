@@ -1208,14 +1208,21 @@ tblastx -evalue 1e-1 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regi
 
 awk -v seq="C92128961" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/SOAP_genomes/SOAP_Hymeno_genome.scafSeq >SOAP_chimerical_scaffoldC92128961.fa 
 ```
-|SOAP_chimerical_scaffold|DM-member|
--------------------------|----------|
-|C92128961|DMRT1 (Chr.01)|
-|**C92682523**|**DMRTa2 (Chr.04)**|
-|scaffold289841|DMRT1a1 (Chr.01)|
-|scaffold122580|DMRT2 (Chr.01)|
-|C92174591|DMRT3 (Chr.01)|
-|scaffold264|not clear|
+|SOAP_chimerical_scaffold|DM-member|Abyss_BJE3814_mom_scaffold|Abyss_BJE3815_dad_scaffold|
+-------------------------|----------|----------|----------|
+|C92128961|DMRT1 (Chr.01)|||
+|**C92682523**|**DMRTa2 (Chr.04)**|25142173|24873906|
+|scaffold289841|DMRT1a1 (Chr.01)|||
+|scaffold122580|DMRT2 (Chr.01)|||
+|C92174591|DMRT3 (Chr.01)|||
+|scaffold264|not clear|||
+Delimitation of real scaffolds within super_contig 
+```
+evanslab:multiple_steps % grep "25142173" /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_abyss_supercontigs_index
+5	25142173	182762321	182781571
+evanslab:multiple_steps % grep "24873906" /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8_abyss_supercontigs_index
+6	24873906	22045521	22062501
+```
 
 ***Potential roles of DMRTa2***: "*DmrtA2 may play a role in ovary-differentiation and mature-ovary maintenance.* [in ayu]" ([Wang et al. 2014](http://molehr.oxfordjournals.org/content/20/10/960.full)), "*This study reveals, for the first time, the requirement of DMRTA2 for normal human female embryonic germ cell development. DMRTA2 appears to be necessary for proper differentiation of oogonia, prior to entry into meiosis, in the human species.*" ([Poulain et al. 2014](http://molehr.oxfordjournals.org/content/20/10/960.full)), "*zebrafish Dmrt5 have potentially important roles in gonadal development*" ([Guo et al. 2004](https://www.ncbi.nlm.nih.gov/pubmed/15474464)).
 
