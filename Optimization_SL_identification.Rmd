@@ -1222,7 +1222,19 @@ evanslab:multiple_steps % grep "25142173" /net/infofile2/2/scratch/evanslab_back
 5	25142173	182762321	182781571
 evanslab:multiple_steps % grep "24873906" /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8_abyss_supercontigs_index
 6	24873906	22045521	22062501
+
+vcftools --vcf ~/Hymeno_fastqc/GATK/BJE3815_nonrecal_varonly.vcf --chr "supercontig_6" --from-bp 22045521 --to-bp 22062501 --recode --recode-INFO-all --out /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3815_nonrecal_varonly_scaffold24873906
+/usr/local/vcftools/src/perl/vcf-to-tab < /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3815_nonrecal_varonly_scaffold24873906.recode.vcf > /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3815_nonrecal_varonly_scaffold24873906.recode.tab
+more /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3815_nonrecal_varonly_scaffold24873906.recode.tab
+#CHROM	POS	REF	/home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/super_contigs/BJE381
+5_genomeAbyss_supercontigs_reads14sorted	/home/evanslab/Hymeno_fastqc/map_reads_to_abyss_geno
+mes/super_contigs/BJE3815_genomeAbyss_supercontigs_reads15sorted
+supercontig_6	22045747	C	C/C	C/A
+[...] 61 sites
 ```
+When we look at the SNP obtained using HiSeq data from the mother and the father regarding father Abyss scaffold 24873906 (=chimerical C92682523): everytime pattern homozygous mother/heterozygous father.
+
+Check if the same using mother Abyss genome as the reference: 67 SNP, with same heterozygosity pattern!!!
 
 ***Potential roles of DMRTa2***: "*DmrtA2 may play a role in ovary-differentiation and mature-ovary maintenance.* [in ayu]" ([Wang et al. 2014](http://molehr.oxfordjournals.org/content/20/10/960.full)), "*This study reveals, for the first time, the requirement of DMRTA2 for normal human female embryonic germ cell development. DMRTA2 appears to be necessary for proper differentiation of oogonia, prior to entry into meiosis, in the human species.*" ([Poulain et al. 2014](http://molehr.oxfordjournals.org/content/20/10/960.full)), "*zebrafish Dmrt5 have potentially important roles in gonadal development*" ([Guo et al. 2004](https://www.ncbi.nlm.nih.gov/pubmed/15474464)).
 
