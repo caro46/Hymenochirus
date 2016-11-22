@@ -44,3 +44,7 @@ Can be downloaded from [here](ftp://ftp.gnu.org/gnu/gcc/gcc-6.2.0/). If only ver
 ```
 awk -v seq="scaffold348337" -v RS='>' '$1 == seq {print RS $0}' Hymenochirus_putative_sex_linked_opt_REPARKmasked.fa.masked >scaffold348337.fa
 ```
+### Force detached screen from other ssh
+```
+screen -d -r [name]
+```
