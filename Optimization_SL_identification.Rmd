@@ -1251,6 +1251,11 @@ scaffold34529 | XY | ppp6r3 |04|
 scaffold40934 | XY | hmcn1 |04|
 scaffold73911 | XY|	ENSXETG00000030866 - probably ppp1r family||
 scaffold75704 | ZW| atrx |01|
+scaffold236714 | XY_Yscaffold | vac14 |04|
+scaffold353076 | XY_Yscaffold | rassf1 |04|
+scaffold428256 | XY | ifitm1 | 4L 4L laevis|
+scaffold434939 | XY_Yscaffold | FADS1 | 4L 4L laevis|
+C92080241 55.0 XY | vps9d1 | scaffolds only |
 
 Want to select genotypes from a particular region 
 ```
