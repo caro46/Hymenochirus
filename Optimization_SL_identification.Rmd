@@ -1255,7 +1255,7 @@ scaffold236714 | XY_Yscaffold | vac14 |04|
 scaffold353076 | XY_Yscaffold | rassf1 |04|
 scaffold428256 | XY | ifitm1 | 4L 4L laevis|
 scaffold434939 | XY_Yscaffold | FADS1 | 4L 4L laevis|
-C92080241 55.0 XY | vps9d1 | scaffolds only |
+C92080241 | XY | vps9d1 | scaffolds only |
 
 Want to select genotypes from a particular region 
 ```
