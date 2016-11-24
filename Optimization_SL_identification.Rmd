@@ -1240,6 +1240,18 @@ Check if the same using mother Abyss genome as the reference: 67 SNP, with same 
 
 **- Kank4**
 
+###Potential sex-linked scaffolds and *X. tropicalis* (blast on Ensembl)
+|SOAP_chimerical_scaffold|Inheritance pattern|Overlapped genes|Chr.|
+-------------------------|----------|----------|----------|
+scaffold114984 | XY_Yscaffold | ENSXETG00000032333 ||
+scaffold147062 | XY | ptprf |04|
+scaffold97784  | XY | sall1 |04|
+scaffold95694 | XY_Yscaffold | cacna1i |04|
+scaffold34529 | XY | ppp6r3 |04|
+scaffold40934 | XY | hmcn1 |04|
+scaffold73911 | XY|	ENSXETG00000030866 ||
+scaffold75704 | ZW| atrx |01|
+
 Want to select genotypes from a particular region 
 ```
 vcftools --gzvcf BJE3814_nonrecal_varonly.vcf.gz --chr "supercontig_1" --from-bp --to-bp --recode  --recode-INFO-all | gzip -c > BJE3814_nonrecal_varonly_supercontig_1.vcf.gz
