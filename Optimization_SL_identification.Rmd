@@ -1241,21 +1241,21 @@ Check if the same using mother Abyss genome as the reference: 67 SNP, with same 
 **- Kank4**
 
 ###Potential sex-linked scaffolds and *X. tropicalis* (blast on Ensembl)
-|SOAP_chimerical_scaffold|Inheritance pattern|Overlapped genes|Chr.|Function|
--------------------------|----------|----------|----------|----------|
-scaffold114984 | XY_Yscaffold | ENSXETG00000032333 - probably gpc family||Glypican prod.|
-scaffold147062 | XY | ptprf |04|signaling molecule |
-scaffold97784  | XY | sall1 |04|zinc finger transcription factor |
-scaffold95694 | XY_Yscaffold | cacna1i |04|T-type voltage-gated Ca2+|
-scaffold34529 | XY | ppp6r3 |04|SAP family cell cycle dependent phosphatase-associated protein |
-scaffold40934 | XY | hmcn1 |04|skin stability|
-scaffold73911 | XY|	ENSXETG00000030866 - probably ppp1r family|||
-scaffold75704 | ZW| atrx |01|transcriptional regulator|
-scaffold236714 | XY_Yscaffold | vac14 |04|Uncharacterized conserved protein |
-scaffold353076 | XY_Yscaffold | rassf1 |04|Ras GTPase effector|
-scaffold428256 | XY | ifitm1 | 4L 4L laevis|interferon induced transmembrane protein 1|
-scaffold434939 | XY_Yscaffold | FADS1 | 4L 4L laevis|Delta 6-fatty acid desaturase/delta-8 sphingolipid desaturase|
-C92080241 | XY | vps9d1 | scaffolds only |Vacuolar assembly/sorting protein VPS9|
+|SOAP_chimerical_scaffold|Inheritance pattern|Overlapped genes|Chr.|Function|SNP location on scaffold|
+-------------------------|----------|----------|----------|----------|----------|
+scaffold114984 | XY_Yscaffold | ENSXETG00000032333 - probably gpc family||Glypican prod.|1159|
+scaffold147062 | XY | ptprf |04|signaling molecule |5250|
+scaffold97784  | XY | sall1 |04|zinc finger transcription factor |1133|
+scaffold95694 | XY_Yscaffold | cacna1i |04|T-type voltage-gated Ca2+|9488|
+scaffold34529 | XY | ppp6r3 |04|SAP family cell cycle dependent phosphatase-associated protein |184|
+scaffold40934 | XY | hmcn1 |04|skin stability|8102|
+scaffold73911 | XY|	ENSXETG00000030866 - probably ppp1r family|||1290|
+scaffold75704 | ZW| atrx |01|transcriptional regulator|15301|
+scaffold236714 | XY_Yscaffold | vac14 |04|Uncharacterized conserved protein |96|
+scaffold353076 | XY_Yscaffold | rassf1 |04|Ras GTPase effector|1139|
+scaffold428256 | XY | ifitm1 | 4L 4L laevis|interferon induced transmembrane protein 1|2439|
+scaffold434939 | XY_Yscaffold | FADS1 | 4L 4L laevis|Delta 6-fatty acid desaturase/delta-8 sphingolipid desaturase|8027|
+C92080241 | XY | vps9d1 | scaffolds only |Vacuolar assembly/sorting protein VPS9|571|
 
 Want to select genotypes from a particular region 
 ```
