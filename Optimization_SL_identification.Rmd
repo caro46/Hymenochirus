@@ -1254,7 +1254,7 @@ scaffold75704 | ZW| atrx |01|transcriptional regulator|15301||
 scaffold236714 | XY_Yscaffold | vac14 |04|Uncharacterized conserved protein |96|A/C|
 scaffold353076 | XY_Yscaffold | rassf1 |04|Ras GTPase effector|1139|A/G|
 scaffold428256 | XY | ifitm1 | 4L 4L laevis|interferon induced transmembrane protein 1|2439||
-scaffold434939 | XY_Yscaffold | FADS1 | 4L 4L laevis|Delta 6-fatty acid desaturase/delta-8 sphingolipid desaturase|8027||
+scaffold434939 | XY_Yscaffold | FADS1 | 4L 4L laevis|Delta 6-fatty acid desaturase/delta-8 sphingolipid desaturase|8027|A/G - 6047 C/G - 6355 C/G|
 C92080241 | XY | vps9d1 | scaffolds only |Vacuolar assembly/sorting protein VPS9|571||
 
 \*: particularly for `Yscaffold` meaning sites only present in males. See if you see that in the genome data. Also look if variation at a restriction sites (if yes cool) and read coverage.
