@@ -1263,3 +1263,7 @@ Want to select genotypes from a particular region
 ```
 vcftools --gzvcf BJE3814_nonrecal_varonly.vcf.gz --chr "supercontig_1" --from-bp --to-bp --recode  --recode-INFO-all | gzip -c > BJE3814_nonrecal_varonly_supercontig_1.vcf.gz
 ```
+Nucleotide diversity
+```
+zcat input_file.vcf.gz | vcftools --vcf - --site-pi --positions SNP_list.txt --out nucleotide_diversity
+```
