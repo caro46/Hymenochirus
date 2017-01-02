@@ -4,9 +4,20 @@
 `ls -1 | wc -l` within the directory.
 #### `.tar` files
 - How to compress into a `.tar` file
+
 `tar -cvf Sample_BenEvansBJE3652_180bp_Library.tar Sample_BenEvansBJE3652_180bp_Library`
+
 - See the files contained in a `.tar` file
+
 `tar -tf BJE3652_6KB_Data_first_lane.tar`
+
+- See the files contained in a `.tar.gz` file
+
+`tar -ztvf file.tar.gz`
+
+- Comparing `.tar.gz` with the corresponding folder
+
+`tar --compare --file=2016_Hymenochirus_SOAP_assemblies.tar.gz`
 
 #### Extract one seq from a big fasta file 
 ```
