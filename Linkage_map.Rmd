@@ -1,0 +1,16 @@
+#Hetmapps
+##Install dependencies
+###R packages 
+`WGCNA` needs `GO.db`. Couldn't use the last version of `GO.db` because required higher version for a lot of other packages. If every packages have the newest version, we needed to also update the R version (us:3.2.2, needs =>3.0) which also requires updating zlib (`zlib-1.2.10`). But some issue when try to compile even with the good version of zlib. 
+```
+R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages qtl_1.40-8.tar.gz
+R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages snow_0.4-2.tar.gz
+R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages GO.db_3.2.2.tar.gz
+setenv R_LIBS $HOME/Hymeno_fastqc/R_packages/GO.db
+R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages WGCNA_1.49.tar.gz
+```
+```
+perl /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/linkage_map/khyma-hetmapps-8e3767dc6800/major_minor_VCF.pl -vcf /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/noDupliMark/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only.recode.vcf -o output/major_minor_VCF_Hymeno.vcf
+
+perl get_pseudotestcross_markers.pl -vcf /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/noDupliMark/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only.recode.vcf -o output/major_minor_VCF_Hymeno.vcf -i ind_file -o output/Pt_markers
+```
