@@ -9,8 +9,20 @@ R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages GO.db_3.2.2.tar.
 setenv R_LIBS $HOME/Hymeno_fastqc/R_packages/GO.db
 R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages WGCNA_1.49.tar.gz
 ```
+###Per libraries
+```
+tar -xvzf ~/Hymeno_fastqc/lib_perl5/Statistics-R-0.34.tar.gz
+perl Makefile.PL PREFIX=~/Hymeno_fastqc/lib_perl5/Statistics-R-0.34
+make
+make install
+```
+##Run the scripts
 ```
 perl /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/linkage_map/khyma-hetmapps-8e3767dc6800/major_minor_VCF.pl -vcf /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/noDupliMark/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only.recode.vcf -o output/major_minor_VCF_Hymeno.vcf
 
 perl get_pseudotestcross_markers.pl -vcf /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/noDupliMark/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only.recode.vcf -o output/major_minor_VCF_Hymeno.vcf -i ind_file -o output/Pt_markers
+
+setenv R_LIBS $HOME/Hymeno_fastqc/R_packages
+perl denovo_phase_part1.pl -b output/Pt_markers.binary -p output/Pt_markers.parents.GQ98.binary -od output
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part1.pl -b output/Pt_markers.binary -p output/Pt_markers.parents.GQ98.binary -od output
 ```
