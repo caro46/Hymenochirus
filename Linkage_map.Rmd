@@ -25,4 +25,17 @@ perl get_pseudotestcross_markers.pl -vcf /net/infofile4-inside/volume1/scratch/e
 setenv R_LIBS $HOME/Hymeno_fastqc/R_packages
 perl denovo_phase_part1.pl -b output/Pt_markers.binary -p output/Pt_markers.parents.GQ98.binary -od output
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part1.pl -b output/Pt_markers.binary -p output/Pt_markers.parents.GQ98.binary -od output
+
+reading in data, clustering and grouping. Hold on, this may take a while
+Problem while running this R command:
+markers = data.frame(ID=colnames(datGtclean), CHR=as.numeric(data$CHROM[data$ID %in% colnames(datGtclean)]), POS=as.numeric(data$POS[data$ID %in% colnames(datGtclean)]), LG=match(colorStaticTOM, colorOrder)-1, PHASE = rep("NA",times=dim(datGtclean)[2]))
+
+Error:
+data.frame(ID = colnames(datGtclean), CHR = as.numeric(data$CHROM[data$ID %in%  : 
+  arguments imply differing number of rows: 1945, 1950
+In addition: Warning message:
+In data.frame(ID = colnames(datGtclean), CHR = as.numeric(data$CHROM[data$ID %in%  :
+  NAs introduced by coercion
+Execution halted
+
 ```
