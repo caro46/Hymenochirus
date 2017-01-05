@@ -38,5 +38,21 @@ In addition: Warning message:
 In data.frame(ID = colnames(datGtclean), CHR = as.numeric(data$CHROM[data$ID %in%  :
   NAs introduced by coercion
 Execution halted
-
 ```
+When using `-v`:
+```
+Error:
+could not find function "flashClust"
+Execution halted
+```
+Need to add (l.60)
+```
+$status->run(qq`library(flashClust)`);
+```
+```
+evanslab:khyma-hetmapps-8e3767dc6800 % scp output/Pt_markers.parents.GQ98.binary output/Pt_markers.parents_without_Supercontig.GQ98.binary                                                              evanslab:khyma-hetmapps-8e3767dc6800 % scp output/Pt_markers.binary output/Pt_markers.without_Supercontig.binary
+evanslab:khyma-hetmapps-8e3767dc6800 % sed -i 's/supercontig_//g' output/Pt_markers.parents_without_Supercontig.GQ98.binary                                                                    evanslab:khyma-hetmapps-8e3767dc6800 % sed -i 's/supercontig_//g' output/Pt_markers.without_Supercontig.binary
+
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part1_modif.pl -b output/Pt_markers.without_Supercontig.binary -p output/Pt_markers.parents_without_Supercontig.GQ98.binary -od output -v
+```
+Same error.
