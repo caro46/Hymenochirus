@@ -8,6 +8,7 @@ R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages snow_0.4-2.tar.g
 R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages GO.db_3.2.2.tar.gz
 setenv R_LIBS $HOME/Hymeno_fastqc/R_packages/GO.db
 R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages WGCNA_1.49.tar.gz
+R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages flashClust_1.01-2.tar.gz
 ```
 ###Per libraries
 ```
