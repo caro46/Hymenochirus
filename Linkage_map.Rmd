@@ -56,3 +56,24 @@ evanslab:khyma-hetmapps-8e3767dc6800 % sed -i 's/supercontig_//g' output/Pt_mark
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part1_modif.pl -b output/Pt_markers.without_Supercontig.binary -p output/Pt_markers.parents_without_Supercontig.GQ98.binary -od output -v
 ```
 Same error.
+
+Try to fix the issue by adding an ID to the marker.
+```
+/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/bcftools-1.3.1/bcftools annotate --set-id +'%CHROM\_%POS\_%REF\_%ALT' SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only_REF.recode.vcf > SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only_REF1.recode.vcf
+```
+```
+perl /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/linkage_map/khyma-hetmapps-8e3767dc6800/major_minor_VCF.pl -vcf output/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only_REF.recode.vcf -o output/major_minor_VCF_Hymeno1.vcf
+
+perl get_pseudotestcross_markers.pl -vcf output/major_minor_VCF_Hymeno1.vcf -i ind_file -o output/Pt_markers1
+
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part1_modif.pl -b output/Pt_markers1.binary -p output/Pt_markers1.parents.GQ98.binary -od output -v
+```
+```
+Problem while running this R command:
+CHRvLGtop <- data.frame(LG = colnames(CHRvLG), chr1 = row.names(CHRvLG)[chr1], val1, pos2 = row.names(CHRvLG)[chr2], val2, diff=val2/val1)
+
+Error:
+data.frame(LG = colnames(CHRvLG), chr1 = row.names(CHRvLG)[chr1],  : 
+  arguments imply differing number of rows: 3, 0
+Execution halted
+```
