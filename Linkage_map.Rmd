@@ -21,7 +21,7 @@ make install
 ```
 perl /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/linkage_map/khyma-hetmapps-8e3767dc6800/major_minor_VCF.pl -vcf /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/noDupliMark/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only.recode.vcf -o output/major_minor_VCF_Hymeno.vcf
 
-perl get_pseudotestcross_markers.pl -vcf /net/infofile4-inside/volume1/scratch/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/noDupliMark/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only.recode.vcf -o output/major_minor_VCF_Hymeno.vcf -i ind_file -o output/Pt_markers
+perl get_pseudotestcross_markers.pl -vcf output/major_minor_VCF_Hymeno.vcf -i ind_file -o output/Pt_markers
 
 setenv R_LIBS $HOME/Hymeno_fastqc/R_packages
 perl denovo_phase_part1.pl -b output/Pt_markers.binary -p output/Pt_markers.parents.GQ98.binary -od output
@@ -33,7 +33,7 @@ markers = data.frame(ID=colnames(datGtclean), CHR=as.numeric(data$CHROM[data$ID 
 
 Error:
 data.frame(ID = colnames(datGtclean), CHR = as.numeric(data$CHROM[data$ID %in%  : 
-  arguments imply differing number of rows: 1945, 1950
+  arguments imply differing number of rows: 2132, 2138
 In addition: Warning message:
 In data.frame(ID = colnames(datGtclean), CHR = as.numeric(data$CHROM[data$ID %in%  :
   NAs introduced by coercion
