@@ -88,8 +88,8 @@ perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2.pl -b output/Pt_markers1.binary -p output/Pt_markers1.parents.GQ98.binary -l lg_summary.txt -od output -v
 ```
 ```
-perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ phased2mstmap.pl -b output/Pt_markers1.binary -od output -l output/phased.txt -c 4way -v
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ phased2mstmap.pl -b output/Pt_markers1.binary -od output -l output/phased.txt -v
 ```
 ```
-phased2rqtl.pl
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ phased2rqtl.pl -b output/Pt_markers1.binary -od output -l output/phased.txt -c 4way -v
 ```
