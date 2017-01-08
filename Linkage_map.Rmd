@@ -108,4 +108,8 @@ max number of LGs created: 14.
 Try with also:
 ```
 -height_min 0.5 -minsize_min 25
+
+HEIGHT  SIZE    LGs     TOTAL   ASSIGNED        UNASSIGNED      FILTERED
+0.8125  25      21      2132    1354 (0.64)     473 (0.22)      305 (0.14)
+
 ```
