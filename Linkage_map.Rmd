@@ -110,6 +110,8 @@ Try with also:
 -height_min 0.5 -minsize_min 25
 
 HEIGHT  SIZE    LGs     TOTAL   ASSIGNED        UNASSIGNED      FILTERED
+0.8375  25      20      2132    1350 (0.63)     360 (0.17)      422 (0.20)
+0.825   25      20      2132    1370 (0.64)     418 (0.20)      344 (0.16)
 0.8125  25      21      2132    1354 (0.64)     473 (0.22)      305 (0.14)
 
 ```
