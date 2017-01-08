@@ -96,3 +96,11 @@ Type of arg 1 to keys must be hash (not hash element) at phased2mstmap.pl line 5
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ phased2rqtl.pl -b output/Pt_markers1.binary -l output/phased.txt -c 4way -v
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ phased2rqtl.pl -b output/Pt_markers1.binary -l output/phased.txt -c BC -v
 ```
+## Looking for optimal parameters
+Need to find a cut height and minimum cluster for which at least 48 LGs are created (2n=24 for H. boettgeri see [Mezzasalma et al. 2015](http://www.sciencedirect.com/science/article/pii/S0044523115300036), need to x2 because 1 map per parent). For HetMapps's pipeline documentation: 
+
+*If chromosome number is known, the cutting parameters that resolve twice the number
+of chromosomes or more should be tested.* [denovo_phase_part1.pl]
+```
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part1_modif.pl -b output/Pt_markers1.binary -p output/Pt_markers1.parents.GQ98.binary -od output/height_min_05 -height_min 0.5 -v
+```
