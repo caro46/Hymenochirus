@@ -115,3 +115,14 @@ HEIGHT  SIZE    LGs     TOTAL   ASSIGNED        UNASSIGNED      FILTERED
 0.8125  25      21      2132    1354 (0.64)     473 (0.22)      305 (0.14)
 
 ```
+```
+-height_min 0.5 -minsize_min 20
+HEIGHT  SIZE    LGs     TOTAL   ASSIGNED        UNASSIGNED      FILTERED
+0.8125  20      23      2132    1364 (0.64)     428 (0.20)      340 (0.16)
+0.8     20      23      2132    1352 (0.63)     474 (0.22)      306 (0.14)
+0.7875  20      23      2132    1315 (0.62)     552 (0.26)      265 (0.12)
+```
+```
+-height_min 0.5 -minsize_min 15
+HEIGHT  SIZE    LGs     TOTAL   ASSIGNED        UNASSIGNED      FILTERED
+```
