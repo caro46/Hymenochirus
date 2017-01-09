@@ -151,6 +151,7 @@ HEIGHT  SIZE    LGs     TOTAL   ASSIGNED        UNASSIGNED      FILTERED
 
 -height_min 0.7 -minsize_min 30 -height_step 0.01 -minsize_step 20
 ```
+
 ```
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/Pt_markers1.binary -p output/Pt_markers1.parents.GQ98.binary -l output/height_min_05/best/h0.825.s15.LG.txt -od output/height_min_05/best/stepnovo2 -v
 
