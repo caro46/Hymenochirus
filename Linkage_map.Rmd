@@ -164,3 +164,25 @@ could not resolve 2 phases for linakge group 5, found 1
 Trying using different -static_height -static_minsize.
 
 Trying using other LG files (24 or 25 LGs). Still same issue, rerun step1 of de novo phase reducing minsize... Still an issue with at least 1 LG to resolve the phases...
+
+```
+-static_height [-height_min] -static_minsize [-minsize_min]
+```
+```
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/Pt_markers1.binary -p output/Pt_markers1.parents.GQ98.binary -l output/height_min_05/best/h0.825.s15.LG.txt -od output/height_min_05/best/stepnovo2 -v -static_height 0.5 -static_minsize 15
+
+Problem while running this R command:
+for (i in 6:dim(data.parents)[2]) {
+                                markers.overlap[colnames(data.parents[i])] <- factor(data.parents[,i][data.parents$ID %in% markers.overlap$ID],levels=c('0','1'))
+                                mtable <- table(paste(markers.overlap$LG, markers.overlap$STATIC_NUM), markers.overlap[colnames(data.parents[i])][,1])
+                                GENOvPARENT[paste(colnames(data.parents[i]),".0",sep="")] <- c(mtable[1,1],mtable[2,1])
+                                GENOvPARENT[paste(colnames(data.parents[i]),".1",sep="")] <- c(mtable[1,2],mtable[2,2])
+                        }
+
+Error:
+`[<-.data.frame`(`*tmp*`, paste(colnames(data.parents[i]), ".0",  :
+  replacement has 2 rows, data has 3
+Calls: [<- -> [<-.data.frame
+Execution halted
+
+```
