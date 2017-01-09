@@ -131,9 +131,12 @@ HEIGHT  SIZE    LGs     TOTAL   ASSIGNED        UNASSIGNED      FILTERED
 0.7875  15      25      2132    1334 (0.63)     517 (0.24)      281 (0.13)
 0.775   15      25      2132    1304 (0.61)     572 (0.27)      256 (0.12)
 0.762500000000001       15      24      2132    1245 (0.58)     653 (0.31)      234 (0.11)
+
+-height_min 0.3 -minsize_min 40 (fewer LGs)
 ```
 ```
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/Pt_markers1.binary -p output/Pt_markers1.parents.GQ98.binary -l output/height_min_05/best/h0.825.s15.LG.txt -od output/height_min_05/best/stepnovo2 -v
 
 could not resolve 2 phases for linakge group 5, found 1
 ```
+Trying using other LG files (24 or 25 LGs). Still same issue, rerun step1 of de novo phase reducing minsize... 
