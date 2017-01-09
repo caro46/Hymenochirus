@@ -133,6 +133,20 @@ HEIGHT  SIZE    LGs     TOTAL   ASSIGNED        UNASSIGNED      FILTERED
 0.762500000000001       15      24      2132    1245 (0.58)     653 (0.31)      234 (0.11)
 
 -height_min 0.3 -minsize_min 40 (fewer LGs)
+
+-height_min 0.3 -minsize_min 10
+0.85    10      27      2132    1325 (0.62)     165 (0.08)      642 (0.30)
+0.8375  10      29      2132    1354 (0.64)     231 (0.11)      547 (0.26)
+0.825   10      30      2132    1362 (0.64)     273 (0.13)      497 (0.23)
+0.8125  10      31      2132    1349 (0.63)     329 (0.15)      454 (0.21)
+0.8     10      27      2132    1346 (0.63)     421 (0.20)      365 (0.17)
+0.7875  10      27      2132    1318 (0.62)     493 (0.23)      321 (0.15)
+0.775   10      28      2132    1291 (0.61)     538 (0.25)      303 (0.14)
+0.762500000000001       10      28      2132    1254 (0.59)     607 (0.28)      271 (0.13)
+0.750000000000001       10      26      2132    1163 (0.55)     705 (0.33)      264 (0.12)
+
+-height_min 0.8 -minsize_min 30
+
 ```
 ```
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/Pt_markers1.binary -p output/Pt_markers1.parents.GQ98.binary -l output/height_min_05/best/h0.825.s15.LG.txt -od output/height_min_05/best/stepnovo2 -v
