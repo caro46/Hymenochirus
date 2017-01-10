@@ -185,4 +185,14 @@ Error:
 Calls: [<- -> [<-.data.frame
 Execution halted
 
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/Pt_markers1.binary -l output/height_min_05/best/h0.825.s15.LG.txt -p output/Pt_markers1.parents.GQ98.binary -od output/height_min_05/best/stepnovo2 -static_height 0.825 -static_minsize 15
+Check GENO: LG PHASE 1 1 1 2 1 2
+Check: 0 1 1 1 4 103 1 2 1 42
+Check GENO: LG PHASE 1 2 1 2 2 2
+Check: 0 1 2 1 11 74 2 2 22 3
+Check GENO: LG PHASE 1 3 1 2 3 2
+Check: 0 1 3 1 4 65 3 2 0 45
+Check GENO: LG PHASE 1 4 1 2 4 2
+Check: 0 1 4 1 2 80 4 2 0 22
+could not resolve 2 phases for linakge group 5, found 1
 ```
