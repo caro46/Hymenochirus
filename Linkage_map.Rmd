@@ -230,3 +230,12 @@ OK so solution deleting the "LGs" that cause problem:
 grep -P -v '\t9\tNA' h0.8625.s50.LG.txt > h0.8625.s50_noLG9.LG.txt
 ```
 So need to find parameters for after the deletion will lead us to 12 LGs of 2 phases.
+```
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/minGQ50/Pt_markers1.binary -l output/minGQ50/h0.8875.s50_noLG9_noLG14.LG.txt -p output/minGQ50/Pt_markers1.parents.GQ50.binary -od output/minGQ50 -v -static_minsize 7
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ phased2mstmap_modif.pl -b output/minGQ50/Pt_markers1.binary -od output/minGQ50 -l output/minGQ50/phased.txt -x /4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/MSTMap/MSTMap.exe
+```
+Needed to edit `phased2mstmap.pl` to make it compatible with our perl version.
+```
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ phased2rqtl.pl -b output/minGQ50/Pt_markers1.binary -l output/minGQ50/phased.txt -c 4way -v -order output/minGQ50/mstmap/all.1.mstmap -drop_markers output/minGQ50/mstmap/all.1.markers2drop -drop_genotypes output/minGQ50/mstmap/all.1.markers2drop 
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ phased2rqtl.pl -b output/minGQ50/Pt_markers1.binary -l output/minGQ50/phased.txt -c BC -v 
+```
