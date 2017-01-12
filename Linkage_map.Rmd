@@ -225,3 +225,8 @@ perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I
 
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/minGQ70/Pt_markers1.binary -l output/minGQ70/h0.8875.s50 -p output/minGQ70/Pt_markers1.parents.GQ98.binary -od output/minGQ70 -v
 ```
+OK so solution deleting the "LGs" that cause problem:
+```
+grep -P -v '\t9\tNA' h0.8625.s50.LG.txt > h0.8625.s50_noLG9.LG.txt
+```
+So need to find parameters for after the deletion will lead us to 12 LGs of 2 phases.
