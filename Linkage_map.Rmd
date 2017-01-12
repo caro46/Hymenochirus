@@ -229,7 +229,9 @@ OK so solution deleting the "LGs" that cause problem:
 ```
 grep -P -v '\t9\tNA' h0.8625.s50.LG.txt > h0.8625.s50_noLG9.LG.txt
 ```
-So need to find parameters for after the deletion will lead us to 12 LGs of 2 phases.
+So need to find parameters for after the deletion will lead us to 12x2 LGs of 2 phases.
+
+First checking if everything working for 12LGs.
 ```
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/minGQ50/Pt_markers1.binary -l output/minGQ50/h0.8875.s50_noLG9_noLG14.LG.txt -p output/minGQ50/Pt_markers1.parents.GQ50.binary -od output/minGQ50 -v -static_minsize 7
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ phased2mstmap_modif.pl -b output/minGQ50/Pt_markers1.binary -od output/minGQ50 -l output/minGQ50/phased.txt -x /4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/MSTMap/MSTMap.exe
@@ -239,3 +241,16 @@ Needed to edit `phased2mstmap.pl` to make it compatible with our perl version.
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ phased2rqtl.pl -b output/minGQ50/Pt_markers1.binary -l output/minGQ50/phased.txt -c 4way -v -order output/minGQ50/mstmap/all.1.mstmap -drop_markers output/minGQ50/mstmap/all.1.markers2drop -drop_genotypes output/minGQ50/mstmap/all.1.markers2drop 
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ phased2rqtl.pl -b output/minGQ50/Pt_markers1.binary -l output/minGQ50/phased.txt -c BC -v 
 ```
+Try for 12x2 LGs:
+```
+0.8625  10      24      2210    1550 (0.70)     203 (0.09)      457 (0.21) -
+0.85    10      26      2210    1545 (0.70)     252 (0.11)      413 (0.19) - *
+0.8375  10      30      2210    1548 (0.70)     308 (0.14)      354 (0.16) - *
+0.825   10      29      2210    1534 (0.69)     376 (0.17)      300 (0.14) - *
+0.8125  10      26      2210    1521 (0.69)     460 (0.21)      229 (0.10) - *
+0.8     10      25      2210    1483 (0.67)     536 (0.24)      191 (0.09) - *
+0.7875  10      24      2210    1446 (0.65)     602 (0.27)      162 (0.07) -
+0.775   10      24      2210    1403 (0.63)     662 (0.30)      145 (0.07) - 
+0.762500000000001       10      24      2210    1350 (0.61)     719 (0.33)      141 (0.06) - 
+```
+* trying with not considering the LGs for which we couldn't resolve 2 phases (until reaching 24 LGs).
