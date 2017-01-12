@@ -254,3 +254,4 @@ Try for 12x2 LGs:
 0.762500000000001       10      24      2210    1350 (0.61)     719 (0.33)      141 (0.06) - 
 ```
 \* trying with not considering the LGs for which we couldn't resolve 2 phases (until reaching 24 LGs).
+- At least 2 phases not resolved for 1 LG 
