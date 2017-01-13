@@ -255,3 +255,9 @@ Try for 12x2 LGs:
 ```
 \* trying with not considering the LGs for which we couldn't resolve 2 phases (until reaching 24 LGs).
 - At least 2 phases not resolved for 1 LG 
+
+OK last try before switching to OneMap
+```
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part1_modif.pl -b output/minGQ50/Pt_markers1.binary -p output/minGQ50/Pt_markers1.parents.GQ50.binary -od output/minGQ50/last -height_min 0.7 -minsize_min 10 -minsize_step 15 -minsize_max 60 -v 
+
+```
