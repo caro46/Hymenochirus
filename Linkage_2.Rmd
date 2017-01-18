@@ -79,3 +79,12 @@ Warning in fun(libname, pkgname) :
 Warning: loading Rplot failed
 * DONE (onemap)
 ```
+File filtered following the GATK best practices for SNP
+```
+/4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/noDupliMark/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only.recode.vcf
+```
+Convert vcf into linkage type file
+```R
+library(onemap)
+vcf2raw(input = "example.vcf.gz", output = "Hymenochirus_HardFilteredGATK.raw", cross = "outcross", parent1 = "BJE3814", parent2 = "BJE3814")
+```
