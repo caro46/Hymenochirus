@@ -79,12 +79,33 @@ Warning in fun(libname, pkgname) :
 Warning: loading Rplot failed
 * DONE (onemap)
 ```
-File filtered following the GATK best practices for SNP
+File filtered following the GATK best practices for SNP (need to order more the file)
 ```
 /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/noDupliMark/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only.recode.vcf
+```
+With marker ID (see Hetmapps part to see how it was done)
+```
+/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/khyma-hetmapps-8e3767dc6800/output/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only_REF.recode.vcf
+
+/usr/local/tabix/bgzip /4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/khyma-hetmapps-8e3767dc6800/output/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only_REF.recode.vcf
+/usr/local/tabix/tabix -p vcf /4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/khyma-hetmapps-8e3767dc6800/output/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only_REF.recode.vcf.gz
 ```
 Convert vcf into linkage type file
 ```R
 library(onemap)
-vcf2raw(input = "example.vcf.gz", output = "Hymenochirus_HardFilteredGATK.raw", cross = "outcross", parent1 = "BJE3814", parent2 = "BJE3814")
+vcf2raw(input = "/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/khyma-hetmapps-8e3767dc6800/output/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered_family_only_REF.recode.vcf.gz", output = "Hymenochirus_HardFilteredGATK.raw", cross = "outcross", parent1 = "BJE3814", parent2 = "BJE3815")
+
+example_out <- read_onemap("~/Hymeno_fastqc/R_packages/onemap","Hymenochirus_HardFilteredGATK.raw")
 ```
+```
+ Working...
+
+ --Read the following data:
+	Type of cross:           outcross 
+	Number of individuals:   31 
+	Number of markers:       3997 
+	Chromosome information:  yes 
+	Position information:    yes 
+	Number of traits:        0 
+```
+##Script to produce a global, male and female specific maps depending on the segregation pattern of the markers.
