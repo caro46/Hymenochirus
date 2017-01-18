@@ -97,7 +97,7 @@ vcf2raw(input = "/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/khyma-hetmap
 
 example_out <- read_onemap("~/Hymeno_fastqc/R_packages/onemap","Hymenochirus_HardFilteredGATK.raw")
 ```
-```
+```R
  Working...
 
  --Read the following data:
@@ -107,5 +107,21 @@ example_out <- read_onemap("~/Hymeno_fastqc/R_packages/onemap","Hymenochirus_Har
 	Chromosome information:  yes 
 	Position information:    yes 
 	Number of traits:        0 
+	
+> example_out
+  This is an object of class 'onemap'
+    Type of cross:      outcross 
+    No. individuals:    31 
+    No. markers:        3997 
+    CHROM information:  yes 
+    POS information:    yes 
+    Percent genotyped:  91 
+
+    Segregation types:
+               B3.7 -->  1549
+              D1.10 -->  1220
+              D2.15 -->  1228
+
+    No. traits:         0 
 ```
 ##Script to produce a global, male and female specific maps depending on the segregation pattern of the markers.
