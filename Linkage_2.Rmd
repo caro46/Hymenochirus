@@ -125,3 +125,7 @@ example_out <- read_onemap("~/Hymeno_fastqc/R_packages/onemap","Hymenochirus_Har
     No. traits:         0 
 ```
 ##Script to produce a global, male and female specific maps depending on the segregation pattern of the markers.
+Need to separate:
+- B3.7 = shared markers (ab x ab -> a 2ab b (1:2:1))
+- D1.10 = male markers (ab x aa -> a ab (1:1))
+- D2.15 = female markers (aa x ab -> a ab (1:1))
