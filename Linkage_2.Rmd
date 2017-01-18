@@ -1,3 +1,81 @@
 #Onemap
 
 ##Install
+Add the directory where I have R packages not available on the server.
+```
+setenv R_LIBS $HOME/Hymeno_fastqc/R_packages
+```
+```
+unzip onemap-master.zip #download the developmental version from github since new interesting functions like vcf2raw 
+mv onemap-master onemap
+tar czf onemap.tar.gz onemap
+
+R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages onemap.tar.gz
+ERROR: dependencies ‘tkrplot’, ‘fields’, ‘Rhtslib’ are not available for package ‘onemap’
+```
+Need to install some dependencies not available on the server.
+```
+R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages tkrplot_0.0-23.tar.gz
+R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages fields_8.10.tar.gz 
+ERROR: dependency ‘spam’ is not available for package ‘fields’
+R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages spam_1.4-0.tar.gz
+R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages fields_8.10.tar.gz
+R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages Rhtslib_1.0.0.tar.gz #because of autoconf version, can't install a more recent version
+R CMD INSTALL --library=/home/evanslab/Hymeno_fastqc/R_packages onemap.tar.gz
+```
+Some warning messages but seems ok when load the library into R using `library(onemap)`.
+```
+* installing *source* package ‘onemap’ ...
+** libs
+g++ -I/usr/local/R/3.2.2/lib64/R/include -DNDEBUG  -I/usr/local/include -I"/usr/local/R/3.2.2/lib64/R/library/Rcpp/include" -I"/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/include" -I"/usr/local/R/3.2.2/lib64/R/library/zlibbioc/include"   -fpic  -g -O2  -c f2_est.cpp -o f2_est.o
+g++ -I/usr/local/R/3.2.2/lib64/R/include -DNDEBUG  -I/usr/local/include -I"/usr/local/R/3.2.2/lib64/R/library/Rcpp/include" -I"/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/include" -I"/usr/local/R/3.2.2/lib64/R/library/zlibbioc/include"   -fpic  -g -O2  -c find_bins.cpp -o find_bins.o
+g++ -I/usr/local/R/3.2.2/lib64/R/include -DNDEBUG  -I/usr/local/include -I"/usr/local/R/3.2.2/lib64/R/library/Rcpp/include" -I"/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/include" -I"/usr/local/R/3.2.2/lib64/R/library/zlibbioc/include"   -fpic  -g -O2  -c hmm_bc.cpp -o hmm_bc.o
+g++ -I/usr/local/R/3.2.2/lib64/R/include -DNDEBUG  -I/usr/local/include -I"/usr/local/R/3.2.2/lib64/R/library/Rcpp/include" -I"/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/include" -I"/usr/local/R/3.2.2/lib64/R/library/zlibbioc/include"   -fpic  -g -O2  -c hmm_f2.cpp -o hmm_f2.o
+g++ -I/usr/local/R/3.2.2/lib64/R/include -DNDEBUG  -I/usr/local/include -I"/usr/local/R/3.2.2/lib64/R/library/Rcpp/include" -I"/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/include" -I"/usr/local/R/3.2.2/lib64/R/library/zlibbioc/include"   -fpic  -g -O2  -c hmm_out.cpp -o hmm_out.o
+g++ -I/usr/local/R/3.2.2/lib64/R/include -DNDEBUG  -I/usr/local/include -I"/usr/local/R/3.2.2/lib64/R/library/Rcpp/include" -I"/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/include" -I"/usr/local/R/3.2.2/lib64/R/library/zlibbioc/include"   -fpic  -g -O2  -c out_est.cpp -o out_est.o
+g++ -I/usr/local/R/3.2.2/lib64/R/include -DNDEBUG  -I/usr/local/include -I"/usr/local/R/3.2.2/lib64/R/library/Rcpp/include" -I"/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/include" -I"/usr/local/R/3.2.2/lib64/R/library/zlibbioc/include"   -fpic  -g -O2  -c twopts_bc.cpp -o twopts_bc.o
+g++ -I/usr/local/R/3.2.2/lib64/R/include -DNDEBUG  -I/usr/local/include -I"/usr/local/R/3.2.2/lib64/R/library/Rcpp/include" -I"/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/include" -I"/usr/local/R/3.2.2/lib64/R/library/zlibbioc/include"   -fpic  -g -O2  -c twopts_f2.cpp -o twopts_f2.o
+g++ -I/usr/local/R/3.2.2/lib64/R/include -DNDEBUG  -I/usr/local/include -I"/usr/local/R/3.2.2/lib64/R/library/Rcpp/include" -I"/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/include" -I"/usr/local/R/3.2.2/lib64/R/library/zlibbioc/include"   -fpic  -g -O2  -c twopts_out.cpp -o twopts_out.o
+g++ -I/usr/local/R/3.2.2/lib64/R/include -DNDEBUG  -I/usr/local/include -I"/usr/local/R/3.2.2/lib64/R/library/Rcpp/include" -I"/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/include" -I"/usr/local/R/3.2.2/lib64/R/library/zlibbioc/include"   -fpic  -g -O2  -c utils.cpp -o utils.o
+gcc -std=gnu99 -I/usr/local/R/3.2.2/lib64/R/include -DNDEBUG  -I/usr/local/include -I"/usr/local/R/3.2.2/lib64/R/library/Rcpp/include" -I"/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/include" -I"/usr/local/R/3.2.2/lib64/R/library/zlibbioc/include"   -fpic  -g -O2  -c vcf2raw.c -o vcf2raw.o
+g++ -shared -L/usr/local/R/3.2.2/lib64/R/lib -L/usr/local/lib64 -o onemap.so f2_est.o find_bins.o hmm_bc.o hmm_f2.o hmm_out.o out_est.o twopts_bc.o twopts_f2.o twopts_out.o utils.o vcf2raw.o -L/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/lib -Wl,-rpath,/home/evanslab/Hymeno_fastqc/R_packages/Rhtslib/lib -lhts -lz -pthread -L/usr/local/R/3.2.2/lib64/R/lib -lR
+installing to /home/evanslab/Hymeno_fastqc/R_packages/onemap/libs
+** R
+** data
+** inst
+** preparing package for lazy loading
+connect pc-lsb-413a.biology.mcmaster.ca port 6000: Connection refused
+Warning in fun(libname, pkgname) :
+  couldn't connect to display "localhost:10.0"
+connect pc-lsb-413a.biology.mcmaster.ca port 6000: Connection timed out
+Warning: loading Rplot failed
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+   ‘Inbred_Based_Populations.Rmd’ using ‘UTF-8’ 
+connect pc-lsb-413a.biology.mcmaster.ca port 6000: Connection refused
+Warning in grDevices::png(tempfile()) :
+  unable to open connection to X11 display ''
+   ‘Introduction_R.Rmd’ using ‘UTF-8’ 
+connect pc-lsb-413a.biology.mcmaster.ca port 6000: Connection timed out
+Warning in grDevices::png(tempfile()) :
+  unable to open connection to X11 display ''
+   ‘Outcrossing_Populations.Rmd’ using ‘UTF-8’ 
+connect pc-lsb-413a.biology.mcmaster.ca port 6000: Connection refused
+Warning in grDevices::png(tempfile()) :
+  unable to open connection to X11 display ''
+   ‘Overview.Rmd’ using ‘UTF-8’ 
+connect pc-lsb-413a.biology.mcmaster.ca port 6000: Connection timed out
+Warning in grDevices::png(tempfile()) :
+  unable to open connection to X11 display ''
+   ‘Tutorial_Onemap_complete_version.Rnw’ using ‘UTF-8’ 
+   ‘Tutorial_Onemap_reduced_version.Rnw’ using ‘UTF-8’ 
+** testing if installed package can be loaded
+connect pc-lsb-413a.biology.mcmaster.ca port 6000: Connection refused
+connect pc-lsb-413a.biology.mcmaster.ca port 6000: Connection timed out
+Warning in fun(libname, pkgname) :
+  couldn't connect to display "localhost:10.0"
+Warning: loading Rplot failed
+* DONE (onemap)
+```
