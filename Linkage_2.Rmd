@@ -361,15 +361,15 @@ LG1_m_ug <- ug(LG1_m)
 
 lg <- group(mark_all, LOD = 2.5) #obtain 13LGs
 ```
-LOD = 3 -> 20 LGs
-LOD = 2 -> 1 LG
-LOD = 2.7 -> 17 LGs
-LOD = 2.6 -> 11 LGs
-LOD = 2.4 -> 8 LGs
-LOD = 2.3 -> 13 LGs
-LOD = 2.2 -> 11 LGs
-LOD = 2.1 -> 6 LGs
-LOD = 2.15 -> 15 LGs
-LOD = 2.25 -> 12 LGs
-LOD = 2.35 -> 6 LGs
-LOD = 2.45 -> 11 LGs
+- LOD = 3 -> 20 LGs
+- LOD = 2 -> 1 LG
+- LOD = 2.7 -> 17 LGs
+- LOD = 2.6 -> 11 LGs
+- LOD = 2.4 -> 8 LGs
+- LOD = 2.3 -> 13 LGs
+- LOD = 2.2 -> 11 LGs
+- LOD = 2.1 -> 6 LGs
+- LOD = 2.15 -> 15 LGs
+- LOD = 2.25 -> 12 LGs
+- LOD = 2.35 -> 6 LGs
+- LOD = 2.45 -> 11 LGs
