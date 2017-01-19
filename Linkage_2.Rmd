@@ -308,3 +308,40 @@ Example when loading the new created `Hymenochirus_HardFilteredGATK_male.raw`.
 
     No. traits:         0 
 ```
+```R
+#Load the onemap library
+library(onemap)
+
+#Set the working directory
+setwd("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs")
+
+#combined_raw <- read_onemap("~/Hymeno_fastqc/R_packages/onemap","Hymenochirus_HardFilteredGATK.raw")
+#female_raw <- read_onemap("~/Hymeno_fastqc/R_packages/onemap","Hymenochirus_HardFilteredGATK_female.raw")
+male_raw <- read_onemap("~/Hymeno_fastqc/R_packages/onemap","Hymenochirus_HardFilteredGATK_male.raw")
+
+
+#Estimating two-point recombination fractions
+
+twopt <- rf_2pts(male_raw)
+#twopts <- rf_2pts(example.out, LOD=3, max.rf=0.4) #to change the parameters if don't obtain the "correct" numbers of LGs 
+
+#Assigning markers to linkage groups
+
+lg<-group(make_seq(twopt, "all")) #If one wants to use only a subset of markers, use c(1,2) for example
+
+print(lg, detailed = FALSE)
+
+> print(lg, detailed = FALSE)
+  This is an object of class 'group'
+  It was generated from the object "make_seq(twopt, "all")"
+
+  Criteria used to assign markers to groups:
+    LOD = 3 , Maximum recombination fraction = 0.5 
+
+  No. markers:            2777 
+  No. groups:             20 
+  No. linked markers:     2710 
+  No. unlinked markers:   67 
+  
+  
+```
