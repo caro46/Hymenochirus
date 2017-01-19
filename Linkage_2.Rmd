@@ -129,6 +129,7 @@ Need to separate:
 - B3.7 = shared markers (ab x ab -> a 2ab b (1:2:1))
 - D1.10 = female (parent1) markers (ab x aa -> a ab (1:1))
 - D2.15 = male (parent2) markers (aa x ab -> a ab (1:1))
+
 `script_sex_spec_out_onemap.pl`
 ```perl
 #!/usr/bin/env perl
