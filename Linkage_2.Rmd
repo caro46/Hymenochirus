@@ -373,3 +373,6 @@ lg <- group(mark_all, LOD = 2.5) #obtain 13LGs
 - LOD = 2.25 -> 12 LGs
 - LOD = 2.35 -> 6 LGs
 - LOD = 2.45 -> 11 LGs
+
+###Note:
+Apparently *H. boettgeri* has a number of chromosomes going from 2n=20 to 2n=24 because of "B chromosomes". See [Mezzasalma et al. 2015](https://www.researchgate.net/publication/280529724_Chromosome_analyses_of_Pseudhymenochirus_merlini_and_Hymenochirus_boettgeri_provide_new_insights_into_the_chromosome_evolution_in_the_anuran_family_Pipidae).
