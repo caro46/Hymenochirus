@@ -155,8 +155,14 @@ use List::Util qw(min max);
 
 #Declare the variables
 my @column;
-
-
+my @column_header;
+my $female_markers_count = 0;
+my $male_markers_count = 0;
+my $number_offspring;
+my $presence_chromosome = 0; # 0 = absence, 1 = presence
+my $presence_position = 0; # 0 = absence, 1 = presence
+my $presence_phenotype;
+my $samplesID;
 #Path to data
 my $path_to_data = "/home/evanslab/Hymeno_fastqc/R_packages/onemap/";
 
@@ -169,6 +175,18 @@ unless (open DATAINPUT, $inputfile) {
 }
 
 #Outputfile
+
+my $temp_female = $path_to_data."temp_female";
+unless (open(TEMP1, ">$temp_female")){
+	print "I can\'t write to $temp_female   $!\n\n";
+	exit;
+}
+
+my $temp_male = $path_to_data."temp_male";
+unless (open(TEMP2, ">$temp_male")){
+	print "I can\'t write to $temp_male   $!\n\n";
+	exit;
+}
 
 my $outputfile_female = $path_to_data."Hymenochirus_HardFilteredGATK_female.raw";
 unless (open(OUTFILE1, ">$outputfile_female")){
@@ -186,24 +204,73 @@ while (my $line=<DATAINPUT>) {
 	chomp($line);
 	@column=split('\t',$line);
 	if($column[0] !~ /^\*/){ #look at lines which doesn't start by the character "*", i.e. the lines at the beginning of the onemap complete file
-		print "column[0] ", $column[0], "\n";
+		#print "column[0] ", $column[0], "\n";
 		#print "column[1] ", $column[1], "\n";
-		print OUTFILE1 $line,"\n";
-		print OUTFILE2 $line,"\n";
+		#print OUTFILE1 $line,"\n";
+		#print OUTFILE2 $line,"\n";
+		if ($column[0] =~ /^data/){ #1st line = type of data
+			print OUTFILE1 $line,"\n";
+			print OUTFILE2 $line,"\n";
+		}
+		elsif ($column[0] =~ /^\d/){ #2nd line = info about markers and chromosome...
+			@column_header=split(' ',$line);
+			$number_offspring = $column_header[0];
+			$presence_phenotype = $column_header[4];
+			print "column 4 ",$column_header[4],"\n";
+			print "column 0 ",$column_header[0],"\n";
+		}
+		else {#3rd line = sampleID 
+			$samplesID = $line;
+		}
 	} else {
 		if ($column[1] eq 'D1.10'){
 			#print "column[1] ", $column[1], "\n";
-			print OUTFILE1 $line,"\n";
+			print TEMP1 $line,"\n";
+			++$female_markers_count;
 		}
 		elsif ($column[1] eq 'D2.15'){
-			print OUTFILE2 $line,"\n";
+			print TEMP2 $line,"\n";
+			++$male_markers_count;
 		}
 		elsif ($column[1] eq 'B3.7'){ #does not need an elsif here but prefer doing so
-			print OUTFILE1 $line,"\n";
-			print OUTFILE2 $line,"\n";
+			print TEMP1 $line,"\n";
+			print TEMP2 $line,"\n";
+			++$female_markers_count;
+			++$male_markers_count;
 		}
 	}
 }
+
+print OUTFILE1 $number_offspring," ", $female_markers_count," ",$presence_chromosome," ",$presence_position," ",$presence_phenotype,"\n";
+print OUTFILE1 $samplesID,"\n";
+print OUTFILE2 $number_offspring," ", $male_markers_count," ",$presence_chromosome," ",$presence_position," ",$presence_phenotype,"\n";
+print OUTFILE2 $samplesID,"\n";
+
+#Close temp files and make them as inputs 
+close TEMP1;
+close TEMP2;
+
+$temp_female = $path_to_data."temp_female";
+unless (open TEMP1, $temp_female) {
+                print "Can not find the input file $inputfile.\n";
+                exit;
+}
+
+$temp_male = $path_to_data."temp_male";
+unless (open TEMP2, $temp_male) {
+                print "Can not find the input file $inputfile.\n";
+                exit;
+}
+
+
+while (<TEMP1>){
+	print OUTFILE1; 
+}
+
+while (<TEMP2>){
+	print OUTFILE2; 
+}
+
 
 close DATAINPUT;
 print "Done with input file $inputfile\n";
@@ -211,4 +278,33 @@ close OUTFILE1;
 print "Done with input file $outputfile_female\n";
 close OUTFILE2;
 print "Done with outputfile $outputfile_male\n";
+close TEMP1;
+close TEMP2;
+```
+Example when loading the new created `Hymenochirus_HardFilteredGATK_male.raw`.
+```R
+> male_raw <- read_onemap("~/Hymeno_fastqc/R_packages/onemap","Hymenochirus_HardFilteredGATK_male.raw")
+ Working...
+
+ --Read the following data:
+	Type of cross:           outcross 
+	Number of individuals:   31 
+	Number of markers:       2777 
+	Chromosome information:  no 
+	Position information:    no 
+	Number of traits:        0 
+> male_raw
+  This is an object of class 'onemap'
+    Type of cross:      outcross 
+    No. individuals:    31 
+    No. markers:        2777 
+    CHROM information:  no 
+    POS information:    no 
+    Percent genotyped:  91 
+
+    Segregation types:
+               B3.7 -->  1549
+              D2.15 -->  1228
+
+    No. traits:         0 
 ```
