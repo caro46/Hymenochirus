@@ -130,6 +130,9 @@ Need to separate:
 - D1.10 = female (parent1) markers (ab x aa -> a ab (1:1))
 - D2.15 = male (parent2) markers (aa x ab -> a ab (1:1))
 
+Example from [Peng et al. 2016](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4880943/):
+*sex specific linkage maps were first constructed based on SNP markers that were heterozygous only in female parent (AB × AA or AB × BB, 26,918 SNPs) or male parent (AA × AB or BB × AB, 27,157 SNPs). To provide anchor markers for female-specific map and male-specific map integration, 510 SNP markers that were heterozygous in both parents (AB × AB with 1:2:1 segregation) were also included for linkage mapping.*
+
 `script_sex_spec_out_onemap.pl`
 ```perl
 #!/usr/bin/env perl
