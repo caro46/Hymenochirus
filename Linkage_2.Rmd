@@ -129,3 +129,82 @@ Need to separate:
 - B3.7 = shared markers (ab x ab -> a 2ab b (1:2:1))
 - D1.10 = female (parent1) markers (ab x aa -> a ab (1:1))
 - D2.15 = male (parent2) markers (aa x ab -> a ab (1:1))
+`script_sex_spec_out_onemap.pl`
+```perl
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use List::MoreUtils qw/ uniq /;
+use List::Util qw(min max);
+
+## This script will read the marker file in a onemap input format. 
+# It separates the input file into 2 different onemap type files:
+# - Hymenochirus_HardFilteredGATK_female.raw with markers of types: D1.10 (ab x aa -> a ab (1:1)) and B3.7 (ab x ab -> a 2ab b (1:2:1))
+# - Hymenochirus_HardFilteredGATK_male.raw with markers of types: D2.15 (aa x ab -> a ab (1:1)) and B3.7 (ab x ab -> a 2ab b (1:2:1))
+
+#Some info from http://augusto-garcia.github.io/statgen-esalq/Hapmap-and-VCF-formats-and-its-integration-with-onemap/:
+#- 1st line: information about the population type, that can be denoted as “f2 backcross” for backcross populations type, or “f2 intercross” for F2, “ri self” for RIL produced by selfing, “ri sib” for RIL produced by sib mating. 
+#- The second line contains the number of individuals in the progeny, the number of markers, and the number of quantitative traits. The phenotypic information may be present at the file, but it will not be used by OneMap. 
+#- After these two lines, the file must have the genotypic information for each marker. The character * indicates the beginning of information of a marker, followed by the marker name.
+
+#NOTE: the script doesn't keep the lines at the end of the complete onemap input, i.e. the information from chromosomes and positions since we don't have real chromosomes and onemap shouldn't try to use this information
+
+#Declare the variables
+my @column;
+
+
+#Path to data
+my $path_to_data = "/home/evanslab/Hymeno_fastqc/R_packages/onemap/";
+
+#Inputfile
+
+my $inputfile = $path_to_data."Hymenochirus_HardFilteredGATK.raw";
+unless (open DATAINPUT, $inputfile) {
+		print "Can not find the input file $inputfile.\n";
+		exit;
+}
+
+#Outputfile
+
+my $outputfile_female = $path_to_data."Hymenochirus_HardFilteredGATK_female.raw";
+unless (open(OUTFILE1, ">$outputfile_female")){
+	print "I can\'t write to $outputfile_female   $!\n\n";
+	exit;
+}
+
+my $outputfile_male = $path_to_data."Hymenochirus_HardFilteredGATK_male.raw";
+unless (open(OUTFILE2, ">$outputfile_male")){
+	print "I can\'t write to $outputfile_male   $!\n\n";
+	exit;
+}
+
+while (my $line=<DATAINPUT>) {
+	chomp($line);
+	@column=split('\t',$line);
+	if($column[0] !~ /^\*/){ #look at lines which doesn't start by the character "*", i.e. the lines at the beginning of the onemap complete file
+		print "column[0] ", $column[0], "\n";
+		#print "column[1] ", $column[1], "\n";
+		print OUTFILE1 $line,"\n";
+		print OUTFILE2 $line,"\n";
+	} else {
+		if ($column[1] eq 'D1.10'){
+			#print "column[1] ", $column[1], "\n";
+			print OUTFILE1 $line,"\n";
+		}
+		elsif ($column[1] eq 'D2.15'){
+			print OUTFILE2 $line,"\n";
+		}
+		elsif ($column[1] eq 'B3.7'){ #does not need an elsif here but prefer doing so
+			print OUTFILE1 $line,"\n";
+			print OUTFILE2 $line,"\n";
+		}
+	}
+}
+
+close DATAINPUT;
+print "Done with input file $inputfile\n";
+close OUTFILE1;
+print "Done with input file $outputfile_female\n";
+close OUTFILE2;
+print "Done with outputfile $outputfile_male\n";
+```
