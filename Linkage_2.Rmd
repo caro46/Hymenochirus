@@ -252,13 +252,13 @@ close TEMP2;
 
 $temp_female = $path_to_data."temp_female";
 unless (open TEMP1, $temp_female) {
-                print "Can not find the input file $inputfile.\n";
+                print "Can not find the input file $temp_female.\n";
                 exit;
 }
 
 $temp_male = $path_to_data."temp_male";
 unless (open TEMP2, $temp_male) {
-                print "Can not find the input file $inputfile.\n";
+                print "Can not find the input file $temp_male.\n";
                 exit;
 }
 
