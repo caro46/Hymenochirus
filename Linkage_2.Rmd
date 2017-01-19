@@ -343,5 +343,7 @@ print(lg, detailed = FALSE)
   No. linked markers:     2710 
   No. unlinked markers:   67 
   
-  
+mark.all <- make_seq(twopt, "all")
+
+lg <- group(mark_all, LOD = 6) #try different values to see impacts on number of LGs formed, then come back on default (same with , max.rf)  
 ```
