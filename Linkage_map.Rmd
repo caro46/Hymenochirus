@@ -261,3 +261,18 @@ OK last try before switching to OneMap
 perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part1_modif.pl -b output/minGQ50/Pt_markers1.binary -p output/minGQ50/Pt_markers1.parents.GQ50.binary -od output/minGQ50/last -height_min 0.7 -minsize_min 10 -minsize_step 15 -minsize_max 60 -v 
 
 ```
+Even when trying to obtain 20LGs, not working
+```
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/Pt_markers1.binary -p output/Pt_markers1.parents.GQ98.binary -l output/height_min_05/best/h0.8375.s25.LG.txt -od output/height_min_05/20LGs -v -static_minsize 4
+
+grep -P -v '\t9\tNA' output/height_min_05/best/h0.8375.s25.LG.txt > output/height_min_05/best/h0.8375.s25_noLG9.LG.txt
+
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/Pt_markers1.binary -p output/Pt_markers1.parents.GQ98.binary -l output/height_min_05/best/h0.8375.s25_noLG9.LG.txt -od output/height_min_05/20LGs -v -static_minsize 4
+
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/Pt_markers1.binary -p output/Pt_markers1.parents.GQ98.binary -l output/height_min_05/best/h0.8125.s25.LG.txt -od output/height_min_05/20LGs -v 
+
+perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/Pt_markers1.binary -p output/Pt_markers1.parents.GQ98.binary -l output/height_min_05/best/h0.8125.s25.LG.txt -od output/height_min_05/20LGs -v -static_minsize 3
+could not resolve 2 phases for linakge group 10, found 1
+evanslab:khyma-hetmapps-8e3767dc6800 % grep -P -v '\t10\tNA' output/height_min_05/best/h0.8125.s25.LG.txt >output/height_min_05/best/h0.8125.s25_noLG10.LG.txt
+evanslab:khyma-hetmapps-8e3767dc6800 % perl -I /home/evanslab/Hymeno_fastqc/lib_perl5/Statistics-R-0.34/share/perl5/ -I /home/evanslab/Hymeno_fastqc/lib_perl5/Regexp-Common-2016060801/share/perl5/ denovo_phase_part2_modif.pl -b output/Pt_markers1.binary -p output/Pt_markers1.parents.GQ98.binary -l output/height_min_05/best/h0.8125.s25_noLG10.LG.txt -od output/height_min_05/20LGs -v -static_minsize 3
+```
