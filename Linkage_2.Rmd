@@ -345,5 +345,17 @@ print(lg, detailed = FALSE)
   
 mark.all <- make_seq(twopt, "all")
 
-lg <- group(mark_all, LOD = 6) #try different values to see impacts on number of LGs formed, then come back on default (same with , max.rf)  
+lg <- group(mark_all, LOD = 6) #try different values to see impacts on number of LGs formed, then come back on default (same with , max.rf)
+
+set_map_fun(type = "haldane")
+LG1_m <- make_seq(lg, 1)
+
+#LG1_m_comp <- compare(LG1_m)
+WARNING: this operation may take a VERY long time
+
+It is not wise trying to use 'compare' with more than 10 markers 
+Are you sure you want to proceed? [y or n]
+#Let's not try for the moment
+
+LG1_m_ug <- ug(LG1_m)
 ```
