@@ -374,6 +374,23 @@ lg <- group(mark_all, LOD = 2.5) #obtain 13LGs
 - LOD = 2.35 -> 6 LGs
 - LOD = 2.45 -> 11 LGs
 
+*Compare some parameters between male and female*
+
+*Small note to keep in mind: [small distances or big LODs](https://cran.r-project.org/web/packages/onemap/onemap.pdf)*
+
+|LOD|Male - LG number|Female - LG number|
+|---|---|---|
+|2|1|5|
+|2.1|6|21|
+|2.15|15|19|
+|2.2|11|18|
+|2.25|12|18|
+|2.3|13|20|
+|2.35|6|17|
+|2.4|8|10|
+|2.45|11|14|
+|3|20|14|
+
 ###Note:
 Apparently *H. boettgeri* has a number of chromosomes going from 2n=20 to 2n=24 because of "B chromosomes". See [Mezzasalma et al. 2015](https://www.researchgate.net/publication/280529724_Chromosome_analyses_of_Pseudhymenochirus_merlini_and_Hymenochirus_boettgeri_provide_new_insights_into_the_chromosome_evolution_in_the_anuran_family_Pipidae).
 
@@ -389,5 +406,5 @@ maps[[i]]<- make_seq(order_seq(make_seq(lg_male,i)))}
 female_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs","Hymenochirus_HardFilteredGATK_female.raw")
 twopt_female <- rf_2pts(female_raw)
 mark_all_female <- make_seq(twopt_female, "all")
-lg_female <- group(mark_all_female, LOD = 2.6) #17 LGs (2:5, 2.05:5, 2.1:21, 2.2:18, 2.5:16LGs, 3:14, 4:55)
+lg_female <- group(mark_all_female, LOD = 2.6) #17 LGs (2:5, 2.05:5, 2.1:21, 2.15:19, 2.2:18, 2.25:18, 2.3:20, 2.35:17, 2.4:10, 2.45:14, 2.5:16LGs, 2.6:17, 3:14, 4:55)
 ```
