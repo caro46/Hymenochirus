@@ -39,8 +39,8 @@ Primer pair 5
 Forward primer	GTGTGAAGCTTTTGGACACCC	Plus	21	5061	5081	59.93	52.38	6.00	0.00
 Reverse primer	GTTGGGAGAGGCGTTCCATT	Minus	20	5863	5844	60.32	55.00	4.00	1.00
 Product length	803
-Primer pair 6
 
+Primer pair 6
 	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
 Forward primer	TGTGAAGCTTTTGGACACCCA	Plus	21	5062	5082	60.34	47.62	6.00	2.00
 Reverse primer	TAGTTGGGAGAGGCGTTCCA	Minus	20	5865	5846	60.54	55.00	4.00	2.00
