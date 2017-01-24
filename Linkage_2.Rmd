@@ -406,11 +406,19 @@ lg_male <- group(mark_all, LOD = 2.6)
 
 maps<-vector("list", lg_male$n.groups)
 for(i in 1:lg_male$n.groups){
-maps[[i]]<- make_seq(order_seq(make_seq(lg_male,i)))}
+maps[[i]]<- make_seq(order_seq(make_seq(lg_male,i)))} ##take a long time so killed for the moment
 
 #Try for the female
 female_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs","Hymenochirus_HardFilteredGATK_female.raw")
 twopt_female <- rf_2pts(female_raw)
 mark_all_female <- make_seq(twopt_female, "all")
 lg_female <- group(mark_all_female, LOD = 2.6) #17 LGs (2:5, 2.05:5, 2.1:21, 2.15:19, 2.2:18, 2.25:18, 2.3:20, 2.35:17, 2.4:10, 2.45:14, 2.5:16LGs, 2.6:17, 3:14, 4:55)
+
+#And combined
+combined_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs","Hymenochirus_HardFilteredGATK.raw")
+twopt_combined <- rf_2pts(combined_raw)
+mark_all_combined <- make_seq(twopt_combined, "all")
+lg_combined <- group(mark_all_combined, LOD = 2.4) #21LGs
+lg_combined <- group(mark_all_combined, LOD = 2.4,max.rf = 0.2)#15LGs
+lg_combined <- group(mark_all_combined, LOD = 3,max.rf = 0.5)#default value, 23LGs
 ```
