@@ -1,0 +1,57 @@
+#Amplification of putative sex-linked genes
+
+See [there](https://github.com/caro46/Hymenochirus/blob/master/Optimization_SL_identification.Rmd) to see how to find the putative genes. 
+Now the goal is to amplify by Sanger sequencing the regions with a sites which displays a sex-inheritance pattern in order to confirm this pattern.
+I am using primer3 included on [NCBI](https://www.ncbi.nlm.nih.gov/tools/primer-blast/) (so can double check the primers using *X. tropicalis* to see if ok for it too)
+
+- To amplify sall1 (need to include position 1133 of the scaffold: forward primer from 500, reverse primer to 1500): 
+```
+Primer pair 3
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	AAATGAAACCCGCCCCATCC	Plus	20	999	1018	60.98	55.00	3.00	0.00
+Reverse primer	CCAGCAGACAACCGGAGAAA	Minus	20	1269	1250	60.25	55.00	4.00	0.00
+Product length	271
+
+Primer pair 5
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	ACTAAATGAAACCCGCCCCAT	Plus	21	996	1016	59.99	47.62	3.00	2.00
+Reverse primer	CCGGAGAAACACGGACAACA	Minus	20	1258	1239	60.53	55.00	4.00	0.00
+Product length	263
+
+Primer pair 6
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	CCCCATCCCCATAACAAACGA	Plus	21	1011	1031	60.06	52.38	2.00	0.00
+Reverse primer	CAACCGGAGAAACACGGACA	Minus	20	1261	1242	60.53	55.00	4.00	0.00
+Product length	251
+```
+- To amplify ptprf (need to include position 5250 of the scaffold: forward primer from , reverse primer to )
+```
+
+```
+- To amplify atrx (need to include position 15301 of the scaffold: forward primer from , reverse primer to )
+
+- To amplify ifitm1 (need to include position 2439 of the scaffold: forward primer from , reverse primer to )
+
+- To amplify [hmcn1](https://www.ncbi.nlm.nih.gov/tools/primer-blast/primertool.cgi?ctg_time=1485296924&job_key=radyscW4yBDvKt4v00_6HalU6y-ER_AyhQ&CheckStatus=Check) (need to include position 8102 of the scaffold: forward primer from 5000, reverse primer to 6500)
+```
+Primer pair 5
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GTGTGAAGCTTTTGGACACCC	Plus	21	5061	5081	59.93	52.38	6.00	0.00
+Reverse primer	GTTGGGAGAGGCGTTCCATT	Minus	20	5863	5844	60.32	55.00	4.00	1.00
+Product length	803
+Primer pair 6
+
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	TGTGAAGCTTTTGGACACCCA	Plus	21	5062	5082	60.34	47.62	6.00	2.00
+Reverse primer	TAGTTGGGAGAGGCGTTCCA	Minus	20	5865	5846	60.54	55.00	4.00	2.00
+Product length	804
+
+Primer pair 9
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GTGAAGCTTTTGGACACCCA	Plus	20	5063	5082	58.60	50.00	6.00	2.00
+Reverse primer	AGTTGGGAGAGGCGTTCCAT	Minus	20	5864	5845	61.20	55.00	4.00	2.00
+Product length	802
+```
+
+
+And also do DMRTa2 (but need to produce the primers using **X. tropicalis** because small scaffold for **Hymenochirus**)
