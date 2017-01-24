@@ -379,6 +379,7 @@ lg <- group(mark_all, LOD = 2.5) #obtain 13LGs
 |LOD|Male - LG number|Female - LG number|
 |---|---|---|
 |2|1|5|
+|2.05|1|5|
 |2.1|6|21|
 |2.15|15|19|
 |2.2|11|18|
@@ -387,9 +388,14 @@ lg <- group(mark_all, LOD = 2.5) #obtain 13LGs
 |2.35|6|17|
 |2.4|8|10|
 |2.45|11|14|
+|2.5|13|16|
+|2.55|11|18|
+|2.6|11|17|
 |3|20|14|
 
 *Small note to keep in mind: [small distances or big LODs](https://cran.r-project.org/web/packages/onemap/onemap.pdf)*
+
+For `LOD = 2.4`, if you change `max.rf = 0.25` for female, you obtained 9LGs, and 8LGs if `max.rf = 0.2`...
 
 ###Note:
 Apparently *H. boettgeri* has a number of chromosomes going from 2n=20 to 2n=24 because of "B chromosomes". See [Mezzasalma et al. 2015](https://www.researchgate.net/publication/280529724_Chromosome_analyses_of_Pseudhymenochirus_merlini_and_Hymenochirus_boettgeri_provide_new_insights_into_the_chromosome_evolution_in_the_anuran_family_Pipidae).
