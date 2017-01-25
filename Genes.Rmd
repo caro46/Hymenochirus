@@ -83,8 +83,15 @@ Forward primer	GCAACTTGCAGACTTGCTTGA	Plus	21	15136	15156	59.93	47.62	8.00	1.00
 Reverse primer	AGGCTCTTGAGCGGTTATCTC	Minus	21	15944	15924	59.59	52.38	6.00	1.00
 Product length	809
 ```
-- To amplify ifitm1 (need to include position 2439 of the scaffold: forward primer from , reverse primer to )
+- To amplify ifitm1 (need to include position 2439 of the scaffold428256: forward primer from , reverse primer to )
 
+*! position masked by the repeat*
+
+```
+awk -v seq="scaffold428256" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >SOAP_chimerical_scaffold428256_masked.fa
+```
+```
+```
 - To amplify [hmcn1](https://www.ncbi.nlm.nih.gov/tools/primer-blast/primertool.cgi?ctg_time=1485296924&job_key=radyscW4yBDvKt4v00_6HalU6y-ER_AyhQ&CheckStatus=Check) (need to include position 8102 of the scaffold: forward primer from 5000, reverse primer to 6500)
 ```
 awk -v seq="scaffold40934" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >scaffold40934.fa
