@@ -4,7 +4,7 @@ See [there](https://github.com/caro46/Hymenochirus/blob/master/Optimization_SL_i
 Now the goal is to amplify by Sanger sequencing the regions with a sites which displays a sex-inheritance pattern in order to confirm this pattern.
 I am using primer3 included on [NCBI](https://www.ncbi.nlm.nih.gov/tools/primer-blast/) (so can double check the primers using *X. tropicalis* to see if ok for it too)
 
-- To amplify sall1 (need to include position 1133 of the scaffold: forward primer from 500, reverse primer to 1500): 
+- To amplify sall1 (need to include position 1133 of the scaffold97784: forward primer from 500, reverse primer to 1500): 
 ```
 awk -v seq="scaffold97784" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >scaffold97784.fa
 ```
@@ -33,7 +33,7 @@ Product length	251
 ```
 awk -v seq="scaffold147062" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >SOAP_chimerical_scaffold147062_masked.fa
 ```
-- To amplify atrx (need to include position 15301 of the scaffold: forward primer from , reverse primer to )
+- To amplify [atrx](https://www.ncbi.nlm.nih.gov/tools/primer-blast/primertool.cgi?ctg_time=1485356454&job_key=wsgdshEUHLw7ghmHFOc9tW78LIdD7zeaQg&CheckStatus=Check) (need to include position 15301 of the scaffold75704: forward primer from 15100, reverse primer to 16000)
 
 ```
 awk -v seq="scaffold75704" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >SOAP_chimerical_scaffold75704_masked.fa 
