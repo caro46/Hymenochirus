@@ -6,6 +6,9 @@ I am using primer3 included on [NCBI](https://www.ncbi.nlm.nih.gov/tools/primer-
 
 - To amplify sall1 (need to include position 1133 of the scaffold: forward primer from 500, reverse primer to 1500): 
 ```
+awk -v seq="scaffold97784" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >scaffold97784.fa
+```
+```
 Primer pair 3
 	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
 Forward primer	AAATGAAACCCGCCCCATCC	Plus	20	999	1018	60.98	55.00	3.00	0.00
@@ -25,14 +28,65 @@ Reverse primer	CAACCGGAGAAACACGGACA	Minus	20	1261	1242	60.53	55.00	4.00	0.00
 Product length	251
 ```
 - To amplify ptprf (need to include position 5250 of the scaffold: forward primer from , reverse primer to )
-```
 
+*! position masked by the repeat*
+```
+awk -v seq="scaffold147062" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >SOAP_chimerical_scaffold147062_masked.fa
 ```
 - To amplify atrx (need to include position 15301 of the scaffold: forward primer from , reverse primer to )
 
+```
+awk -v seq="scaffold75704" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >SOAP_chimerical_scaffold75704_masked.fa 
+```
+```
+Primer pair 2
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	TGACCCAGGACTTCCATCCA	Plus	20	15173	15192	60.18	55.00	4.00	0.00
+Reverse primer	AATTCCAGGCTCTTGAGCGG	Minus	20	15950	15931	60.39	55.00	6.00	2.00
+Product length	778
+
+Primer pair 3
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	AGGACTTCCATCCACGTTCG	Plus	20	15179	15198	59.75	55.00	4.00	2.00
+Reverse primer	ACTGCAGATGTCGGGACAAA	Minus	20	15547	15528	59.60	50.00	6.00	2.00
+Product length	369
+
+Primer pair 4
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	CTTGCTTGAAAGCTTGGTCCC	Plus	21	15148	15168	60.00	52.38	6.00	2.00
+Reverse primer	CAGGCTCTTGAGCGGTTATCT	Minus	21	15945	15925	59.86	52.38	6.00	0.00
+Product length	798
+
+Primer pair 5
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GCTTGGTCCCTTTATGACCCA	Plus	21	15159	15179	59.99	52.38	4.00	2.00
+Reverse primer	TGTTTTGCAGTCCAGGTGGTA	Minus	21	15765	15745	59.79	47.62	4.00	2.00
+Product length	607
+
+Primer pair 6
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	TTGCTTGAAAGCTTGGTCCC	Plus	20	15149	15168	58.96	50.00	6.00	2.00
+Reverse primer	TGGGTCTGTTGACCTTTCCA	Minus	20	15675	15656	58.78	50.00	4.00	0.00
+Product length	527
+
+Primer pair 7
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	TGGCACTGTGAGATCAACCT	Plus	20	15239	15258	58.94	50.00	5.00	2.00
+Reverse primer	ATTCCAGGCTCTTGAGCGG	Minus	19	15949	15931	59.78	57.89	6.00	2.00
+Product length	711
+
+Primer pair 8
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GCAACTTGCAGACTTGCTTGA	Plus	21	15136	15156	59.93	47.62	8.00	1.00
+Reverse primer	AGGCTCTTGAGCGGTTATCTC	Minus	21	15944	15924	59.59	52.38	6.00	1.00
+Product length	809
+```
 - To amplify ifitm1 (need to include position 2439 of the scaffold: forward primer from , reverse primer to )
 
 - To amplify [hmcn1](https://www.ncbi.nlm.nih.gov/tools/primer-blast/primertool.cgi?ctg_time=1485296924&job_key=radyscW4yBDvKt4v00_6HalU6y-ER_AyhQ&CheckStatus=Check) (need to include position 8102 of the scaffold: forward primer from 5000, reverse primer to 6500)
+```
+awk -v seq="scaffold40934" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >scaffold40934.fa
+```
 ```
 Primer pair 5
 	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
