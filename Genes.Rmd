@@ -118,3 +118,76 @@ Product length	802
 
 
 And also do DMRTa2 (but need to produce the primers using **X. tropicalis** because small scaffold for **Hymenochirus**)
+
+Using NBCI refseq [NM_001103073.1](https://www.ncbi.nlm.nih.gov/gene/100125187#reference-sequences) [see also](https://www.ncbi.nlm.nih.gov/protein/NP_001096543.1). [CDS](https://www.ncbi.nlm.nih.gov/nuccore/156718001) starting at position 604, the DM was identified from Location:45 → 91 (of protein from *X. tropicalis* = 46aa -> 138bp), forward primer from 500, reverse primer to 1000, primer should span an exon-exon junction, Primer Pair Specificity Checking Parameters (organism: Pipidae). [Primers](https://www.ncbi.nlm.nih.gov/tools/primer-blast/primertool.cgi?ctg_time=1485373779&job_key=rKZzsOqW5z7ABPEB_GHVM4Z6xAGrad8cqg)
+```
+Primer pair 1
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GTGAGTGGGTAAGGCTGGG	Plus	19	500	518	59.70	63.16	3.00	0.00
+Reverse primer	CGCGATCAGCGTACACTTTG	Minus	20	849	830	59.98	55.00	6.00	2.00
+Product length	350
+Exon junction	512/513 (forward primer) on template NM_001103073.1
+
+Primer pair 2
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	TGAGTGGGTAAGGCTGGGG	Plus	19	501	519	60.92	63.16	3.00	0.00
+Reverse primer	GGGATACTTCTCTGCGGCTC	Minus	20	735	716	59.97	60.00	3.00	1.00
+Product length	235
+Exon junction	512/513 (forward primer) on template NM_001103073.1
+
+Primer pair 3
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GTGAGTGGGTAAGGCTGGGG	Plus	20	500	519	62.20	65.00	3.00	0.00
+Reverse primer	CTGGGGGTCCATTCAGTTCC	Minus	20	625	606	60.03	60.00	3.00	0.00
+Product length	126
+Exon junction	512/513 (forward primer) on template NM_001103073.1
+
+Primer pair 4
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GAGTGGGTAAGGCTGGGG	Plus	18	502	519	59.00	66.67	3.00	0.00
+Reverse primer	CAGTCTTTCCAGCGGCAGTA	Minus	20	821	802	60.04	55.00	3.00	3.00
+Product length	320
+Exon junction	512/513 (forward primer) on template NM_001103073.1
+
+Primer pair 5
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	TGGGTAAGGCTGGGGCA	Plus	17	505	521	60.18	64.71	3.00	1.00
+Reverse primer	TACAGTCTTTCCAGCGGCAG	Minus	20	823	804	60.04	55.00	3.00	3.00
+Product length	319
+Exon junction	512/513 (forward primer) on template NM_001103073.1
+
+Primer pair 6
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GGGTAAGGCTGGGGCAC	Plus	17	506	522	59.67	70.59	3.00	2.00
+Reverse primer	TTGGGGGTACGGGGATACTT	Minus	20	746	727	59.96	55.00	4.00	0.00
+Product length	241
+Exon junction	512/513 (forward primer) on template NM_001103073.1
+
+Primer pair 7
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GTGGGTAAGGCTGGGGC	Plus	17	504	520	59.67	70.59	3.00	2.00
+Reverse primer	GGGGGTACGGGGATACTTCT	Minus	20	744	725	60.11	60.00	4.00	0.00
+Product length	241
+Exon junction	512/513 (forward primer) on template NM_001103073.1
+
+Primer pair 8
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	AGTGGGTAAGGCTGGGGC	Plus	18	503	520	61.34	66.67	3.00	2.00
+Reverse primer	GCCACTGTGACTGGAAGTGA	Minus	20	680	661	59.89	55.00	5.00	3.00
+Product length	178
+Exon junction	512/513 (forward primer) on template NM_001103073.1
+
+Primer pair 9
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GAGTGGGTAAGGCTGGGGC	Plus	19	502	520	62.35	68.42	3.00	2.00
+Reverse primer	CGGTAGAAGTTGCGGTCTGA	Minus	20	658	639	59.76	55.00	3.00	3.00
+Product length	157
+Exon junction	512/513 (forward primer) on template NM_001103073.1
+
+Primer pair 10
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	TGGGTAAGGCTGGGGCAC	Plus	18	505	522	61.66	66.67	3.00	2.00
+Reverse primer	GCGATCAGCGTACACTTTGC	Minus	20	848	829	60.25	55.00	6.00	2.00
+Product length	344
+Exon junction	512/513 (forward primer) on template NM_001103073.1
+```
