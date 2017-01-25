@@ -92,6 +92,10 @@ awk -v seq="scaffold428256" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_H
 ```
 ```
 ```
+- To amplify ppp6r3 (need to include position 184 of the scaffold34529: forward primer from , reverse primer to )
+
+*! position masked by the repeat*
+
 - To amplify [hmcn1](https://www.ncbi.nlm.nih.gov/tools/primer-blast/primertool.cgi?ctg_time=1485376424&job_key=ZW-6eSOWLj4JBDgBNWEcM096DQFiaRYcYw) (need to include position 8102 of the scaffold40934: forward primer from 7000, reverse primer to 8500)
 ```
 awk -v seq="scaffold40934" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >scaffold40934.fa
