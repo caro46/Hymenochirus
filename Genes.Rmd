@@ -30,6 +30,8 @@ Product length	251
 - To amplify ptprf (need to include position 5250 of the scaffold: forward primer from , reverse primer to )
 
 *! position masked by the repeat*
+
+Note: Need to discuss that with Ben boss, since the library was made based on k-mer distribution, it makes some sense that some regions near restriction sites might be considered as repetitive and masked...
 ```
 awk -v seq="scaffold147062" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >SOAP_chimerical_scaffold147062_masked.fa
 ```
