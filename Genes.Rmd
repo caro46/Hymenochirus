@@ -60,6 +60,7 @@ Forward primer	TAAATGAAACCCGCCCCATCC	Plus	21	998	1018	60.69	52.38	3.00	0.00
 Reverse primer	AACCAGCAGACAACCGGAGA	Minus	20	1271	1252	61.41	55.00	4.00	0.00
 Product length	274
 ```
+Primer pair 8 seems the best.
 
 - To amplify ptprf (need to include position 5250 of the scaffold: forward primer from , reverse primer to )
 
