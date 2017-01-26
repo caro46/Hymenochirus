@@ -271,7 +271,7 @@ Reverse primer	TGACCGAAAGGTGTAACCTGC	Minus	21	8115	8095	60.54	52.38	6.00	2.00
 Product length	275
 
 ```
-###### Genes we don't know the location on *X. tropicalis* and *X. laevis*
+##### Genes we don't know the location on *X. tropicalis* and *X. laevis*
 - To amplify vps9d1 (need to include position 571 of the scaffold C92080241: forward primer from , reverse primer to )
 
 ```
