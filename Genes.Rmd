@@ -27,7 +27,7 @@ Forward primer	CCCCATCCCCATAACAAACGA	Plus	21	1011	1031	60.06	52.38	2.00	0.00
 Reverse primer	CAACCGGAGAAACACGGACA	Minus	20	1261	1242	60.53	55.00	4.00	0.00
 Product length	251
 ```
-If look for [specificity](https://www.ncbi.nlm.nih.gov/tools/primer-blast/primertool.cgi?ctg_time=1485445334&job_key=CwHUHTvoNkARfix7IRsISVsAGXt2EwJmdw&CheckStatus=Check) of primers from Xenopus species:
+If look for [specificity](https://www.ncbi.nlm.nih.gov/tools/primer-blast/primertool.cgi?ctg_time=1485445334&job_key=CwHUHTvoNkARfix7IRsISVsAGXt2EwJmdw&CheckStatus=Check) of primers from *Xenopus* species:
 ```
 Primer pair 4
 
@@ -244,11 +244,41 @@ Forward primer	GCAGGTTACACCTTTCGGTCA	Plus	21	8095	8115	60.54	52.38	6.00	1.00
 Reverse primer	TGCTGCCTCCCTTCATGTT	Minus	19	8194	8176	59.23	52.63	4.00	0.00
 Product length	100
 ```
+Checking *Xenopus* target specificity
+```
+Primer pair 5
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	CCTGCAGGTTACACCTTTCG	Plus	20	8092	8111	58.84	55.00	8.00	2.00
+Reverse primer	TGCTGCCTCCCTTCATGTTTA	Minus	21	8194	8174	59.65	47.62	4.00	2.00
+Product length	103
+
+Primer pair 6
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	TAGCAACTAATGCTGCTGGGG	Plus	21	7838	7858	60.41	52.38	5.00	0.00
+Reverse primer	GACCGAAAGGTGTAACCTGC	Minus	20	8114	8095	58.85	55.00	6.00	2.00
+Product length	277
+
+Primer pair 8
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	TCCTGCAGGTTACACCTTTCG	Plus	21	8091	8111	60.27	52.38	8.00	2.00
+Reverse primer	TTCTGTTCTTTGCTGCCTCC	Minus	20	8204	8185	58.39	50.00	3.00	0.00
+Product length	114
+
+Primer pair 11
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	CAACTAATGCTGCTGGGGAAG	Plus	21	7841	7861	59.25	52.38	3.00	0.00
+Reverse primer	TGACCGAAAGGTGTAACCTGC	Minus	21	8115	8095	60.54	52.38	6.00	2.00
+Product length	275
+
+```
 ###### Genes we don't know the location on *X. tropicalis* and *X. laevis*
 - To amplify vps9d1 (need to include position 571 of the scaffold C92080241: forward primer from , reverse primer to )
 
 ```
 awk -v seq="C92080241" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >SOAP_chimerical_C92080241_masked.fa
+```
+```
+
 ```
 ##### Genes we know the locations (chr.4) but genotypes not next to them
 And also do DMRTa2 (but need to produce the primers using *X. tropicalis* because small scaffold for *Hymenochirus*)
