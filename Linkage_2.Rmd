@@ -426,6 +426,7 @@ lg_combined <- group(mark_all_combined, LOD = 3,max.rf = 0.5)#default value, 23L
 
 lg_combined <- group(mark_all_combined, LOD = 3, max.rf = 0.3)
 ```
+LOD = 2.4 gives more similar results for female and male linkage map, so let's try with it (later with the different checking points, with plots we can adjust the recombination rates and LOD if necessary). As in [Manousaki et al. 2016](http://www.g3journal.org/content/6/3/509.full), we used `n.init = 5, THRES = 4` for the `order_seq` command.
 ```
 for(i in 1:lg_male$n.groups){
 maps[[i]]<- make_seq(order_seq(make_seq(lg_male,i),n.init = 5, THRES = 4))}
