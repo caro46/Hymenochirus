@@ -156,42 +156,9 @@ Forward primer	TGCTTGAAAGCTTGGTCCCTT	Plus	21	15150	15170	60.41	47.62	6.00	0.00
 Reverse primer	TTCCAGGCTCTTGAGCGGTT	Minus	20	15948	15929	61.77	55.00	6.00	1.00
 Product length	799
 
-Primer pair 4
-	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
-Forward primer	TGGTCCCTTTATGACCCAGGA	Plus	21	15162	15182	60.20	52.38	4.00	1.00
-Reverse primer	CGAACAGAATAGAGCCCCAGT	Minus	21	15336	15316	59.52	52.38	2.00	2.00
-Product length	175
-
-Primer pair 5
-	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
-Forward primer	GGTCCCTTTATGACCCAGGAC	Plus	21	15163	15183	59.79	57.14	4.00	2.00
-Reverse primer	ACGAACAGAATAGAGCCCCAG	Minus	21	15337	15317	59.52	52.38	2.00	1.00
-Product length	175
-
-Primer pair 6
-	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
-Forward primer	ATGACCCAGGACTTCCATCC	Plus	20	15172	15191	58.78	55.00	4.00	1.00
-Reverse primer	TGGGTCTGTTGACCTTTCCAA	Minus	21	15675	15655	59.43	47.62	4.00	2.00
-Product length	504
-
-Primer pair 7
-	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
-Forward primer	CCCAGGACTTCCATCCACG	Plus	19	15176	15194	59.78	63.16	4.00	2.00
-Reverse primer	GGTCTGTTGACCTTTCCAAGC	Minus	21	15673	15653	59.39	52.38	4.00	2.00
-Product length	498
-
-Primer pair 8
-	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
-Forward primer	GCTTGAAAGCTTGGTCCCTT	Plus	20	15151	15170	58.67	50.00	6.00	0.00
-Reverse primer	CCAGGCTCTTGAGCGGTTATC	Minus	21	15946	15926	60.81	57.14	6.00	2.00
-Product length	796
-
-Primer pair 9
-	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
-Forward primer	TGCTTGAAAGCTTGGTCCCTT	Plus	21	15150	15170	60.41	47.62	6.00	0.00
-Reverse primer	TTCCAGGCTCTTGAGCGGTT	Minus	20	15948	15929	61.77	55.00	6.00	1.00
-Product length	799
 ```
+Best: 4, 5, 6, 7 considering complementarity. But 9 seems ok.
+
 - To amplify ifitm1 (need to include position 2439 of the scaffold428256: forward primer from , reverse primer to )
 
 *! position masked by the repeat*
@@ -272,6 +239,8 @@ Reverse primer	TGACCGAAAGGTGTAACCTGC	Minus	21	8115	8095	60.54	52.38	6.00	2.00
 Product length	275
 
 ```
+Best: 11.
+
 ##### Genes we don't know the location on *X. tropicalis* and *X. laevis*
 - To amplify vps9d1 (need to include position 571 of the scaffold C92080241: forward primer from , reverse primer to )
 
@@ -298,6 +267,8 @@ Forward primer	TATTCGACTGACTGCCCAGAA	Plus	21	157	177	58.82	47.62	4.00	0.00
 Reverse primer	AACCCCAGACAGGCTTCACA	Minus	20	666	647	61.35	55.00	3.00	0.00
 Product length	510
 ```
+Best:8.
+
 ##### Genes we know the locations (chr.4) but genotypes not next to them
 And also do DMRTa2 (but need to produce the primers using *X. tropicalis* because small scaffold for *Hymenochirus*)
 
@@ -373,3 +344,4 @@ Reverse primer	GCGATCAGCGTACACTTTGC	Minus	20	848	829	60.25	55.00	6.00	2.00
 Product length	344
 Exon junction	512/513 (forward primer) on template NM_001103073.1
 ```
+Best: seems 5.
