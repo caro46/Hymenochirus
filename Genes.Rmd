@@ -277,8 +277,25 @@ Product length	275
 ```
 awk -v seq="C92080241" -v RS='>' '$1 == seq {print RS $0}' /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/Hymenochirus_putative_sex_linked_opt_tot1SS1polym1ratio0_repARKmasked.fa.masked >SOAP_chimerical_C92080241_masked.fa
 ```
+Scaffold small, so directly done with *Xenopus* [specificity](https://www.ncbi.nlm.nih.gov/tools/primer-blast/primertool.cgi?ctg_time=1485447018&job_key=dnypYEfpSkFtf1B6XRp0SCcBZXoKEn5nCw)
 ```
+Primer pair 7
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GCTTGGCATACAATCGGTTTGA	Plus	22	112	133	59.84	45.45	5.00	3.00
+Reverse primer	TGGCAAGTGATAAAGGGAGGG	Minus	21	635	615	59.72	52.38	3.00	0.00
+Product length	524
 
+Primer pair 8
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	TCGACTGACTGCCCAGAAATA	Plus	21	160	180	58.82	47.62	4.00	2.00
+Reverse primer	GGGTTCTCAGGTCAGTGTCT	Minus	20	614	595	58.66	55.00	3.00	1.00
+Product length	455
+
+Primer pair 9
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	TATTCGACTGACTGCCCAGAA	Plus	21	157	177	58.82	47.62	4.00	0.00
+Reverse primer	AACCCCAGACAGGCTTCACA	Minus	20	666	647	61.35	55.00	3.00	0.00
+Product length	510
 ```
 ##### Genes we know the locations (chr.4) but genotypes not next to them
 And also do DMRTa2 (but need to produce the primers using *X. tropicalis* because small scaffold for *Hymenochirus*)
