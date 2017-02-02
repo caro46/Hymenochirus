@@ -434,3 +434,22 @@ LOD = 2.4 gives more similar results for female and male linkage map, so let's t
 for(i in 1:lg_male$n.groups){
 maps[[i]]<- make_seq(order_seq(make_seq(lg_male,i),n.init = 5, THRES = 4))}
 ```
+*The process of adding markers sequentially can be automated with the use of function `order_seq`*
+
+`order_seq`
+
+*Basically, this function automates what the try_seq function does, using some pre-defined rules. In the function, n.init = 5 means that five markers (the most informative ones) will be used in the compare step; THRES = 3 indicates that the try_seq step will only add markers to the sequence which can be mapped with LOD Score greater than 3; draw.try = TRUE will display a diagnostic graphic for each try_seq step (in this example, we set this to draw.try = FALSE), which should be combined with wait = 1, that indicates the minimum time interval in seconds to display the diagnostic graphic.*
+
+This takes a long time to run, to have a 1st idea:
+
+*Note that there are 10 markers in this group, so it is infeasible to use the compare function with all of them because it will take a very long time to proceed.*
+
+```
+library(onemap)
+male_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs","Hymenochirus_HardFilteredGATK_male.raw")
+twopt_male <- rf_2pts(male_raw)
+mark_all_male <- make_seq(twopt_male, "all")
+lg_male <- group(mark_all_male, LOD = 2.4)
+for(i in 1:lg_male$n.groups){
+maps[[i]]<- make_seq(rcd(make_seq(lg_male,i)))}
+```
