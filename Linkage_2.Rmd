@@ -444,7 +444,7 @@ This takes a long time to run, to have a 1st idea:
 
 *Note that there are 10 markers in this group, so it is infeasible to use the compare function with all of them because it will take a very long time to proceed.*
 
-```
+```R
 library(onemap)
 male_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs","Hymenochirus_HardFilteredGATK_male.raw")
 twopt_male <- rf_2pts(male_raw)
@@ -457,7 +457,7 @@ draw_map(maps_rcd, grid=TRUE,names=TRUE)
 dev.off()
 write.map(maps_rcd, "/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs/maps_rcd_male.onemap.map")
 ```
-```
+```R
 female_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs","Hymenochirus_HardFilteredGATK_female.raw")
 twopt_female <- rf_2pts(female_raw)
 mark_all_female <- make_seq(twopt_female, "all")
@@ -465,6 +465,6 @@ lg_female <- group(mark_all_female, LOD = 2.4)
 for(i in 1:lg_female$n.groups){
 maps_rcd_female[[i]]<- make_seq(rcd(make_seq(lg_female,i)))}
 ```
-```
+```R
 rf.graph.table(maps_rcd_female)
 ```
