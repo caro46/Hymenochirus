@@ -465,3 +465,6 @@ lg_female <- group(mark_all_female, LOD = 2.4)
 for(i in 1:lg_female$n.groups){
 maps_rcd_female[[i]]<- make_seq(rcd(make_seq(lg_female,i)))}
 ```
+```
+rf.graph.table(maps_rcd_female)
+```
