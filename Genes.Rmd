@@ -351,4 +351,7 @@ Best: seems 5.
 Chr. 4: limit petit/long arms: znf423 (Chr.4: 46965827..47078060 - v.9). 
 Considering results from `Hymenochirus_chimerical_putative_sex_linked_Phred20_Haplotype_caller_linked_opt_tot1SS1polym1ratio0_RepARKmasked_xenTro9_hard_mask_e5_no_max_target` (same used for identifying the genes): 4 scaffolds on XTR4p, 7 on XTR4q. DMRTa2 is on the long arm (85796936..85801496). SOX6 on small arm.
 
-Need to see if with HiSeq genotype calling we observe a difference between male and female for DMRTa2.
+Need to see if with HiSeq genotype calling we observe a difference between male and female for DMRTa2. OK, already did that previously and for the scaffold that have DMRTa2 on: 61 or 67 sites different between mother and father, everytime dad heterozygous and mother homozygous (considering male and female mapping against female abyss and male and female mapping against male abyss).  
+```
+vcftools --vcf ~/Hymeno_fastqc/GATK/BJE3815_nonrecal_varonly.vcf --chr "supercontig_6" --from-bp 22045521 --to-bp 22062501 --recode --recode-INFO-all --out /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3815_nonrecal_varonly_scaffold24873906
+```
