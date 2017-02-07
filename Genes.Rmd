@@ -345,3 +345,10 @@ Product length	344
 Exon junction	512/513 (forward primer) on template NM_001103073.1
 ```
 Best: seems 5.
+
+
+###Find genes involved in sex-determination within our region determined as potentially sex-linked
+Chr. 4: limit petit/long arms: znf423 (Chr.4: 46965827..47078060 - v.9). 
+Considering results from `Hymenochirus_chimerical_putative_sex_linked_Phred20_Haplotype_caller_linked_opt_tot1SS1polym1ratio0_RepARKmasked_xenTro9_hard_mask_e5_no_max_target` (same used for identifying the genes): 4 scaffolds on XTR4p, 7 on XTR4q. DMRTa2 is on the long arm (85796936..85801496). SOX6 on small arm.
+
+Need to see if with HiSeq genotype calling we observe a difference between male and female for DMRTa2.
