@@ -355,3 +355,16 @@ Need to see if with HiSeq genotype calling we observe a difference between male 
 ```
 vcftools --vcf ~/Hymeno_fastqc/GATK/BJE3815_nonrecal_varonly.vcf --chr "supercontig_6" --from-bp 22045521 --to-bp 22062501 --recode --recode-INFO-all --out /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3815_nonrecal_varonly_scaffold24873906
 ```
+####Where are the SNPs
+
+On abyss genome BJE3814: DM-domain blasted 8211-8149 (=supercontig_5:182770532-182770470). DM domain in exon 2. Using results from blastn on Ensembl: Exon1 (182762321+6045=182768366 ... 182762321+6914 = 182769235): exon 2 (182762321+7940=182770261 ... 182762321+8190=182770511):, exon3: x
+Closest SNPs form DM domain: 
+```
+supercontig_5   182769745       C       C/C     C/T
+supercontig_5   182771619       G       G/GTA   GTA/GTATATA
+```
+Exon1
+```
+supercontig_5   182769411       C       C/C     C/T
+
+```
