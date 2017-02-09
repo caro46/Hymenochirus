@@ -433,6 +433,13 @@ LOD = 2.4 gives more similar results for female and male linkage map, so let's t
 ```R
 for(i in 1:lg_male$n.groups){
 maps[[i]]<- make_seq(order_seq(make_seq(lg_male,i),n.init = 5, THRES = 4))}
+
+Error in if (length(x) == 1L && is.numeric(x) && x >= 1) { :
+  missing value where TRUE/FALSE needed
+  
+maps<-vector("list", lg$n.groups)
+for(i in 1:lg_male$n.groups){
+maps[[i]]<- make_seq(order_seq(make_seq(lg_male,i),n.init = 5, THRES = 4))}
 ```
 *The process of adding markers sequentially can be automated with the use of function `order_seq`*
 
@@ -450,6 +457,7 @@ male_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onem
 twopt_male <- rf_2pts(male_raw)
 mark_all_male <- make_seq(twopt_male, "all")
 lg_male <- group(mark_all_male, LOD = 2.4)
+maps_rcd<-vector("list", lg_male$n.groups)
 for(i in 1:lg_male$n.groups){
 maps_rcd[[i]]<- make_seq(rcd(make_seq(lg_male,i)))}
 pdf("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs/maps_rcd_male.onemap.pdf")
@@ -462,6 +470,7 @@ female_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/on
 twopt_female <- rf_2pts(female_raw)
 mark_all_female <- make_seq(twopt_female, "all")
 lg_female <- group(mark_all_female, LOD = 2.4)
+maps_rcd_female<-vector("list", lg_female$n.groups)
 for(i in 1:lg_female$n.groups){
 maps_rcd_female[[i]]<- make_seq(rcd(make_seq(lg_female,i)))}
 ```
