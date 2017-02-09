@@ -357,14 +357,26 @@ vcftools --vcf ~/Hymeno_fastqc/GATK/BJE3815_nonrecal_varonly.vcf --chr "supercon
 ```
 ####Where are the SNPs
 
-On abyss genome BJE3814: DM-domain blasted 8211-8149 (=supercontig_5:182770532-182770470). DM domain in exon 2. Using results from blastn on Ensembl: Exon1 (182762321+6045=182768366 ... 182762321+6914 = 182769235): exon 2 (182762321+7940=182770261 ... 182762321+8190=182770511):, exon3: x
+On abyss genome BJE3814: DM-domain blasted 8211-8149 (=supercontig_5:182770532-182770470). DM domain in exon 2. Using results from blastn on Ensembl: Exon3 (182762321+6045=182768366 ... 182762321+6914 = 182769235): exon 2 (182762321+7940=182770261 ... 182762321+8190=182770511):, exon1: x
 Closest SNPs form DM domain: 
 ```
 supercontig_5   182769745       C       C/C     C/T
 supercontig_5   182771619       G       G/GTA   GTA/GTATATA
 ```
-Exon1
+Intron 2-3 
 ```
+supercontig_5   182768044       C       C/C     C/T
+supercontig_5   182768156       A       A/A     A/G
 supercontig_5   182769411       C       C/C     C/T
-
+supercontig_5   182769745       C       C/C     C/T
 ```
+Upstream region: ~155bp downstream
+```
+supercontig_5   182768156       A       A/A     A/G
+```
+```
+blastn -evalue 1e-1 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/exon1_DMRTa3_xenbase_v8.fa -db /work/ben/2016_Hymenochirus/BJE3815/BJE3815_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/BJE3815_abyss_DMRTA2_exon1_e1_target_seq_3 -outfmt 6 -max_target_seqs 3
+```
+Cannot get exon 1.
+
+Should amplify intron 2-3 to get SNPs identified and also the DM domain.
