@@ -380,3 +380,41 @@ blastn -evalue 1e-1 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regio
 Cannot get exon 1.
 
 Should amplify intron 2-3 to get SNPs identified and also the DM domain.
+
+Need to amplify region ~1000bp for each pair of primers, need at least 2 pairs / exon (will amplify part of exon + part of intron to catch genotypes heteroz in dad/homoz in mom)
+```
+exon3 end = 182769235
+Intron 2-3 - genotypes
+
+supercontig_5   182769411       C       C/C     C/T
+supercontig_5   182769745       C       C/C     C/T
+
+exon2 start = 182770261 - end = 182770511
+Intron 1-2 - genotypes
+
+supercontig_5   182771619       G       G/GTA   GTA/GTATATA
+supercontig_5   182773440       A       AATAGATAGATAGATAGATAGGTAGATAGATAGATAAAGCTAGATAGATAG/AATAGATAGATAGATAGATAGGTAGATAGATAGATAAAGCTAGATAGATAG A/AATAGATAGATAGATAGATAGGTAGATAGATAGATAAAGCTAGATAGATAG
+supercontig_5   182773483       A       A/A     A/ATAGATAGATAGATAGATAGATAGATAGATAGGTAGATAGATAGATAAAGC
+supercontig_5   182773922       GTA     GTA/G   GTA/GTATATATATATATA
+supercontig_5   182774194       AC      AC/AC   AC/A
+supercontig_5   182774713       GTCCCT  GTCCCT/GTCCCT   GTCCCT/G
+supercontig_5   182774720       AGCT    AGCT/AGCT       AGCT/A
+supercontig_5   182774726       A       A/A     A/AAAC
+supercontig_5   182774728       G       G/G     G/A
+supercontig_5   182775297       G       G/G     G/A
+supercontig_5   182775381       G       G/G     G/A
+supercontig_5   182775786       C       C/C     C/T
+supercontig_5   182775790       T       T/T     T/A
+supercontig_5   182776294       TCCC    TCCC/TCCC       TCCC/T
+supercontig_5   182776647       G       G/G     G/A
+supercontig_5   182777148       T       T/T     T/G
+supercontig_5   182777510       A       A/A     A/C
+supercontig_5   182777828       A       A/A     A/T
+supercontig_5   182777924       T       T/T     T/G
+supercontig_5   182778257       T       T/T     T/TC
+supercontig_5   182778499       T       T/T     T/C
+supercontig_5   182778537       T       T/T     T/G
+supercontig_5   182780746       T       T/T     T/TC
+/4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold25142173.recode.tab (END) 
+
+```
