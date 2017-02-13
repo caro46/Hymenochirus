@@ -389,8 +389,8 @@ Intron 2-3 - genotypes
 supercontig_5   182769411       C       C/C     C/T
 supercontig_5   182769745       C       C/C     C/T
 
-exon2 start = 182770261 - end = 182770511
-Intron 1-2 - genotypes
+exon2 start = 182770261 - end = 182770511 (182770541 - xenbase)
+Intron 1-2 (no exon 1) - genotypes
 
 supercontig_5   182771619       G       G/GTA   GTA/GTATATA
 supercontig_5   182773440       A       AATAGATAGATAGATAGATAGGTAGATAGATAGATAAAGCTAGATAGATAG/AATAGATAGATAGATAGATAGGTAGATAGATAGATAAAGCTAGATAGATAG A/AATAGATAGATAGATAGATAGGTAGATAGATAGATAAAGCTAGATAGATAG
@@ -416,5 +416,5 @@ supercontig_5   182778499       T       T/T     T/C
 supercontig_5   182778537       T       T/T     T/G
 supercontig_5   182780746       T       T/T     T/TC
 /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold25142173.recode.tab (END) 
-
 ```
+If considering annotation of xenbase: 2exons (exon 2 starting 30 bp before, no exon1 translated)
