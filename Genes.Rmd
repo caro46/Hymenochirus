@@ -418,3 +418,31 @@ supercontig_5   182780746       T       T/T     T/TC
 /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold25142173.recode.tab (END) 
 ```
 If considering annotation of xenbase: 2exons (exon 2 starting 30 bp before, no exon1 translated)
+```
+Primer pair 8 (partial exon 3 and downstream)
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	AGGACCTTTGTTCTGGTGGA	Plus	20	5581	5600	58.48	50.00	5.00	0.00
+Reverse primer	CCCAATGCCACACACTTTGG	Minus	20	6307	6288	59.97	55.00	4.00	3.00
+Product length	727
+
+Exon 3 partial - partial intron 2-3
+Primer pair 8
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	ACATCTCCACCACAGCCTTG	Plus	20	6495	6514	59.96	55.00	3.00	3.00
+Reverse primer	GTGTTTGGAGCTGTGTGTGC	Minus	20	7941	7922	60.25	55.00	4.00	2.00
+Product length	1447
+
+Primer pair 10
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GAACTGGGGTCCTGCTCATC	Plus	20	6603	6622	60.11	60.00	3.00	1.00
+Reverse primer	AGGTGTTTGGAGCTGTGTGT	Minus	20	7943	7924	59.74	50.00	4.00	0.00
+Product length	1341
+
+Exon 2 - partial intron 1-2
+Primer pair 4
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	CTTCCACCTTCCCTACCCAAC	Plus	21	7116	7136	60.00	57.14	2.00	0.00
+Reverse primer	CAGTTGCTACTTCGTGCAGC	Minus	20	8244	8225	59.84	55.00	6.00	3.00
+Product length	1129
+
+```
