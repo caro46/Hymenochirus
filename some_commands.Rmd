@@ -64,7 +64,7 @@ From a loggin node (ex.: wobbie)
 ```
 ssh cauretc@wobbie.sharcnet.ca
 ssh wob101
-ssh cauretc@dtn.sharcnet.ca
+ssh cauretc@dtn.sharcnet.ca #data transfer node, better when want to move big data
 
 #From /work/cauretc
 mv 2016_Hymenochirus/2016_Hymenochirus_SOAP_assemblies.tar.gz /freezer/cauretc
