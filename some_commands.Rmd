@@ -59,3 +59,13 @@ awk -v seq="scaffold348337" -v RS='>' '$1 == seq {print RS $0}' Hymenochirus_put
 ```
 screen -d -r [name]
 ```
+### To move stuff from /work to /freezer on sharcnet
+From a loggin node (ex.: wobbie)
+```
+ssh cauretc@wobbie.sharcnet.ca
+ssh wob101
+ssh cauretc@dtn.sharcnet.ca
+
+#From /work/cauretc
+mv 2016_Hymenochirus/2016_Hymenochirus_SOAP_assemblies.tar.gz /freezer/cauretc
+```
