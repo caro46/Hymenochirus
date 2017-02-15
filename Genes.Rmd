@@ -61,7 +61,16 @@ Reverse primer	AACCAGCAGACAACCGGAGA	Minus	20	1271	1252	61.41	55.00	4.00	0.00
 Product length	274
 ```
 Primer pair 8 seems the best.
-
+```
+Range
+    1 - 2000
+    
+Primer pair 2
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	TCCCTACTGATCACCCCCAC	Plus	20	236	255	60.33	60.00	6.00	0.00
+Reverse primer	AGACAACCGGAGAAACACGG	Minus	20	1264	1245	60.25	55.00	4.00	1.00
+Product length	1029
+```
 - To amplify ptprf (need to include position 5250 of the scaffold: forward primer from , reverse primer to )
 
 *! position masked by the repeat*
