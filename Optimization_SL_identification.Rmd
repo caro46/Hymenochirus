@@ -1240,6 +1240,30 @@ Check if the same using mother Abyss genome as the reference: 67 SNP, with same 
 
 **- Kank4**
 
+**- wt1**
+```
+blastn -evalue 1e-5 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/wt1_NCBI.fa -db /work/ben/2016_Hymenochirus/SOAP_genomes/SOAP_Hymeno_genome_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/SOAP_Hymeno_genome_trop_wt1_e5_no_max_target -outfmt 6
+
+less SOAP_Hymeno_genome_trop_wt1_e5_no_max_target
+
+NM_001142153.1  scaffold41543   85.04   127     19      0       614     740     168     294     9e-27    130
+NM_001142153.1  scaffold41542   85.04   127     19      0       614     740     406     532     9e-27    130
+NM_001142153.1  scaffold124651  91.57   83      7       0       838     920     2565    2483    2e-22    115
+
+grep "scaffold41543" positions.txt #no match
+blastn -evalue 1e-5 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/wt1_NCBI.fa -db /work/ben/2016_Hymenochirus/BJE3814/BJE3814_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/BJE3814_abyss_trop_wt1_e5_no_max_target -outfmt 6
+
+more BJE3814_abyss_trop_wt1_e5_no_max_target
+NM_001142153.1	25182156	85.04	127	19	0	614	740	7473	7599	7e-27	 130
+NM_001142153.1	25182156	91.57	83	7	0	838	920	23254	23336	2e-22	 115
+
+blastn -evalue 1e-5 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/wt1_NCBI.fa -db /work/ben/2016_Hymenochirus/BJE3815/BJE3815_genomeAbyss_blastable -out /work/ben/2016_Hymenochirus/putative_sex_linked_regions_blast_Haplotype_caller/BJE3815_abyss_trop_wt1_e5_no_max_target -outfmt 6
+
+NM_001142153.1	24886907	85.04	127	19	0	614	740	18148	18022	7e-27	 130
+NM_001142153.1	24886907	91.57	83	7	0	838	920	2560	2478	2e-22	 115
+
+zcat /work/ben/2016_Hymenochirus/BJE3814/BJE3814-8.fa.gz | awk -v seq="25182156" -v RS='>' '$1 == seq {print RS $0}' >BJE3814_abyss_scaffold_25182156.fa
+```
 ###Potential sex-linked scaffolds and *X. tropicalis* (blast on Ensembl)
 |SOAP_chimerical_scaffold|Inheritance pattern|Overlapped genes|Chr.|Function|SNP location on scaffold|Abyss genomes M/D\*|
 -------------------------|----------|----------|----------|----------|----------|----------|
