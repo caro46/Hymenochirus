@@ -1263,7 +1263,60 @@ NM_001142153.1	24886907	85.04	127	19	0	614	740	18148	18022	7e-27	 130
 NM_001142153.1	24886907	91.57	83	7	0	838	920	2560	2478	2e-22	 115
 
 zcat /work/ben/2016_Hymenochirus/BJE3814/BJE3814-8.fa.gz | awk -v seq="25182156" -v RS='>' '$1 == seq {print RS $0}' >BJE3814_abyss_scaffold_25182156.fa
+
+grep "25182156" /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_abyss_supercontigs_index
+7	25182156	62343281	62369093
+
+vcftools --vcf ~/Hymeno_fastqc/GATK/BJE3814_nonrecal_varonly.vcf --chr "supercontig_7" --from-bp 62343281 --to-bp 62369093 --recode --recode-INFO-all --out /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold25182156
+
+/usr/local/vcftools/src/perl/vcf-to-tab < /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold25182156.recode.vcf > /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold25182156.recode.tab
 ```
+Ok, will see how the amplification of DMRTa2 goes but need to amplify this dude too. Same pattern as DMRTa2 and variation in the assembly too (perhaps mis-assembly)
+```
+7473 + 62343281 = 62350754
+7599+62343281=62350880
+
+supercontig_7   62350884        A       A/A     A/C
+
+23254+62343281=62366535
+23336+62343281=62366617
+```
+No SNP in the region blasting
+Weird stuff when blast the RNA tropicalis from NCBI onto genome of tropicalis on xenbase...
+```
+Overview of Results
+Hit Id 	Hit Description Score 	E value
+chr4S	chr4S 699 	0.0
+chr7L	chr7L 684 	0.0
+chr4L	chr4L 470 	1e-129
+```
+If map scaffold 25182156 onto xenbase: best result still on chromosome 4 within intronic region of wt1
+Let's go with the cds of from xenbase
+```
+more BJE3814_abyss_laevis_wt1_CDS_xenbase_e5_no_max_target
+wt1.L	24726511	82.94	299	48	1	1	296	814	516	1e-68	 267
+wt1.L	25206811	85.62	146	18	1	697	839	3268	3413	1e-33	 150
+wt1.L	25223132	90.91	99	9	0	926	1024	4072	4170	1e-28	 134
+wt1.L	25182156	95.92	49	2	0	539	587	23288	23336	1e-12	80.5
+
+grep "24726511" /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_abyss_supercontigs_index
+2	24726511	57106321	57107882
+
+vcftools --vcf ~/Hymeno_fastqc/GATK/BJE3814_nonrecal_varonly.vcf --chr "supercontig_2" --from-bp 57106321 --to-bp 57107882 --recode --recode-INFO-all --out /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold24726511
+/usr/local/vcftools/src/perl/vcf-to-tab < /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold24726511.recode.vcf > /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold24726511.recode.tab
+
+#CHROM  POS     REF     /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/super_contigs/BJE3814_genomeAbyss_supercontigs_reads14sorted    /home/evanslab/Hymeno_fastqc/map_reads_to_abyss_genomes/super_contigs/BJE3814_genomeAbyss_supercontigs_reads15sorted
+supercontig_2   57106601        C       C/CTGTG CTGTG/CTGTGTGTGTGTGTGTG
+supercontig_2   57106623        A       A/A     A/G
+supercontig_2   57106669        G       G/G     G/GTA
+supercontig_2   57106703        C       C/C     C/T
+supercontig_2   57107520        T       T/TG    T/TG
+supercontig_2   57107532        G       G/G     G/GA
+supercontig_2   57107533        G       G/G     G/GT
+```
+scaffold24726511 (742-815) = exon 1 of wt1 (57107063-57107136): no SNP in exon.
+
+The gene is highly spread into different scaffolds. Will be difficult to have a good idea of what is going on. Scaffolds kinda small, seems to almost have an exon by scaffolds, in tropicalis: big intons, probably the same here.
 ###Potential sex-linked scaffolds and *X. tropicalis* (blast on Ensembl)
 |SOAP_chimerical_scaffold|Inheritance pattern|Overlapped genes|Chr.|Function|SNP location on scaffold|Abyss genomes M/D\*|
 -------------------------|----------|----------|----------|----------|----------|----------|
