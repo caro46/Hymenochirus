@@ -1,0 +1,147 @@
+##Blast
+
+##Select sex specific transcripts
+
+```R
+BJE3814 <- read.table("BJE3814_abyss_transcriptomeNCBI_e20_max_target_1", sep="\t")
+BJE3815 <- read.table("BJE3815_abyss_transcriptomeNCBI_e20_max_target_1", sep="\t")
+
+#BJE3814$BJE3815 <- ifelse(BJE3814[1,] %in% BJE3815[1,], TRUE, FALSE)
+
+test <- BJE3814[!(BJE3814[,1] %in% BJE3815[,1]),]
+dim(test)
+#[1] 58 12
+test$individual <- rep("BJE3814",length(test[,1]))
+
+test2 <- BJE3815[!(BJE3815[,1] %in% BJE3814[,1]),]
+dim(test2)
+#[1] 57 12
+test2$individual <- rep("BJE3815",length(test2[,1]))
+
+total <- rbind(test,test2)
+write.table("/work/cauretc/2016_Hymenochirus/transcriptome/transcript_spec.out",sep="\t",col.names=FALSE,quote=FALSE)
+```
+```perl
+#!/usr/local/perl5.24/perl-5.24.0/perl
+
+use strict;
+use warnings;
+use List::MoreUtils qw/ uniq /;
+use List::Util qw(min max);
+
+##INPUT files
+my $inputfile = "transcript_spec.out";
+
+unless (open DATAINPUT, $inputfile) {
+        print "Can not find the input file $inputfile, jackass.\n";
+        exit;
+}
+
+my $inputfile1 = "GSE76089_HYMBO_TrinityV1_cdna.fa";
+
+unless (open DATAINPUT1, $inputfile1) {
+        print "Can not find the input file $inputfile1, jackass.\n";
+        exit;
+}
+##OUTPUT file
+my $outputfile = "Hymenochirus_transcript_putative_sex_linked_opt.fa";
+
+unless(open(OUTFILE, ">$outputfile")){
+        print "I can\'t write to $outputfile   $!\n\n";
+        exit;
+}
+
+
+my @column;
+my $transcript_name;
+my $scaffold_name;
+my $individual;
+my @fasta_transcript_names_female;
+my @fasta_transcript_names_male;
+
+
+print "Starting checking the scaffolds","\n";
+
+while (my $line = <DATAINPUT>){
+        chomp($line);
+        @column=split('\t',$line);
+        $transcript_name = $column[1];
+        $scaffold_name = $column[2];
+        $individual = $column[13];
+        if ($individual eq "BJE3814") {
+                push(@fasta_transcript_names_female,$transcript_name);
+
+        }
+        elsif ($individual eq "BJE3815") {
+                push(@fasta_transcript_names_male,$transcript_name);
+
+        }
+}
+
+@fasta_transcript_names_female = uniq (@fasta_transcript_names_female);
+@fasta_transcript_names_male = uniq (@fasta_transcript_names_male);
+
+
+print "Done with checking the scaffolds","\n";
+
+print "Start printing the scaffolds","\n";
+
+my $complete_sequence=();
+my $line1;
+my @temp1;
+my $SD_system;
+my $sequence_name;
+my $switch=0;
+
+while (my $line1=<DATAINPUT1>) {
+        chomp($line1);
+        @temp1=split(/[>\s]/,$line1);
+
+        if($switch==1) {
+                if ($line1!~/^>/){
+                $complete_sequence=$complete_sequence.$temp1[0];
+                }
+                else {
+                $switch=0;
+                print "CS ", $complete_sequence,"\n";
+                print OUTFILE $sequence_name,"\t",$SD_system,"\n",$complete_sequence,"\n";
+                $complete_sequence=();
+                }
+
+        }
+
+        if(defined($temp1[1])){
+                print $temp1[1],"\n";
+                        if(grep $_ eq $temp1[1], @fasta_transcript_names_female) {
+                                $sequence_name=$line1;
+                                $SD_system="female_specific";
+                                print "seq name ",$sequence_name;
+                                $switch=1;
+                                my $index=0;
+                                $index++ until $fasta_transcript_names_female[$index] eq "$temp1[1]";
+                                splice(@fasta_transcript_names_female, $index, 1);
+                        }
+                        elsif(grep $_ eq $temp1[1], @fasta_transcript_names_male){
+                                $sequence_name=$line1;
+                                $SD_system="male_specific";
+                                $switch=1;
+                                my $index=0;
+                                $index++ until $fasta_transcript_names_male[$index] eq "$temp1[1]";
+                                splice(@fasta_transcript_names_male, $index, 1);
+                        }
+
+        }
+}
+
+close DATAINPUT;
+print "Done with input file \n";
+close DATAINPUT1;
+print "Done with input file 1\n";
+close OUTFILE;
+print "Done with outputfile \n";
+
+```
+```
+blastn -evalue 1e-5 -query /work/cauretc/2016_Hymenochirus/transcriptome/Hymenochirus_transcript_putative_sex_linked_opt.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable -out /work/cauretc/2016_Hymenochirus/transcriptome/Hym_transcript_xenTro9_hard_mask_e5 -outfmt 6 -max_target_seqs 1
+```
+Only blast against scaffold_618...
