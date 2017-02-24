@@ -144,4 +144,6 @@ print "Done with outputfile \n";
 ```
 blastn -evalue 1e-5 -query /work/cauretc/2016_Hymenochirus/transcriptome/Hymenochirus_transcript_putative_sex_linked_opt.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable -out /work/cauretc/2016_Hymenochirus/transcriptome/Hym_transcript_xenTro9_hard_mask_e5 -outfmt 6 -max_target_seqs 1
 ```
+Also done with `1e-1`.
+
 Only blast against scaffold_618...
