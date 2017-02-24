@@ -3,8 +3,11 @@
 ##Select sex specific transcripts
 
 ```R
-BJE3814 <- read.table("BJE3814_abyss_transcriptomeNCBI_e20_max_target_1", sep="\t")
-BJE3815 <- read.table("BJE3815_abyss_transcriptomeNCBI_e20_max_target_1", sep="\t")
+#BJE3814 <- read.table("BJE3814_abyss_transcriptomeNCBI_e20_max_target_1", sep="\t")
+#BJE3815 <- read.table("BJE3815_abyss_transcriptomeNCBI_e20_max_target_1", sep="\t")
+
+BJE3814 <- read.table("BJE3814_abyss_transcriptomeNCBI_e20_no_max_target", sep="\t")
+BJE3815 <- read.table("BJE3815_abyss_transcriptomeNCBI_e20_no_max_target", sep="\t")
 
 #BJE3814$BJE3815 <- ifelse(BJE3814[1,] %in% BJE3815[1,], TRUE, FALSE)
 
@@ -19,7 +22,8 @@ dim(test2)
 test2$individual <- rep("BJE3815",length(test2[,1]))
 
 total <- rbind(test,test2)
-write.table("/work/cauretc/2016_Hymenochirus/transcriptome/transcript_spec.out",sep="\t",col.names=FALSE,quote=FALSE)
+#write.table("/work/cauretc/2016_Hymenochirus/transcriptome/transcript_spec.out",sep="\t",col.names=FALSE,quote=FALSE)
+write.table("/work/cauretc/2016_Hymenochirus/transcriptome/transcript_spec_no_max_target.out",sep="\t",col.names=FALSE,quote=FALSE)
 ```
 ```perl
 #!/usr/local/perl5.24/perl-5.24.0/perl
@@ -30,7 +34,8 @@ use List::MoreUtils qw/ uniq /;
 use List::Util qw(min max);
 
 ##INPUT files
-my $inputfile = "transcript_spec.out";
+#my $inputfile = "transcript_spec.out";
+my $inputfile = "transcript_spec_no_max_target.out";
 
 unless (open DATAINPUT, $inputfile) {
         print "Can not find the input file $inputfile, jackass.\n";
@@ -44,7 +49,8 @@ unless (open DATAINPUT1, $inputfile1) {
         exit;
 }
 ##OUTPUT file
-my $outputfile = "Hymenochirus_transcript_putative_sex_linked_opt.fa";
+#my $outputfile = "Hymenochirus_transcript_putative_sex_linked_opt.fa";
+my $outputfile = "Hymenochirus_transcript_putative_sex_linked_no_max_target.fa";
 
 unless(open(OUTFILE, ">$outputfile")){
         print "I can\'t write to $outputfile   $!\n\n";
