@@ -22,8 +22,8 @@ dim(test2)
 test2$individual <- rep("BJE3815",length(test2[,1]))
 
 total <- rbind(test,test2)
-#write.table("/work/cauretc/2016_Hymenochirus/transcriptome/transcript_spec.out",sep="\t",col.names=FALSE,quote=FALSE)
-write.table("/work/cauretc/2016_Hymenochirus/transcriptome/transcript_spec_no_max_target.out",sep="\t",col.names=FALSE,quote=FALSE)
+#write.table(total,"/work/cauretc/2016_Hymenochirus/transcriptome/transcript_spec.out",sep="\t",col.names=FALSE,quote=FALSE)
+write.table(total,"/work/cauretc/2016_Hymenochirus/transcriptome/transcript_spec_no_max_target.out",sep="\t",col.names=FALSE,quote=FALSE)
 ```
 ```perl
 #!/usr/local/perl5.24/perl-5.24.0/perl
