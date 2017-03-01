@@ -153,3 +153,16 @@ blastn -evalue 1e-5 -query /work/cauretc/2016_Hymenochirus/transcriptome/Hymenoc
 Also done with `1e-1`.
 
 Only blast against scaffold_618...
+
+Blast abyss scaffolds where the transcript_putative_sex_linked mapped to tropicalis
+```
+module load blast/2.2.28+
+
+blastn -evalue 1e-1 -query /work/cauretc/2016_Hymenochirus/transcriptome/Hymenochirus_abyss_scaffold_transcript_putative_sex_linked.fa -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable -out /work/cauretc/2016_Hymenochirus/transcriptome/Hym_abyss_transcript_xenTro9_hard_mask_e1_max_target1 -outfmt 6 -max_target_seqs 1
+
+blastn -evalue 1e-1 -query /work/cauretc/2016_Hymenochirus/transcriptome/RM2_Hymenochirus_abyss_scaffold_transcript_putative_sex_linked.fa_1488403093.masked.txt -db /work/ben/2016_Hymenochirus/xenTro9/xenTro9_genome_HARDmasked_blastable -out /work/cauretc/2016_Hymenochirus/transcriptome/Hym_abyss_transcript_repeatmaskeronline_xenTro9_hard_mask_e1_max_target1 -outfmt 6 -max_target_seqs 1
+```
+```
+grep -c "Chr04" Hym_abyss_transcript_xenTro9_hard_mask_e1_max_target1
+10
+```
