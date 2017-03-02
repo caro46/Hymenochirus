@@ -166,3 +166,7 @@ blastn -evalue 1e-1 -query /work/cauretc/2016_Hymenochirus/transcriptome/RM2_Hym
 grep -c "Chr04" Hym_abyss_transcript_xenTro9_hard_mask_e1_max_target1
 10
 ```
+Blasted on NCBI, mainly unknown/locus with unknown function/still located on scaffold (check with xenbase) (ex. dip2a on a scaffold) or mRNA.
+
+Female abyss "sex-specific" scaffold 25229940 mapping to chr.04 - polr2c
+
