@@ -459,7 +459,7 @@ mark_all_male <- make_seq(twopt_male, "all")
 lg_male <- group(mark_all_male, LOD = 2.4)
 maps_rcd<-vector("list", lg_male$n.groups)
 for(i in 1:lg_male$n.groups){
-maps_rcd[[i]]<- make_seq(rcd(make_seq(lg_male,i)))}
+maps_rcd[[i]]<- rcd(make_seq(lg_male,i))}
 pdf("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs/maps_rcd_male.onemap.pdf")
 draw_map(maps_rcd, grid=TRUE,names=TRUE)
 dev.off()
@@ -472,7 +472,7 @@ mark_all_female <- make_seq(twopt_female, "all")
 lg_female <- group(mark_all_female, LOD = 2.4)
 maps_rcd_female<-vector("list", lg_female$n.groups)
 for(i in 1:lg_female$n.groups){
-maps_rcd_female[[i]]<- make_seq(rcd(make_seq(lg_female,i)))}
+maps_rcd_female[[i]]<- rcd(make_seq(lg_female,i))}
 ```
 ```R
 rf.graph.table(maps_rcd_female)
