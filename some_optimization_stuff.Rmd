@@ -43,3 +43,106 @@ print $commandline;
 $status = system($commandline);
 }
 ```
+`NCBI_names_convert.pl`
+```perl
+#!/usr/local/perl5.24/perl-5.24.0/perl
+
+use strict;
+use warnings;
+use List::MoreUtils qw/ uniq /;
+use List::Util qw(min max);
+
+################################################################
+######### Naming NCBI sequences for submission##################
+################################################################
+
+## We have sequences in fasta format that need to be submitted to genebank  
+# but the ID name is too long and need to be separated into different subsections.
+# For each individual the name to be used is in a CSV file.
+# The output will be a sequence file in fasta format with the new NCBI name
+
+###Parts of another scripts that need to be adapted
+
+my ($fasta_file, $table_name, $new_name_NCBI_fasta) = @ARGV;
+ 
+if (not defined $fasta_file) {
+  die "Need a fasta file \n";
+}
+ 
+if (not defined $table_name) {
+  die "Need a file with the new sequence names\n";
+}
+
+if (not defined $new_name_NCBI_fasta) {
+  die "Need an output name \n";
+}
+
+unless (open DATAINPUT, $fasta_file) {
+		print "Can not find the input file $fasta_file.\n";
+		exit;
+}
+
+unless (open DATAINPUT1, $table_name) {
+		print "Can not find the input file $table_name.\n";
+		exit;
+}
+
+unless (open(OUTFILE, ">$new_name_NCBI_fasta")){
+        print "I can\'t write to $new_name_NCBI_fasta $!\n\n";
+        exit;
+}
+ 
+my %names;
+my @columnF1;
+my @temp;
+my $switch=0;
+my $complete_sequence=();
+my $sequence_name;
+
+while (my $line1 = <DATAINPUT1>){
+	chomp($line1);
+    @columnF1=split(',',$line1);
+    #print $_, $/ for @columnF1;
+    #print $columnF1[0];
+    	if ($columnF1[0] ne 'name_seq_analysis'){
+        	#print "CHECK ",$columnF1[0]," ", $columnF1[1];
+        	$names{$columnF1[0]}=$columnF1[1];
+    }
+}
+
+while (my $line=<DATAINPUT>) {
+    chomp($line);
+    @temp=split(/[>\s]/,$line);
+
+    if($switch==1) {
+        if ($line!~/^>/){
+            $complete_sequence=$complete_sequence.$temp[0];
+        }
+        else {
+            $switch=0;
+            #print "CS ", $complete_sequence,"\n";
+            print OUTFILE ">",$sequence_name,"\n",$complete_sequence,"\n";
+            $complete_sequence=();
+        }
+
+    }
+
+    if(defined($temp[1])){
+        #print "temp 1 ",$temp[1],"\n";
+        foreach my $old_name (keys %names) {
+            #print "key ",$old_name;
+                if($old_name =~ $temp[1]) {
+                    $sequence_name=$names{$old_name};
+                    #print "seq name ",$sequence_name;
+                    $switch=1;
+                }
+        }
+    }
+}
+close DATAINPUT;
+print "Done with input file \n";
+close DATAINPUT1;
+print "Done with input file 1\n";
+close OUTFILE;
+print "Done with output file \n";
+```
