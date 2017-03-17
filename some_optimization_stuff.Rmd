@@ -61,8 +61,6 @@ use List::Util qw(min max);
 # For each individual the name to be used is in a CSV file.
 # The output will be a sequence file in fasta format with the new NCBI name
 
-###Parts of another scripts that need to be adapted
-
 my ($fasta_file, $table_name, $new_name_NCBI_fasta) = @ARGV;
  
 if (not defined $fasta_file) {
