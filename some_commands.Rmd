@@ -19,6 +19,10 @@
 
 `tar --compare --file=2016_Hymenochirus_SOAP_assemblies.tar.gz`
 
+- Extracting only one file from a `.tar.gz`
+
+`tar -zxvf config.tar.gz etc/default/sysstat` for a file called `sysstat`
+
 #### Extract one seq from a big fasta file 
 ```
 samtools faidx SOAP_Hymeno_genome_scafSeq_supercontigs.fa
@@ -33,7 +37,7 @@ cpan List::MoreUtils
 ```
 find . -maxdepth 1 -name "*L006*_R1*_trim_paired.fastq.gz"| wc -l
 ```
-###Replace tab in a file
+### Replace tab in a file
 ```
 sed -i 's/\t/ /g' Hymenochirus_barcode_RADpools_no_overhang.pools
 ```
