@@ -9,8 +9,17 @@
 - [ ] Trimmo + Jellifish/Quake
 - [ ] Assemblies
 
+- RADseq from *Pipa* dad, mom
+- [x] Copy 
+- [x] Check quality - some over-represented sequences
+- [ ] Demultiplex (installing the newest version of stacks that requires a newer version of gcc) 
+
 - Hymenochirus Sex-linked regions
 - [ ] Extraction
 - [ ] PCR
 - [ ] Sequencing
 
+*To do also as soon as possible (in case we need Mark's help)*
+- *Mellotropicalis* 
+- [ ] Installing DBG2OLC on sharcnet
+- [ ] Assembling with DBG2OLC using pacbio sequences and the assembly (contigs, not scaffolds) previously made with Allpaths-LG (in theory Allpaths should have better assembly in term of confidence in the real contigs)
