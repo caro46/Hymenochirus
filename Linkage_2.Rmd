@@ -475,9 +475,15 @@ for(i in 1:lg_female$n.groups){
 maps_rcd_female[[i]]<- rcd(make_seq(lg_female,i))}
 
 #Don't think it was the right command so try:
-mapsf<-vector("list", lg$n.groups)
-for(i in 1:lg_female$n.groups)
+mapsf<-vector("list", lg_female$n.groups)
+for(i in 1:lg_female$n.groups){
 mapsf[[i]]<- make_seq(order_seq(make_seq(lg_female,i),subset.search = "twopt", twopt.alg = "rcd"))
+}
+
+mapsm<-vector("list", lg_male$n.groups)
+for(i in 1:lg_male$n.groups){
+mapsm[[i]]<- make_seq(order_seq(make_seq(lg_male,i),subset.search = "twopt", twopt.alg = "rcd"))
+}
 ```
 ```R
 rf.graph.table(maps_rcd_female)
