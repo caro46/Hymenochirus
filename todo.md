@@ -12,10 +12,10 @@
 - RADseq from *Pipa* dad, mom
 - [x] Copy 
 - [x] Check quality - some over-represented sequences
-- [ ] Demultiplex (installing the newest version of stacks that requires a newer version of gcc) 
+- [x] Demultiplex (installing the newest version of stacks that requires a newer version of gcc) 
 
 - Hymenochirus Sex-linked regions
-- [ ] Extraction
+- [x] Extraction
 - [ ] PCR
 - [ ] Sequencing
 
