@@ -21,5 +21,5 @@
 
 *To do also as soon as possible (in case we need Mark's help)*
 - *Mellotropicalis* 
-- [ ] Installing DBG2OLC on sharcnet
+- [x] Installing DBG2OLC on sharcnet (Ben's account)
 - [ ] Assembling with DBG2OLC using pacbio sequences and the assembly (contigs, not scaffolds) previously made with Allpaths-LG (in theory Allpaths should have better assembly in term of confidence in the real contigs)
