@@ -23,3 +23,5 @@
 - *Mellotropicalis* 
 - [x] Installing DBG2OLC on sharcnet (Ben's account)
 - [ ] Assembling with DBG2OLC using pacbio sequences and the assembly (contigs, not scaffolds) previously made with Allpaths-LG (in theory Allpaths should have better assembly in term of confidence in the real contigs)
+
+*26/04:An on-going run on Iqaluk with all the >1000bp pacbio reads*
