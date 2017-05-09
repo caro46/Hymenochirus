@@ -488,3 +488,13 @@ mapsm[[i]]<- make_seq(order_seq(make_seq(lg_male,i),subset.search = "twopt", two
 ```R
 rf.graph.table(maps_rcd_female)
 ```
+```
+female_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs/","Hymenochirus_HardFilteredGATK_femaleD110.raw")
+twopt_female <- rf_2pts(female_raw)
+mark_all_female <- make_seq(twopt_female, "all")
+lg_female <- group(mark_all_female, LOD = 2.5)
+mapsf<-vector("list", lg_female$n.groups)
+for(i in 1:lg_female$n.groups){
+mapsf[[i]]<- make_seq(order_seq(make_seq(lg_female,i),subset.search = "twopt", twopt.alg = "rcd"))
+}
+```
