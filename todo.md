@@ -7,7 +7,8 @@
 - [x] Copy 
 - [x] Check quality 
 - [x] Trimmo + Jellifish/Quake for *Pipa* (info)
-- [ ] Assemblies (need to start for Pipa on iqaluk)
+- [x] Trimmo + on going Skewer on Iqaluk for *Rhyno*
+- [ ] Assemblies (need to start for *Pipa* on iqaluk)
 
 - RADseq from *Pipa* dad, mom
 - [x] Copy 
