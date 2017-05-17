@@ -5,9 +5,9 @@
   
 - HiSeqX from *Pipa* dad, mom and *Rhyno*: 
 - [x] Copy 
-- [ ] Check quality 
-- [ ] Trimmo + Jellifish/Quake
-- [ ] Assemblies
+- [x] Check quality 
+- [x] Trimmo + Jellifish/Quake for *Pipa* (info)
+- [ ] Assemblies (need to start for Pipa on iqaluk)
 
 - RADseq from *Pipa* dad, mom
 - [x] Copy 
