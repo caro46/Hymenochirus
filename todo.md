@@ -6,8 +6,8 @@
 - HiSeqX from *Pipa* dad, mom and *Rhyno*: 
 - [x] Copy 
 - [x] Check quality 
-- [x] Trimmo + Jellifish/Quake for *Pipa* (info)
-- [x] Trimmo + on going Skewer on Iqaluk for *Rhyno*
+- [x] Trimmo + Scythe + Jellifish/Quake for *Pipa* (info)
+- [x] Trimmo + Scythe + on going Skewer on Iqaluk for *Rhyno*
 - [ ] Assemblies (need to start for *Pipa* on iqaluk)
 
 - RADseq from *Pipa* dad, mom
