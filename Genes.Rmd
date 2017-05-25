@@ -462,8 +462,8 @@ blastn -evalue 1e-5 -query /work/ben/2016_Hymenochirus/putative_sex_linked_regio
 grep "25186519" /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_abyss_supercontigs_index
 7	25186519	94174881	94207545
 
-vcftools --vcf ~/Hymeno_fastqc/GATK/BJE3814_nonrecal_varonly.vcf --chr "supercontig_2" --from-bp 57106321 --to-bp 57107882 --recode --recode-INFO-all --out /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold24726511
-/usr/local/vcftools/src/perl/vcf-to-tab < /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold24726511.recode.vcf > /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold24726511.recode.tab
+vcftools --vcf ~/Hymeno_fastqc/GATK/BJE3814_nonrecal_varonly.vcf --chr "supercontig_7" --from-bp 94174881 --to-bp 94207545 --recode --recode-INFO-all --out /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold25186519
+/usr/local/vcftools/src/perl/vcf-to-tab < /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold25186519.recode.vcf > /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3814_nonrecal_varonly_scaffold25186519.recode.tab
 
 #location of exons on supercontigs
 13730 + 94174881 = 94188611
