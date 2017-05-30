@@ -8,7 +8,7 @@
 - [x] Check quality 
 - [x] Trimmo + Scythe + Jellifish/Quake for *Pipa* (info)
 - [x] Trimmo + Scythe + on going Skewer on Iqaluk for *Rhyno*
-- [x] Assemblies (need to start for *Pipa* on iqaluk) - using 43mers
+- [x] Assemblies (need to start for *Pipa* on iqaluk) - using 43mers for the following steps
 
 - RADseq from *Pipa* dad, mom
 - [x] Copy 
