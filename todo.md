@@ -8,7 +8,7 @@
 - [x] Check quality 
 - [x] Trimmo + Scythe + Jellifish/Quake for *Pipa* (info)
 - [x] Trimmo + Scythe + on going Skewer on Iqaluk for *Rhyno*
-- [ ] Assemblies (need to start for *Pipa* on iqaluk)
+- [x] Assemblies (need to start for *Pipa* on iqaluk) - using 43mers
 
 - RADseq from *Pipa* dad, mom
 - [x] Copy 
@@ -26,3 +26,5 @@
 - [ ] Assembling with DBG2OLC using pacbio sequences and the assembly (contigs, not scaffolds) previously made with Allpaths-LG (in theory Allpaths should have better assembly in term of confidence in the real contigs)
 
 *26/04: An on-going run on Iqaluk with all the >1000bp pacbio reads*
+
+*30/05: DBG2OLC runs without issue on fasta files until the run sleeps (started sleeping on Friday) on wobbie.*
