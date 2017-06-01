@@ -1,5 +1,9 @@
 #### Size of the subdirectories within a directory
 `du -h --max-depth=1`
+#### Size of multiple directories and total
+```
+du -csh ostechnix /home/sk/
+```
 #### Number of files in a directory
 `ls -1 | wc -l` within the directory.
 #### `.tar` files
