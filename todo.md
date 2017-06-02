@@ -28,3 +28,7 @@
 *26/04: An on-going run on Iqaluk with all the >1000bp pacbio reads*
 
 *30/05: DBG2OLC runs without issue on fasta files until the run sleeps (started sleeping on Friday) on wobbie.*
+
+*31/05: DBG2OLC run finished*
+
+*2/06: DBG2OLC last step starting*
