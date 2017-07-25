@@ -1317,7 +1317,8 @@ supercontig_2   57107533        G       G/G     G/GT
 scaffold24726511 (742-815) = exon 1 of wt1 (57107063-57107136): no SNP in exon.
 
 The gene is highly spread into different scaffolds. Will be difficult to have a good idea of what is going on. Scaffolds kinda small, seems to almost have an exon by scaffolds, in tropicalis: big intons, probably the same here.
-###Potential sex-linked scaffolds and *X. tropicalis* (blast on Ensembl)
+### Potential sex-linked scaffolds and *X. tropicalis* (blast on Ensembl)
+
 |SOAP_chimerical_scaffold|Inheritance pattern|Overlapped genes|Chr.|Function|SNP location on scaffold|Abyss genomes M/D\*|
 -------------------------|----------|----------|----------|----------|----------|----------|
 scaffold114984 | XY_Yscaffold | ENSXETG00000032333 - probably gpc family||Glypican prod.|1159|C/A|
