@@ -1,4 +1,4 @@
-#Amplification of putative sex-linked genes
+# Amplification of putative sex-linked genes
 
 See [there](https://github.com/caro46/Hymenochirus/blob/master/Optimization_SL_identification.Rmd) to see how to find the putative genes. 
 Now the goal is to amplify by Sanger sequencing the regions with a sites which displays a sex-inheritance pattern in order to confirm this pattern.
@@ -71,6 +71,30 @@ Forward primer	TCCCTACTGATCACCCCCAC	Plus	20	236	255	60.33	60.00	6.00	0.00
 Reverse primer	AGACAACCGGAGAAACACGG	Minus	20	1264	1245	60.25	55.00	4.00	1.00
 Product length	1029
 ```
+We obtained OK amplifications from the forward `Hc_Sall1_i1_F1` for the region of interest but the end of the amplification is bad with double peaks everywhere. For the reverse it is the opposite. When trying to get the consensus, "good regions" from both primers overlap for only a very small region. Need to get the scaffold from the sex-specific abyss assemblies and align them to try to design new primers.
+```
+gunzip -c /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8.fa | makeblastdb -in - -dbtype nucl -title Hymeno_male_abyss -out /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8_blastable
+blastn -evalue 1e-60 -query /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/scaffold97784_notmasked.fa -db /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8_blastable -out /4/evanslab/Hymenochirus_2016/sall1_issue/SOAP_chimerical_scaffold97784_notmasked_abyss_BJE3815-8 -max_target_seqs 1 -outfmt 6
+
+scaffold97784	24715809	99.870	768	1	0	1921	2688	9406	10173	0.0	1413
+scaffold97784	24715809	100.000	682	0	0	1	682	7715	8396	0.0	1260
+scaffold97784	24715809	99.742	388	0	1	818	1205	8458	8844	0.0	710
+scaffold97784	24715809	95.227	440	1	2	1436	1875	8986	9405	0.0	678
+
+gunzip -c /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa.gz | makeblastdb -in - -dbtype nucl -title Hymeno_female_abyss -out /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_blastable
+blastn -evalue 1e-60 -query /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/scaffold97784_notmasked.fa -db /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8_blastable -out /4/evanslab/Hymenochirus_2016/sall1_issue/SOAP_chimerical_scaffold97784_notmasked_abyss_BJE3814-8 -max_target_seqs 1 -outfmt 6
+
+scaffold97784	25208998	99.870	768	1	0	1921	2688	13901	13134	0.0	1413
+scaffold97784	25208998	100.000	682	0	0	1	682	15591	14910	0.0	1260
+scaffold97784	25208998	95.238	483	13	8	725	1205	14936	14462	0.0	756
+scaffold97784	25208998	95.455	440	0	2	1436	1875	14321	13902	0.0	684
+``` 
+```
+gunzip -c /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3815-8.fa | awk -v seq="24715809" -v RS='>' '$1 == seq {print RS $0}' - >/4/evanslab/Hymenochirus_2016/sall1_issue/Abyss_BJE3815_scaffold24715809.fa
+gunzip -c /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3814-8.fa | awk -v seq="25208998" -v RS='>' '$1 == seq {print RS $0}' - >/4/evanslab/Hymenochirus_2016/sall1_issue/Abyss_BJE3814_scaffold25208998.fa 
+```
+Aligned the abyss scaffolds with chimerical one with Geneious: no big issue, PCR issues probably due to a difference in a number of C. Near this variability, another SNP. If we want nested primers, either the product will be very small (<60bp) either we need to have degenerated bases in the reverse primer. Or we should just only sequence the forward primer.
+
 - To amplify ptprf (need to include position 5250 of the scaffold: forward primer from , reverse primer to )
 
 *! position masked by the repeat*
@@ -356,7 +380,7 @@ Exon junction	512/513 (forward primer) on template NM_001103073.1
 Best: seems 5.
 
 
-###Find genes involved in sex-determination within our region determined as potentially sex-linked
+### Find genes involved in sex-determination within our region determined as potentially sex-linked
 Chr. 4: limit petit/long arms: znf423 (Chr.4: 46965827..47078060 - v.9). 
 Considering results from `Hymenochirus_chimerical_putative_sex_linked_Phred20_Haplotype_caller_linked_opt_tot1SS1polym1ratio0_RepARKmasked_xenTro9_hard_mask_e5_no_max_target` (same used for identifying the genes): 4 scaffolds on XTR4p, 7 on XTR4q. DMRTa2 is on the long arm (85796936..85801496). SOX6 on small arm.
 
@@ -364,7 +388,7 @@ Need to see if with HiSeq genotype calling we observe a difference between male 
 ```
 vcftools --vcf ~/Hymeno_fastqc/GATK/BJE3815_nonrecal_varonly.vcf --chr "supercontig_6" --from-bp 22045521 --to-bp 22062501 --recode --recode-INFO-all --out /4/evanslab/Hymenochirus_2016/GBS_data/process_radtags_demultiplex/bwa_results/Phred20/all/GVCF/multiple_steps/BJE3815_nonrecal_varonly_scaffold24873906
 ```
-####Where are the SNPs
+#### Where are the SNPs
 
 On abyss genome BJE3814: DM-domain blasted 8211-8149 (=supercontig_5:182770532-182770470). DM domain in exon 2. Using results from blastn on Ensembl: Exon3 (182762321+6045=182768366 ... 182762321+6914 = 182769235): exon 2 (182762321+7940=182770261 ... 182762321+8190=182770511):, exon1: x
 Closest SNPs form DM domain: 
