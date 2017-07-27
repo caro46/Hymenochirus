@@ -95,6 +95,17 @@ gunzip -c /net/infofile2/2/scratch/evanslab_backups/Hymenochirus_2016/abyss/BJE3
 ```
 Aligned the abyss scaffolds with chimerical one with Geneious: no big issue, PCR issues probably due to a difference in a number of C. Near this variability, another SNP. If we want nested primers, either the product will be very small (<60bp) either we need to have degenerated bases in the reverse primer. Or we should just only sequence the forward primer.
 
+Designed the primer with Primer3 on Geneious (either to hiligh the region of interest) and then check on Primer3 of NCBI
+
+*Primer pairs are specific to input template as no other targets were found in selected database: Refseq mRNA (Organism limited to Xenopus)*
+```
+Primer pair 1
+	Sequence (5'->3')	Template strand	Length	Start	Stop	Tm	GC%	Self complementarity	Self 3' complementarity
+Forward primer	GAACTAAATGAAACCCGCCCC	Plus	21	994	1014	59.52	52.38	2.00	0.00
+Reverse primer	CCCCCATTACTGATCCTGTGT	Minus	21	1148	1128	59.15	52.38	4.00	0.00
+Product length	155
+```
+
 - To amplify ptprf (need to include position 5250 of the scaffold: forward primer from , reverse primer to )
 
 *! position masked by the repeat*
