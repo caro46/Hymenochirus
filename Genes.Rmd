@@ -105,7 +105,7 @@ Forward primer	GAACTAAATGAAACCCGCCCC	Plus	21	994	1014	59.52	52.38	2.00	0.00
 Reverse primer	CCCCCATTACTGATCCTGTGT	Minus	21	1148	1128	59.15	52.38	4.00	0.00
 Product length	155
 ```
-Need to use a degenerate base since a SNP was identified by PCR for some individuals: `CCCCCATTACTGATCCRGTGT`.
+Need to use a degenerate base since a SNP was identified by PCR for some individuals: `CCCCCATTACTGATCCYGTGT` (Y=C/T).
 
 - To amplify ptprf (need to include position 5250 of the scaffold: forward primer from , reverse primer to )
 
