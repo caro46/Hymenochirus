@@ -517,25 +517,25 @@ Mom: GG, Dad: GT, Daughters (10): GG, Sons: GT (20)
 **Notes:** 1 male didn't amplify (`BJE3830`)
 
 ### DMRT5 partial exon 3 and intron 3 
-#### position `5,655-5,656` of mom abyss `scaffold25142173`
+#### Position `5,655-5,656` of mom abyss `scaffold25142173`
 Mom: GG-CC, Dad: GA-CG, Daughters (8): GG-CC, Sons: GA-CG (20)
 
 **Notes:** `BJE3990` (daughter), `BJE3842` (daughter), `BJE3830` (son) missing 
 
-#### position `5,724` of mom abyss `scaffold25142173`
+#### Position `5,724` of mom abyss `scaffold25142173`
 Mom: CC, Dad: CT, Daughters (9): CC, Sons: CT (20)
 
 **Notes:** `BJE3990` (daughter), `BJE3830` (son) missing
 
-#### position `5,836` of mom abyss `scaffold25142173`
+#### Position `5,836` of mom abyss `scaffold25142173`
 Mom: AA, Dad: AG, Daughters (9): AA, Sons: AG (21)
 
 **Notes:** `BJE3990` (daughter) missing
 
-### DMRT5 partial exon 2 and intron 2
+### DMRT5 partial exon 2 and intron 2 (position `7,425` of mom abyss `scaffold25142173`) 
 Mom: CC, Dad: CT, Daughters (5): CC (`BJE3849` maybe CG), Sons: CT (15)
 
-### Sall1 partial intron 1
+### Sall1 partial intron 1 (position `1,133` of chimerical SOAP `scaffold97784`)
 Mom: GG, Dad AG:, Daughters (6): GG, sons AG(9)
 
 **Notes:** 2 unclear males (`BJE3829` and `BJE3846`): very small T peak vs big C peak... For the females no doubt. 
