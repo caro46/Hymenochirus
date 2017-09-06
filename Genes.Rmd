@@ -538,4 +538,4 @@ Mom: CC, Dad: CT, Daughters (5): CC (`BJE3849` maybe CG), Sons: CT (15)
 ### Sall1 partial intron 1 (position `1,133` of chimerical SOAP `scaffold97784`)
 Mom: GG, Dad AG:, Daughters (6): GG, sons AG(9)
 
-**Notes:** 2 unclear males (`BJE3829` and `BJE3846`): very small T peak vs big C peak... For the females no doubt. 
+**Notes:** 2 unclear males (`BJE3829` and `BJE3846`): very small A peak vs big G peak (own separate de novo assemble from `geneious`: very small T peak vs big C peak)... For the females no doubt. 
