@@ -545,3 +545,7 @@ As a reminder, results from the RADseq
 #CHROM	POS	REF	BJE3078_wild	BJE3814_mom	BJE3815_dad	BJE3828_son	BJE3829_son	BJE3830_son	BJE3831_son	BJE3832_son	BJE3833_son	BJE3835_son	BJE3838_son	BJE3839_son	BJE3841_daughter	BJE3842_daughter	BJE3843_daughter	BJE3844_son	BJE3845_son	BJE3846_son	BJE3847_son	BJE3848_son	BJE3849_daughter	BJE3987_daughter	BJE3988_son	BJE3989_son	BJE3990_daughter	BJE3991_son	BJE3992_son	BJE3993_daughter	BJE3994_daughter	BJE3995_son	BJE3996_daughter	BJE3997_son	BJE3998_daughter	BJE3999_son
 Heterozygous_sons_dad_XY supercontig_2	191940013	G	G/G	G/G	G/A	./.	G/A	G/A	G/A	G/A	G/A	G/A	G/A	G/A	G/G	G/G	G/G	G/A	G/A	G/G	G/A	G/G	G/G	G/G	G/A	G/A	G/G	G/A	G/A	G/G	G/G	G/A	G/G	G/A	G/G	G/A
 ```
+From the RADseq `BJE3846` (Sanger: very small 2nd peak) and `BJE3848` (Sanger: bad seq) were males with G/G and `BJE3828` (male) had missing data (with Sanger: heterozygous GA). All the females were G/G.
+
+**Notes** I should redo a PCR gradient for the nested primer (did a gradient for the previous primers pairs but then directly amplified with the semi nested pairs using the PCR product at the same temperature without doing a new gradient). Since the nested primer has a degenerated base, we need to be carefull if the primer fixes preferentially 1 of the alleles. Should sequence multiple times for the same individuals and also at different temperature.
+
