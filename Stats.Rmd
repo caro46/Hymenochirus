@@ -1,0 +1,4 @@
+## Permutation tests
+[Gamble et al. 2017](http://ac.els-cdn.com/S096098221730711X/1-s2.0-S096098221730711X-main.pdf?_tid=96291c02-972e-11e7-af1e-00000aacb35f&acdnat=1505161380_c7581d4fa26a658549dbc193e697af07) did permutations tests by resampling the sex of the individuals.
+
+See [Jonathan's and Ben's course](https://mac-theobio.github.io/QMEE/permutation_examples.html) for some R commands.
