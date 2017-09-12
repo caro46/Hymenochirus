@@ -498,3 +498,24 @@ for(i in 1:lg_female$n.groups){
 mapsf[[i]]<- make_seq(order_seq(make_seq(lg_female,i),subset.search = "twopt", twopt.alg = "rcd"))
 }
 ```
+
+# Starting again (Sept12)
+See [tutorial](https://github.com/augusto-garcia/onemap/blob/master/inst/doc/Outcrossing_Populations.Rmd)
+```
+library(onemap)
+setwd("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs")
+male_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs","Hymenochirus_HardFilteredGATK_male.raw")
+twopts <- rf_2pts(male_raw)
+LOD_sug <- suggest_lod(male_raw)
+twopts <- rf_2pts(male_raw,LOD = LOD_sug, max.rf = 0.5)
+mark_no_dist <- make_seq(twopts)
+mark_no_dist <- make_seq(twopts,"all")
+marker_type(mark_no_dist)
+LGs <- group(mark_no_dist)
+segreg_test <- test_segregation(male_raw)
+print(segreg_test)
+select_segreg(segreg_test, distorted = TRUE) #to show the markers names with segregation distortion
+no_dist <- select_segreg(segreg_test, distorted = FALSE, numbers = TRUE)
+print(LGs, detailed = FALSE)
+``` 
+Should try more different combinations of `LOD` and `max.rf` because the number of LGs does not match the number of chromosomes at all.
