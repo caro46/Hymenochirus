@@ -77,3 +77,13 @@ ssh cauretc@dtn.sharcnet.ca #data transfer node, better when want to move big da
 #From /work/cauretc
 mv 2016_Hymenochirus/2016_Hymenochirus_SOAP_assemblies.tar.gz /freezer/cauretc
 ```
+To see the `freezer` content: directly `ls /freezer/cauretc` after 1st loggin on `wobbie`, do not log on another `wob` like `wob101`
+```
+#Sept.13
+ls /freezer/cauretc
+2016_Hymenochirus_SOAP_assemblies.tar.gz  abyss_Rat   MIMAR_2015_2016_storage
+2017_Pipoidea                             Assemblies
+ls /freezer/cauretc/2017_Pipoidea/
+CSL6209_bbduk_skewer.list  CSL6209_bbduk_skewer.tar.gz
+```
+ 
