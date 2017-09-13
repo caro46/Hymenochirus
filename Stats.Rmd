@@ -2,3 +2,7 @@
 [Gamble et al. 2017](http://ac.els-cdn.com/S096098221730711X/1-s2.0-S096098221730711X-main.pdf?_tid=96291c02-972e-11e7-af1e-00000aacb35f&acdnat=1505161380_c7581d4fa26a658549dbc193e697af07) did permutations tests by resampling the sex of the individuals.
 
 See [Jonathan's and Ben's course](https://mac-theobio.github.io/QMEE/permutation_examples.html) for some R commands.
+
+The idea: comparing the number of sex linked sites we obtain from our family data with the distribution of "sex linked markers" obtained randomly shuffling the sex of the individuals. Should do it for "only 1 sex" site (I checked on a few with the HiSeq data and the de novo assemblies to see if the 2 set of data agrees for some it was not the case, we can see by similating a random generation of the data if our data are more likely not due to random/errors), sex specific SNP and globally.
+
+Pratical idea: add a loop in the previous scripts to produce 100 different datasets and then plot the distribution of the number of "sex specific" sites. Should add a line corresponding to the number of XY and Zw sites. Then something like `2*mean(res>=obs)` to have a p-value. 
