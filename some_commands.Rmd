@@ -66,6 +66,9 @@ awk -v seq="scaffold348337" -v RS='>' '$1 == seq {print RS $0}' Hymenochirus_put
 ### Select sequences of a minimal size with `awk`
 ```
 awk '!/^>/ { next } { getline seq } length(seq) >= 500 { print $0 "\n" seq }' /home/caroline/hymeno/MUMMER_analysis/BJE3815-8.fa >/home/caroline/hymeno/MUMMER_analysis/BJE3815-8_500bp.fa
+zcat /4/caroline/2017_Pipoidea_Hiseq/Assemblies/Rhynophrinus/abyss/CSL6209-8.fa.gz | awk '!/^>/ { next } { getline seq } length(seq) >= 500 { print $0 "\n" seq }' - >/4/caroline/2017_Pipoidea_Hiseq/Assemblies/Rhynophrinus/abyss/CSL6209-8_500bp.fa
+awk '/^>/ {printf("\n%s\n",$0);next; } { printf("%s",$0);}  END {printf("\n");}' /4/caroline/2017_Pipoidea_Hiseq/Assemblies/SOAP_pipa_genome_chimerical_43mers.scafSeq >/4/caroline/2017_Pipoidea_Hiseq/Assemblies/SOAP_pipa_genome_chimerical_43mers_one_line.fa
+awk '!/^>/ { next } { getline seq } length(seq) >= 500 { print $0 "\n" seq }' /4/caroline/2017_Pipoidea_Hiseq/Assemblies/SOAP_pipa_genome_chimerical_43mers_one_line.fa >/4/caroline/2017_Pipoidea_Hiseq/Assemblies/SOAP_pipa_genome_chimerical_43mers_500bp.fa
 ```
 ### Force detached screen from other ssh
 ```
