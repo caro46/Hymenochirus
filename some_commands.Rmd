@@ -93,4 +93,12 @@ ls /freezer/cauretc
 ls /freezer/cauretc/2017_Pipoidea/
 CSL6209_bbduk_skewer.list  CSL6209_bbduk_skewer.tar.gz
 ```
- 
+### Soft to hard mask
+```
+tr '[:lower:]' 'N' </4/caroline/laevis_genome/Xla.v91.repeatMasked.fa >/4/caroline/laevis_genome/Xla.v91_repeatMasked_HARD_MASK.fa
+sed 's/>SNNNNNNN/Scaffold/' /4/caroline/laevis_genome/Xla.v91_repeatMasked_HARD_MASK.fa >/4/caroline/laevis_genome/Xla.v91_repeatMasked_HARD_MASK1.fa
+sed 's/>NNN/>chr/' /4/caroline/laevis_genome/Xla.v91_repeatMasked_HARD_MASK1.fa >/4/caroline/laevis_genome/Xla.v91_repeatMasked_HARD_MASK2.fa
+rm -f /4/caroline/laevis_genome/Xla.v91_repeatMasked_HARD_MASK1.fa
+rm -f /4/caroline/laevis_genome/Xla.v91_repeatMasked_HARD_MASK.fa
+mv /4/caroline/laevis_genome/Xla.v91_repeatMasked_HARD_MASK2.fa /4/caroline/laevis_genome/Xla.v91_repeatMasked_HARD_MASK.fa
+``` 
