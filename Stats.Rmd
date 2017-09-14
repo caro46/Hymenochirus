@@ -64,7 +64,7 @@ for ($y = 1 ; $y <= 200 ; $y++ ) {
 ##Calling the 2nd C++ script
 	$commandline= "make makefile "; #to load the library and compile
 	$status = system($commandline);
-	$commandline= "./main.cpp ".$Sex_linked_sites.$y." ".$Polym_sites.$y." ".$Invalid_sites.$y." ".$count.$y" ".$scaffold_number." ".$y; 
+	$commandline= "./main.cpp ".$Sex_linked_sites.$y." ".$Polym_sites.$y." ".$Genotype_file." ".$count.$y" ".$scaffold_number." ".$y; 
         $status = system($commandline);
 
 ##Remove the intermediary files
