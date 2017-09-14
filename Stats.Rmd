@@ -18,5 +18,5 @@ for (i in 1:1000) {
   write.table(id_1, file = paste("Sample_ID_random_",i,".txt", sep=""), sep = "\t",quote=F,row.names =F)
 }
 ```
-Now we have the inputs for the other scripts. We need to add a loop to them and run them again in a separate folder.
+Now we have the inputs for the other scripts. We need to add a loop to them and run them again in a separate folder. Previously run R to do 1000 permutations which created 1000 files. We will try everything with only 100 files 1st (to avoid having too many intermediary files). The number of permutations matter for the accuracy of the estimation of the p-value (Gamble et al. 2017 used 100 permutations). 
 
