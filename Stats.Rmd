@@ -20,3 +20,65 @@ for (i in 1:1000) {
 ```
 Now we have the inputs for the other scripts. We need to add a loop to them and run them again in a separate folder. Previously run R to do 1000 permutations which created 1000 files. We will try everything with only 100 files 1st (to avoid having too many intermediary files). The number of permutations matter for the accuracy of the estimation of the p-value (Gamble et al. 2017 used 100 permutations). 
 
+Recommendations from [Whashington University](http://faculty.washington.edu/kenrice/sisg/SISG-08-06.pdf)
+
+*With 1000 permutations the smallest possible p-value is 0.001, and the uncertainty near p = 0.05  is about ±1%*
+
+So with 100 permutations the smallest possible p-value should be 0.01. We should probably try with 200 permutations so smallest p-value would be 0.005 which is good. 
+
+### Changing the scripts
+
+The easiest would probably to just call both of them within another one
+
+`make_permutation_data.pl`
+```perl
+#!/usr/local/perl5.24/perl-5.24.0/perl
+
+use strict;
+use warnings;
+
+## Argument for the perl scrip
+my $output_path = $ARGV[0];
+my $Genotype_file = $ARGV[1];
+my $pedigree = $ARGV[2];
+my $Sex_linked_sites = $output_path."\/Sex_linked";
+my $Polym_sites = $output_path."\/Polym_sites";
+my $Invalid_sites = $output_path."\/Invalid_sites";
+
+## C++ 
+my $count = $output_path."\/count_permutation.txt";
+my $scaffold_number = $output_path."\/count_scaffolds_per_SD_system.txt";
+
+## Other variables
+my $commandline;
+my $status;
+my $y;
+
+##Starting the loop
+for ($y = 1 ; $y <= 200 ; $y++ ) {
+
+##Calling the 1st perl script
+	$commandline= "perl script_find_sex_linked_regions ".$Genotype_file." ".$pedigree."_".$y.".txt ".$Sex_linked_sites.$y." ".$Polym_sites.$y." ".$Invalid_sites.$y;
+	$status = system($commandline);
+
+##Calling the 2nd C++ script
+	$commandline= "make makefile "; #to load the library and compile
+	$status = system($commandline);
+	$commandline= "./main.cpp ".$Sex_linked_sites.$y." ".$Polym_sites.$y." ".$Invalid_sites.$y." ".$count.$y" ".$scaffold_number." ".$y; 
+        $status = system($commandline);
+
+##Remove the intermediary files
+	$commandline= "rm -f ".$Sex_linked_sites.$y." ".$Polym_sites.$y." ".$Invalid_sites.$y;
+        $status = system($commandline); 
+}
+## should be able to just update for each value of i the outputs from the c++ script and only have 2 final files if yes we can directly do the 1000 permutations 
+## if not we should concatenate the outputs of the script and again delete the intermediary files
+## not final script: need to change the script_find_sex_linked_regions and the main.cpp to have the input and output files as arguments and also see if concatenation necessary
+```
+We should probabbly change the `count.txt` output since we do not need the scaffold names for the simulations.
+
+Should only contain `number_total_called_genotype \t number_XY_sites \t Yonly \t number_ZW_sites \t Wonly \t number_polymorphic_dad_sites \t number_polymorphic_mom_sites \t number_polymorphic_daughter_sites \t number_polymorphic_son_sites`. 
+
+For both outputs we should have the `i` value at the beginning of the line. 
+
+Need to edit the `main.cpp` with `const char* sex_linked_file = arg[0]` and similar thing for the other files.  
