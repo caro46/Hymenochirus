@@ -6,3 +6,17 @@ See [Jonathan's and Ben's course](https://mac-theobio.github.io/QMEE/permutation
 The idea: comparing the number of sex linked sites we obtain from our family data with the distribution of "sex linked markers" obtained randomly shuffling the sex of the individuals. Should do it for "only 1 sex" site (I checked on a few with the HiSeq data and the de novo assemblies to see if the 2 set of data agrees for some it was not the case, we can see by similating a random generation of the data if our data are more likely not due to random/errors), sex specific SNP and globally.
 
 Pratical idea: add a loop in the previous scripts to produce 100 different datasets and then plot the distribution of the number of "sex specific" sites. Should add a line corresponding to the number of XY and Zw sites. Then something like `2*mean(res>=obs)` to have a p-value. 
+
+### Shuffling the ID files 
+```R
+setwd("~/Documents/caroline/linkage_try/qtl")
+id <- read.table("Sample_ID.txt",sep="\t",h=T)
+id
+
+for (i in 1:1000) {
+  id_1 <- transform( id, Sex = sample(Sex) )
+  write.table(id_1, file = paste("Sample_ID_random_",i,".txt", sep=""), sep = "\t",quote=F,row.names =F)
+}
+```
+Now we have the inputs for the other scripts. We need to add a loop to them and run them again in a separate folder.
+
