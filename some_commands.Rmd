@@ -63,6 +63,10 @@ Can be downloaded from [here](ftp://ftp.gnu.org/gnu/gcc/gcc-6.2.0/). If only ver
 ```
 awk -v seq="scaffold348337" -v RS='>' '$1 == seq {print RS $0}' Hymenochirus_putative_sex_linked_opt_REPARKmasked.fa.masked >scaffold348337.fa
 ```
+### Select sequences of a minimal size with `awk`
+```
+awk '!/^>/ { next } { getline seq } length(seq) >= 500 { print $0 "\n" seq }' /home/caroline/hymeno/MUMMER_analysis/BJE3815-8.fa >/home/caroline/hymeno/MUMMER_analysis/BJE3815-8_500bp.fa
+```
 ### Force detached screen from other ssh
 ```
 screen -d -r [name]
