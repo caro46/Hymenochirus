@@ -539,5 +539,8 @@ n
 Error in compare_outcross(input.seq = input.seq, n.best = n.best, tol = tol,  : 
   Execution stopped!
 
+LG_rcd<-vector("list", LGs$n.groups)
 for (i in 1:10){LG_rcd[[i]] <- rcd(LG[[i]])}
+LG_final<-vector("list", LGs$n.groups)
+for (i in 1:10){LG_final[[i]] <- make_seq(LG_rcd[[i]])}
 ```
