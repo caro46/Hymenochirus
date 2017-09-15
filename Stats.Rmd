@@ -30,7 +30,7 @@ So with 100 permutations the smallest possible p-value should be 0.01. We should
 
 The easiest would probably to just call both of them within another one
 
-`make_permutation_data.pl`
+`source_simulation.pl`
 ```perl
 #!/usr/local/perl5.24/perl-5.24.0/perl
 
@@ -81,4 +81,13 @@ Should only contain `number_total_called_genotype \t number_XY_sites \t Yonly \t
 
 For both outputs we should have the `i` value at the beginning of the line. 
 
-Need to edit the `main.cpp` with `const char* sex_linked_file = arg[0]` and similar thing for the other files.  
+Need to edit the `main.cpp` with `const char* sex_linked_file = arg[0]` and similar thing for the other files. 
+
+Sept 15: Should be good to go: only need to uncomment the non necessary output files. I'll run also the `c++` simulation on the real data to have exactly the same outputs as the simulations. In order to not have a lot of intermediary or final files, for each permutation, the results will be append at the end of the outputfiles; so should be fine to run the 1000 permutations.
+They will be run from `/4/caroline/random_simulation` by 
+
+```
+perl source_simulation.pl /4/caroline/random_simulation/pipa_simulation_SL /4/caroline/Pipa_parva/Rad_seq/GATK/SOAP_Chimerical_recalibrated_allsites_Phred20_HardFilteringSNP_filtered.tab /4/caroline/random_simulation/pipa_simulation_SL/Sample_ID_random
+``` 
+ 
+
