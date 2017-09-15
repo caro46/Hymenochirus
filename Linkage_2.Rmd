@@ -501,7 +501,7 @@ mapsf[[i]]<- make_seq(order_seq(make_seq(lg_female,i),subset.search = "twopt", t
 
 # Starting again (Sept12)
 See [tutorial](https://github.com/augusto-garcia/onemap/blob/master/inst/doc/Outcrossing_Populations.Rmd)
-```
+```R
 library(onemap)
 setwd("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs")
 male_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs","Hymenochirus_HardFilteredGATK_male.raw")
@@ -521,7 +521,7 @@ print(LGs, detailed = FALSE)
 Should try more different combinations of `LOD` and `max.rf` because the number of LGs does not match the number of chromosomes at all.
 
 Sept15
-```
+```R
 setwd("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs")
 male_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs","Hymenochirus_HardFilteredGATK_maleD215.raw")
 twopts <- rf_2pts(male_raw,LOD = 3, max.rf = 0.5)
