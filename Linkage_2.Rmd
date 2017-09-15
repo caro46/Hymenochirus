@@ -519,3 +519,25 @@ no_dist <- select_segreg(segreg_test, distorted = FALSE, numbers = TRUE)
 print(LGs, detailed = FALSE)
 ``` 
 Should try more different combinations of `LOD` and `max.rf` because the number of LGs does not match the number of chromosomes at all.
+
+Sept15
+```
+setwd("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs")
+male_raw <- read_onemap("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs","Hymenochirus_HardFilteredGATK_maleD215.raw")
+twopts <- rf_2pts(male_raw,LOD = 3, max.rf = 0.5)
+mark_no_dist <- make_seq(twopts,"all")
+LGs <- group(mark_no_dist)
+LG<-vector("list", LGs$n.groups)
+for (i in 1:10){LG[[i]] <- make_seq(LGs, i)}
+set_map_fun(type = "haldane")
+for (i in 1:10){LG_comp[[i]] <- compare(LG[[i]])}
+WARNING: this operation may take a VERY long time
+
+It is not wise trying to use 'compare' with more than 10 markers 
+Are you sure you want to proceed? [y or n]
+n
+Error in compare_outcross(input.seq = input.seq, n.best = n.best, tol = tol,  : 
+  Execution stopped!
+
+for (i in 1:10){LG_rcd[[i]] <- rcd(LG[[i]])}
+```
