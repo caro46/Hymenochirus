@@ -89,5 +89,8 @@ They will be run from `/4/caroline/random_simulation` by
 ```
 perl source_simulation.pl /4/caroline/random_simulation/pipa_simulation_SL /4/caroline/Pipa_parva/Rad_seq/GATK/SOAP_Chimerical_recalibrated_allsites_Phred20_HardFilteringSNP_filtered.tab /4/caroline/random_simulation/pipa_simulation_SL/Sample_ID_random
 ``` 
- 
+For each species, after the simulations, the input pedigree files will be compress to save space using:
+```
+tar -czvf pipa_sampleID_1000simulations.tar.gz /4/caroline/random_simulation/pipa_simulation_SL/Sample_ID_random*
+``` 
 
