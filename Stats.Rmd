@@ -94,3 +94,11 @@ For each species, after the simulations, the input pedigree files will be compre
 tar -czvf pipa_sampleID_1000simulations.tar.gz /4/caroline/random_simulation/pipa_simulation_SL/Sample_ID_random*
 ``` 
 
+### Readings 
+
+- [Lunetta et al. 200](http://www.sciencedirect.com/science/article/pii/S000292970763434X)
+
+- [Palaiokostas et al. 2013](https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-14-566)
+
+- [Yurii et al. 2007](http://www.genetics.org/content/177/1/577)
+
