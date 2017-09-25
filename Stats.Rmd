@@ -97,6 +97,10 @@ tar -czvf pipa_sampleID_1000simulations.tar.gz /4/caroline/random_simulation/pip
 ### Notes
 **Sept.20:** Meeting with JD to discuss about the tests and make sure it makes sense. Additional notes will be posted here after the meeting.
 
+*Main idea*: using a hypergeometric distribution to assign a score to the site; then do a permutation test (comparing the value obtain with the data compared to random).
+
+Comment from BE (25/09): A non-significant result can just be due to the small size of the sex-linked region. Need to keep that in mind in the discussion.
+
 ### Readings 
 
 - [Lunetta et al. 200](http://www.sciencedirect.com/science/article/pii/S000292970763434X)
