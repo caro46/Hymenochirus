@@ -541,8 +541,24 @@ Error in compare_outcross(input.seq = input.seq, n.best = n.best, tol = tol,  :
 
 LG_rcd<-vector("list", LGs$n.groups)
 for (i in 1:10){LG_rcd[[i]] <- rcd(LG[[i]])}
-LG_final<-vector("list", LGs$n.groups)
-for (i in 1:10){LG_final[[i]] <- make_seq(LG_rcd[[i]])}
+#LG_final<-vector("list", LGs$n.groups)
+#for (i in 1:10){LG_final[[i]] <- make_seq(LG_rcd[[i]])}
+pdf("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs/maps_rcd_male.onemap.pdf")
+draw_map(LG_rcd)
+dev.off()
+#null device
+
+print(LGs, detailed = FALSE)
+#  This is an object of class 'group'
+#  It was generated from the object "mark_no_dist"
+
+#  Criteria used to assign markers to groups:
+#    LOD = 3 , Maximum recombination fraction = 0.5 
+
+#  No. markers:            1228 
+#  No. groups:             10 
+#  No. linked markers:     1183 
+#  No. unlinked markers:   45
 ```
 [Fountain et al. 2016](http://www.g3journal.org/content/6/12/4059) used a linkage map of ~SNP to improve a draft assembly. They detailed how they selected the SNPs. They provided all their scripts. Even if we don't follow the same pipeline (they used `R/qtl`), I think they had some good ideas to select only confident sites and confident individuals. Need to only select very good sites even if we end up with a few hundreds, more than having thousands that are less good. On `Onemap` I am right now having some issues selecting sites that only follow a mendelian segregation, they also adviced to get rid of redundant markers (which can be tested by `find_bins` and `create_data_bins` commands).
 
