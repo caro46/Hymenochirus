@@ -3,21 +3,33 @@
 
 See [Jonathan's and Ben's course](https://mac-theobio.github.io/QMEE/permutation_examples.html) for some R commands.
 
-The idea: comparing the number of sex linked sites we obtain from our family data with the distribution of "sex linked markers" obtained randomly shuffling the sex of the individuals. Should do it for "only 1 sex" site (I checked on a few with the HiSeq data and the de novo assemblies to see if the 2 set of data agrees for some it was not the case, we can see by similating a random generation of the data if our data are more likely not due to random/errors), sex specific SNP and globally.
+The idea: comparing the number of sex linked sites we obtain from our family data with the distribution of "sex linked markers" obtained randomly shuffling the sex of the individuals (shuffling the sex of the offspring). Should do it for "only 1 sex" site (I checked on a few with the HiSeq data and the de novo assemblies to see if the 2 set of data agrees for some it was not the case, we can see by similating a random generation of the data if our data are more likely not due to random/errors), sex specific SNP and globally.
 
 Pratical idea: add a loop in the previous scripts to produce 100 different datasets and then plot the distribution of the number of "sex specific" sites. Should add a line corresponding to the number of XY and Zw sites. Then something like `2*mean(res>=obs)` to have a p-value. 
 
 ### Shuffling the ID files 
+Using `slice` function from `dplyr` to select the sex of the offspring. Then using `sample` to shuffle the sex of the offspring. The following script will produce new random ID files containing the real ID of the parents and the newly assigned sex for each offspring:
 ```R
 setwd("~/Documents/caroline/linkage_try/qtl")
+library("dplyr")
+
+#data
 id <- read.table("Sample_ID.txt",sep="\t",h=T)
 id
 
+#select offspring only
+id_offspring <- slice(id, 3:nrow(id))
+#select parents only
+id_parents <- slice(id, 1:2)
+
 for (i in 1:1000) {
-  id_1 <- transform( id, Sex = sample(Sex) )
-  write.table(id_1, file = paste("Sample_ID_random_",i,".txt", sep=""), sep = "\t",quote=F,row.names =F)
+	id_1 <- transform( id_offspring, Sex = sample(Sex) )
+	id_1 <- rbind(id_parents,id_1)
+	write.table(id_1, file = paste("./random_ID_Pipa/Sample_ID_random_",i,".txt", sep=""), sep = "\t",quote=F,row.names =F)
 }
 ```
+We only shuffle the ID for the offspring since their genotypes depend of the genotypes of the parents.
+
 Now we have the inputs for the other scripts. We need to add a loop to them and run them again in a separate folder. Previously run R to do 1000 permutations which created 1000 files. We will try everything with only 100 files 1st (to avoid having too many intermediary files). The number of permutations matter for the accuracy of the estimation of the p-value (Gamble et al. 2017 used 100 permutations). 
 
 Recommendations from [Whashington University](http://faculty.washington.edu/kenrice/sisg/SISG-08-06.pdf)
@@ -101,6 +113,15 @@ tar -czvf pipa_sampleID_1000simulations.tar.gz /4/caroline/random_simulation/pip
 
 Comment from BE (25/09): A non-significant result can just be due to the small size of the sex-linked region. Need to keep that in mind in the discussion.
 
+Some comments on [Pigneau et al. 2004](https://academic.oup.com/mbe/article-lookup/doi/10.1093/molbev/msh244):
+
+- measured the relationship between measure of linkage desequilibrium r^2 and distance between sites (Mantel test): we can't really do it since we have a *de novo* approach and a lot of scaffolds.
+- ~1000 randomizations (number depends on the test)
+- to combine results across datasets: Fisher's method of combining probabilities by `\sum -2Ln(p)`
+```
+Z = -2 { (\sum_{i=1}^{nsex} Ln(p_i)/nsex) - (\sum_{i=1}^{nasex} Ln(p_i)/nasex)}
+``` 
+Should we compare the results between our 2 species? with for us `n=number of sites for each species`?
 ### Readings 
 
 - [Lunetta et al. 200](http://www.sciencedirect.com/science/article/pii/S000292970763434X)
