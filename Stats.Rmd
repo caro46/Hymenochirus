@@ -117,9 +117,9 @@ Some comments on [Pigneau et al. 2004](https://academic.oup.com/mbe/article-look
 
 - measured the relationship between measure of linkage desequilibrium r^2 and distance between sites (Mantel test): we can't really do it since we have a *de novo* approach and a lot of scaffolds.
 - ~1000 randomizations (number depends on the test)
-- to combine results across datasets: Fisher's method of combining probabilities by $ \sum -2Ln(p) $
+- to combine results across datasets: Fisher's method of combining probabilities by $\sum -2Ln(p)$
 
-$ Z = -2 { (\sum_{i=1}^{nsex} Ln(p_i)/nsex) - (\sum_{i=1}^{nasex} Ln(p_i)/nasex)} $
+$$Z = -2 { (\sum_{i=1}^{nsex} Ln(p_i)/nsex) - (\sum_{i=1}^{nasex} Ln(p_i)/nasex)}$$
  
 Should we compare the results between our 2 species? with for us `n=number of sites for each species`?
 ### Readings 
