@@ -549,3 +549,8 @@ From the RADseq `BJE3846` (Sanger: very small 2nd peak) and `BJE3848` (Sanger: b
 
 **Notes** I should redo a PCR gradient for the nested primer (did a gradient for the previous primers pairs but then directly amplified with the semi nested pairs using the PCR product at the same temperature without doing a new gradient). Since the nested primer has a degenerated base, we need to be carefull if the primer fixes preferentially 1 of the alleles. Should sequence multiple times for the same individuals and also at different temperature.
 
+28/9: On the sequences from Sall1 obtained from `Hc_sall1_i1_F1` (PCR: `Hc_sall1_i1_F1` + `Hc_sall1_i1_R4`): dirty sequences ~70bp. Most likely "Dye blobs". The sequence underneath can be read
+
+*Large peaks obscuring the real sequence e.g. Dye blobs caused by unincorporated BigDye and are typically seen at 70bp and 120bp. They are usually seen in failed or weak sequences. Real sequence can still be read underneath these blobs.* See [Sanger troubleshooting](http://genepool.bio.ed.ac.uk/sanger/Sanger_troubleshooting_guide_v1.pdf)
+
+Should amplify Sall1 using `Hc_sall1_i1_F1` and `Hc_sall1_i1_R1`, then using the PCR product (~0.2uL) `Hc_sall1_i1_F1` and `Hc_sall1_i1_R4`. Need to use `BJE3833` as a positive control and reamplify and sequence him with the nested primers to check if preferentially amplification of an allele. 
