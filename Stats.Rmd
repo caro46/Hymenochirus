@@ -122,6 +122,12 @@ Some comments on [Pigneau et al. 2004](https://academic.oup.com/mbe/article-look
 Z = -2 { (\sum_{i=1}^{nsex} Ln(p_i)/nsex) - (\sum_{i=1}^{nasex} Ln(p_i)/nasex)}
 ```
 Should we compare the results between our 2 species? with for us `n=number of sites for each species`?
+
+**4/10:** Random ID files copied on Brian machine to test next week, to save space they have been archive for now and will be only uncompress during the run.
+```
+tar -czvf random_ID_Hymenochirus.tar.gz /4/caroline/random_simulation/random_ID_Hymenochirus
+```
+
 ### Readings 
 
 - [Lunetta et al. 200](http://www.sciencedirect.com/science/article/pii/S000292970763434X)
