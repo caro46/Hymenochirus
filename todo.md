@@ -9,7 +9,7 @@
 - [x] Trimmo + Scythe + Jellifish/Quake for *Pipa* (info)
 - [x] Trimmo + Scythe + Skewer + bbduk + Jellifish/Quake for *Rhyno* **- still failure for the k-mer but the other criteria are OK**
 - [x] Assemblies (need to start for *Pipa* on iqaluk) - using 43mers for the following steps
-- [ ] Assemblies for *Rhyno*: started on Iqaluk (`Segmentation fault` for the 1st try on Aug 2nd, another one running) but issue with Sharcnet on Aug 3rd.
+- [x] Assemblies for *Rhyno*: started on Iqaluk (`Segmentation fault` for the 1st try on Aug 2nd, another one running) but issue with Sharcnet on Aug 3rd. - *abyss 64mers finished on Sept.13 but the low coverage seemed to make difficult to resolve the assembly*
 
 - RADseq from *Pipa* dad, mom
 - [x] Copy 
@@ -38,3 +38,4 @@
 *31/05: DBG2OLC run finished*
 
 *2/06: DBG2OLC last step starting*
+

@@ -553,4 +553,10 @@ From the RADseq `BJE3846` (Sanger: very small 2nd peak) and `BJE3848` (Sanger: b
 
 *Large peaks obscuring the real sequence e.g. Dye blobs caused by unincorporated BigDye and are typically seen at 70bp and 120bp. They are usually seen in failed or weak sequences. Real sequence can still be read underneath these blobs.* See [Sanger troubleshooting](http://genepool.bio.ed.ac.uk/sanger/Sanger_troubleshooting_guide_v1.pdf)
 
-Should amplify Sall1 using `Hc_sall1_i1_F1` and `Hc_sall1_i1_R1`, then using the PCR product (~0.2uL) `Hc_sall1_i1_F1` and `Hc_sall1_i1_R4`. Need to use `BJE3833` as a positive control and reamplify and sequence him with the nested primers to check if preferentially amplification of an allele. 
+Should amplify Sall1 using `Hc_sall1_i1_F1` and `Hc_sall1_i1_R1`, then using the PCR product (~0.2uL) `Hc_sall1_i1_F1` and `Hc_sall1_i1_R4`. Need to use `BJE3833` as a positive control and reamplify and sequence him with the nested primers to check if preferentially amplification of an allele.
+
+After discussion with BE (2-3/10), for `sall1`: 
+
+- trying to amplify all the rest of the individuals + `BJE3832` (=son, positive control, has already been confirmed heterozygous) + `BJE3829/3831/3846/3847`(amplified but either not sure of the heterozygosity/not perfectly clean sequence or just want to confirm) using PCR primers `Hc_sall1_i1_F1/R1` at Tannealing 57.7 and 59 (increasing the specificity)
+
+- using PCR product from `Ta 59` amplification (~0.2 uL should be enough): semi-nested (`Hc_sall1_i1_F1/R4`) with Tannealing = 57, 57.7 and 59 to try to amplify both alleles.
