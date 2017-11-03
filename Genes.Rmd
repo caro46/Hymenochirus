@@ -560,3 +560,5 @@ After discussion with BE (2-3/10), for `sall1`:
 - trying to amplify all the rest of the individuals + `BJE3832` (=son, positive control, has already been confirmed heterozygous) + `BJE3829/3831/3846/3847`(amplified but either not sure of the heterozygosity/not perfectly clean sequence or just want to confirm) using PCR primers `Hc_sall1_i1_F1/R1` at Tannealing 57.7 and 59 (increasing the specificity)
 
 - using PCR product from `Ta 59` amplification (~0.2 uL should be enough): semi-nested (`Hc_sall1_i1_F1/R4`) with Tannealing = 57, 57.7 and 59 to try to amplify both alleles.
+
+3/10: When using the nested PCR, tendency to amplified more the G allele at position `1,133`, A at `1,182`. We have sequences from primary PCR and nested for most (missing + uncertain) individuals, allowing the comparison and confirmation or not of presence of the SNPs. Now we have data for all the offspring and all the males are heterozygous and females homozygous at least 1 site.
