@@ -136,7 +136,7 @@ The 1st part script have been updated and now contains the functions to obtain t
 
 ### Readings 
 
-- [Lunetta et al. 200](http://www.sciencedirect.com/science/article/pii/S000292970763434X)
+- [Lunetta et al. 2000](http://www.sciencedirect.com/science/article/pii/S000292970763434X)
 
 - [Palaiokostas et al. 2013](https://bmcgenomics.biomedcentral.com/articles/10.1186/1471-2164-14-566)
 
