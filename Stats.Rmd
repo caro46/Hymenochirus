@@ -129,7 +129,10 @@ tar -czvf random_ID_Hymenochirus.tar.gz /4/caroline/random_simulation/random_ID_
 ```
 The 1st part script have been updated and now contains the functions to obtain the scores. Need to add the scores to the output and using it in the `c++` script. 
 
-**7/11:** Went through the 1st script, should be OK for a try.
+**7/11:** 
+
+- Went through the 1st script, should be OK for a try.
+- For the 2nd script (`c++`), we should keep `XY` and `ZW` separated when summing the scores (later we will sum up when necessary with `R`, but needs separate when we will run the real data again)
 
 ### Readings 
 
