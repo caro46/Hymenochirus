@@ -1345,3 +1345,9 @@ Nucleotide diversity
 ```
 zcat input_file.vcf.gz | vcftools --vcf - --site-pi --positions SNP_list.txt --out nucleotide_diversity
 ```
+
+### Some readings
+
+- [Gamble 2016](http://onlinelibrary.wiley.com/doi/10.1111/mec.13648/full) for a summary of the use
+of RADseq and PCR confirmation (hilight the issue with only 1 sex tags)
+
