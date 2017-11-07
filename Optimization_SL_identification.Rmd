@@ -1351,3 +1351,4 @@ zcat input_file.vcf.gz | vcftools --vcf - --site-pi --positions SNP_list.txt --o
 - [Gamble 2016](http://onlinelibrary.wiley.com/doi/10.1111/mec.13648/full) for a summary of the use
 of RADseq and PCR confirmation (hilight the issue with only 1 sex tags)
 
+- [Gamble and Zarkower 2014](http://onlinelibrary.wiley.com/doi/10.1111/1755-0998.12237/full) for a pipeline example
