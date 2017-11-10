@@ -134,6 +134,10 @@ The 1st part script have been updated and now contains the functions to obtain t
 - Went through the 1st script, should be OK for a try.
 - For the 2nd script (`c++`), we should keep `XY` and `ZW` separated when summing the scores (later we will sum up when necessary with `R`, but needs separate when we will run the real data again)
 
+**10/11:**
+
+OK so the `c++` script can be compiled that way `g++ -std=c++0x main_positions_simulation_0.cpp ` because of the need of `#include <string>` and its function `std::stoi` that converts a character argument as an integer.
+
 ### Readings 
 
 - [Lunetta et al. 2000](http://www.sciencedirect.com/science/article/pii/S000292970763434X)
