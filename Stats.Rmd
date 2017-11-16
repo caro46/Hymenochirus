@@ -138,6 +138,80 @@ The 1st part script have been updated and now contains the functions to obtain t
 
 OK so the `c++` script can be compiled that way `g++ -std=c++0x main_positions_simulation_0.cpp ` because of the need of `#include <string>` and its function `std::stoi` that converts a character argument as an integer.
 
+**Some Nov. updates:**
+On the 13/11, the scripts were run for *Pipa* successfully on `iqaluk` on `sharcnet`. 
+Exact command run: 
+```
+g++ -std=c++0x main_positions_simulation_0.cpp -o main_positions_simulation.exe
+
+perl source_simulation_fortherealdata.pl real_ID/ SOAP_Chimerical_recalibrated_allsites_Phred20_HardFilteringSNP_filtered.tab real_ID/pedigree SOAP_pipa_genome_chimerical_43mers_supercontigs.index
+
+perl source_simulation.pl pipa_simulation_SL/ SOAP_Chimerical_recalibrated_allsites_Phred20_HardFilteringSNP_filtered.tab pipa_simulation_SL/random_ID_Pipa/Sample_ID_random SOAP_pipa_genome_chimerical_43mers_supercontigs.index
+```
+For *Hymenochirus* on Nov.15
+```
+perl source_simulation_fortherealdata.pl /work/cauretc/scripts/simulation_stats/hymeno_simulation_SL/opposite_ID/ hymeno_simulation_SL/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered.tab hymeno_simulation_SL/opposite_ID/pedigree_opposite hymeno_simulation_SL/SOAP_Hymeno_genome_scafSeq_supercontigs_index
+
+perl source_simulation.pl /work/cauretc/scripts/simulation_stats/hymeno_simulation_SL/simulated_ID/ hymeno_simulation_SL/SOAP_Chimerical_recalibrated_round1_allsites_Phred20_HardFilteringSNP_filtered.tab hymeno_simulation_SL/random_ID_Hymenochirus/Sample_ID_random hymeno_simulation_SL/SOAP_Hymeno_genome_scafSeq_supercontigs_index
+```
+The score calculation still need work if you want to go with this idea. But for now I did the permutation test directly on the number of "sex-linked" SNP identified in the data and with 1000 simulation (shuffling the sex of the offspring 1000times with `R`). The plots and a quick estimation of the `p-value` (`simulation_plots.R`) seem to show we have more XY snps in the data than what you would expect to find only randomly. 
+
+### Plotting the results and p-value estimate with R
+`simulation_plots.R`
+```R
+#Working directory
+setwd("~/Documents/caroline/linkage_try/qtl/results/Pipa")
+#setwd("~/Documents/caroline/linkage_try/qtl/results/hymenochirus")
+
+#Load the libraries
+library(ggplot2)
+library(dplyr)
+
+#Load the data
+simulation_frame <- read.table("count_permutation.txt",h=F,sep="\t")
+real_frame <- read.table("count_permutation_data.txt",h=F,sep="\t")
+#simulation_frame <- read.table("./simulated/count_permutation.txt",h=F,sep="\t")
+#real_frame <- read.table("./real_data/count_permutation.txt",h=F,sep="\t")
+
+#Renaming a columns and adding a new column
+simulation_frame <- simulation_frame %>%
+	rename(simulation_num=V1,allhits=V2,XY=V3,Y=V4,XYscore=V5,ZW=V6,W=V7,ZWscore=V8) %>%
+	mutate(difference=XYscore-ZWscore) %>%
+  mutate(sum=XYscore+ZWscore)%>%
+  mutate(totalsex=XY+ZW)
+
+real_frame <- real_frame %>%
+	rename(simulation_num=V1,allhits=V2,XY=V3,Y=V4,XYscore=V5,ZW=V6,W=V7,ZWscore=V8) %>%
+	mutate(difference=XYscore-ZWscore) 
+
+#Plotting the scores
+#hist(simulation_frame$difference,col="gray",las=1,main="",xlim=c(-50,40))
+hist(simulation_frame$sum,col="gray",las=1,main="")
+#abline(v=real_frame$difference,col="red")
+abline(v=real_frame$XYscore,col="red")
+
+mean(abs(simulation_frame$difference)>=abs(real_frame$difference))  ## count both tails: matches lmPerm
+#[1] 0.001
+
+2*mean(simulation_frame$sum>=real_frame$XYscore)
+#[1] 0.002
+
+
+## Considering the numbers of sites identified as sex-linked
+png("results_plots_permutations_pipa.png")
+#png("results_plots_permutations_hymeno.png")
+hist(simulation_frame$totalsex,col="gray",las=1,main="",xlim=c(0,25))
+#hist(simulation_frame$totalsex,col="gray",las=1,main="",xlim=c(0,70))
+abline(v=real_frame$XY,col="blue",lwd=3)
+abline(v=real_frame$ZW,col="pink",lwd=3)
+dev.off()
+
+mean(abs(simulation_frame$totalsex)>=abs(real_frame$XY))
+mean(abs(simulation_frame$totalsex)>=abs(real_frame$ZW))
+2*mean(simulation_frame$totalsex>=real_frame$XY)
+
+
+```
 ### Readings 
 
 - [Lunetta et al. 2000](http://www.sciencedirect.com/science/article/pii/S000292970763434X)
