@@ -500,7 +500,7 @@ mapsf[[i]]<- make_seq(order_seq(make_seq(lg_female,i),subset.search = "twopt", t
 ```
 
 # Starting again (Sept12)
-See [tutorial](https://github.com/augusto-garcia/onemap/blob/master/inst/doc/Outcrossing_Populations.Rmd)
+See [tutorial](https://github.com/augusto-garcia/onemap/blob/master/inst/doc/Outcrossing_Populations.Rmd) and also [here](http://augustogarcia.me/onemap/vignettes_highres/Outcrossing_Populations.html#strategies-for-this-tutorial-example).
 ```R
 library(onemap)
 setwd("/4/evanslab/Hymenochirus_2016/GBS_data/linkage_map/onemap_outputs")
