@@ -156,6 +156,12 @@ perl source_simulation.pl /work/cauretc/scripts/simulation_stats/hymeno_simulati
 ```
 The score calculation still need work if you want to go with this idea. But for now I did the permutation test directly on the number of "sex-linked" SNP identified in the data and with 1000 simulation (shuffling the sex of the offspring 1000times with `R`). The plots and a quick estimation of the `p-value` (`simulation_plots.R`) seem to show we have more XY snps in the data than what you would expect to find only randomly. 
 
+Dec.11:
+
+Simulations run again. Had a mistake to count the total number of `W-sites`: `Only_daugter` instead of `Only_daughter`. This mistake has no impact on the previous findings since it does not impact the total number of `ZW` sites. The only issue was when I tried to plot only the `ZW` snps without the `Only_daughter`, the results did not match the results when I quickly found the number of `Only_daughter` using `grep`. The mistake has been fixed and for consistency, simulations for both *Hymenochirus* and *Pipa* were run again.
+
+The simulation plot will concern only the SNP present in males and females with a sex-inheritance pattern. The "only one sex" will not be plot since with them we will overestimate the sex-linked sites(most of them probably result of a single SNP on the restriction sites). If BE wants to include them, the number are in the input for the `R` scipts.
+
 ### Plotting the results and p-value estimate with R
 `simulation_plots.R`
 ```R
