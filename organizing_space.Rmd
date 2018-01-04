@@ -1,5 +1,8 @@
 Copying with `scp -r` from Brian's machine `/4/evanslab/Hymenochirus_2016/BWA_outputs/abyss_genomes/abyss_small_contigs/` to Sharcnet.
 ```
 tar -czvf /archive/cauretc/Hymenochirus_2016_bwa_abyss_small_contigs.tar.gz /archive/cauretc/abyss_small_contigs/* --remove-files
+tar -ztvf Hymenochirus_2016_bwa_abyss_small_contigs.tar.gz #checking all the files are here
 ```
-Copying results from jellifish from `/4/evanslab/Hymenochirus_2016/jellyfish_Hymeno.tar.gz` to my Sharcnet archive.
+
+Copying results from jellifish from `/4/evanslab/Hymenochirus_2016/jellyfish_Hymeno.tar.gz` to my Sharcnet archive (checked it was the same size with `ls -lh` then deleted from Brian's machine).
+
