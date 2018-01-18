@@ -1,4 +1,4 @@
-Here is where I archived some of the files that I want to keep until the paper submission - the they can be deleted after if I didn't derectly use them in the paper.
+Here is where I archived some of the files that I want to keep until the paper submission - then they can be deleted after if I didn't directly use them in the paper.
 
 Copying with `scp -r` from Brian's machine `/4/evanslab/Hymenochirus_2016/BWA_outputs/abyss_genomes/abyss_small_contigs/` to Sharcnet.
 ```
