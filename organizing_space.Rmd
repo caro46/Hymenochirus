@@ -12,3 +12,12 @@ Copying `/4/evanslab/Hymenochirus_2016/BWA_outputs/tropicalis/` to `archive` and
 ```
 tar -czvf /archive/cauretc/Hymenochirus_2016_bwa_tropicalis_v9.tar.gz /archive/cauretc/tropicalis/* --remove-files
 ```
+
+22/03/18: Deleting unnecessary (anymore and for now) files, that can be obtained again later on without wasting too much time:
+
+- from `/4/evanslab/Hymenochirus_2016/BWA_outputs/abyss_genomes/abyss_small_contigs`: `abyssBJE3814_depth_BJE3814_BJE3815.depth` `abyssBJE3815_depth_BJE3815_BJE3814.depth` ([commands](https://github.com/caro46/Hymenochirus/blob/master/Assembly.Rmd))
+
+- from `/4/evanslab/Hymenochirus_2016/BWA_outputs/SOAP_genome`: `SOAPchimereBJE3814_BJE3815_depth_reads_BJE3814_BJE3815.depth`
+
+- from `/4/caroline/2017_Pipoidea_Hiseq/jellyfish/after_scythe/`: `BJE4294_jelly_dump_19mers.gz` `BJE4295_jelly_dump_19mers.gz` `CSL6209_jelly_dump_19mers.gz` ([commands](https://github.com/caro46/Pipa_parva/blob/master/preparing_pipa_data.md#jellyfishquake))
+
