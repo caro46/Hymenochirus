@@ -27,6 +27,13 @@ du -csh ostechnix /home/sk/
 
 `tar -zxvf config.tar.gz etc/default/sysstat` for a file called `sysstat`
 
+- Adding files to a `tar.gz` (from [askunbuntu](https://askubuntu.com/questions/267344/how-can-i-update-a-tar-gz-file))
+
+1. Extract .tar file from .tar.gz file: `gunzip filename.tar.gz`
+2. Update uncompressed .tar file with tar -u command: `tar -uf filename.tar new_file`
+3. Compress the updated .tar file: `gzip filename.tar`
+
+
 #### Extract one seq from a big fasta file 
 ```
 samtools faidx SOAP_Hymeno_genome_scafSeq_supercontigs.fa
